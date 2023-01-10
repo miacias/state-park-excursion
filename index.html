@@ -33,21 +33,16 @@
                             <div class="card-content white-text">
                                 <span class="card-title">Our Parks!</span>
                                 <p>Select a State</p>
-                                <div class="park-dropdown-container">
-                                    <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>States</a>
-                                    <!-- Dropdown Structure for states. Use JS to create and populate using fetched data -->
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="#!">one</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">two</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">three</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">four</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">five</a></li>
-                                    </ul>
+                                <!-- Autocomplete form -->
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input type="text" id="autocomplete-input" class="autocomplete-state">
+                                                <label for="autocomplete-input">STATE</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <p>Select a Park</p>
                                 <div class="park-dropdown-container">
@@ -66,16 +61,6 @@
                                         <li><a href="#!">five</a></li>
                                     </ul>
                                 </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                      <div class="row">
-                                        <div class="input-field col s12">
-                                          <i class="material-icons prefix">State</i>
-                                          <input type="text" id="autocomplete-input" class="autocomplete">
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
                                 <button class="btn state-park green lighten-3" id="fetch-park-info">GO!</button>
                             </div>
                         </div>

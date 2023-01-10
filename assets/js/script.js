@@ -21,7 +21,7 @@ stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 // DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     var carousel = document.querySelector('.carousel');
-    // built-in Materialize options
+    // built-in Materialize: full size images, 4s duration,
     var options = {
         fullWidth: true,
         duration: 4000,
@@ -34,14 +34,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 8000)
 });
 
+
 // STATES LIST AUTOCOMPLETE
+// import { statesOptions } from './us-states.js';
+// const { statesOptions } = from ('./us-states.js');
+
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.autocomplete');
-    var instances = M.Autocomplete.init(elems, options);
+    var usState = document.querySelector('.autocomplete-state');
+    const statesOptions = {
+        data: {
+            AL: "Alabama",
+            AK: "Alaska",
+            AZ: "Arizona",
+            AR: "Arkansas",
+            CA: "California",
+            CO: "Colorado",
+            CT: "Connecticut",
+            DE: "Delaware",
+            FL: "Florida",
+            GA: "Georgia",
+            HI: "Hawaii",
+            ID: "Idaho",
+            IL: "Illinois",
+            IN: "Indiana",
+            IA: "Iowa",
+            KS: "Kansas",
+            KY: "Kentucky",
+            LA: "Louisiana",
+            ME: "Maine",
+            MD: "Maryland",
+            MA: "Massachusetts",
+            MI: "Michigan",
+            MN: "Minnesota",
+            MO: "Missouri",
+            MT: "Montana",
+            NE: "Nebraska",
+            NV: "Nevada",
+            NH: "New Hampshire",
+            NJ: "New Jersey",
+            NM: "New Mexico",
+            NY: "New York",
+            NC: "North Carolina",
+            ND: "North Dakota",
+            OH: "Ohio",
+            OK: "Oklahoma",
+            OR: "Oregon",
+            PA: "Pennsylvania",
+            RI: "Rhode Island",
+            SC: "South Carolina",
+            SD: "South Dakota",
+            TN: "Tennessee",
+            TX: "Texas",
+            UT: "Utah",
+            VT: "Vermont",
+            VA: "Virginia",
+            WA: "Washington",
+            WV: "West Virginia",
+            WI: "Wisconsin",
+            WY: "Wyoming"
+        },
+        limit: 4
+    }
+    var instances = M.Autocomplete.init(usState, statesOptions);
 });
 
 // PARKS LIST DROPDOWN
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.dropdown-trigger');
+    var elems = document.querySelector('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, options);
 });
