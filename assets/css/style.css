@@ -8,6 +8,5 @@ main {
 }
 
 img {
-    max-width: 540px;
-    /* height: 0.2em; */
+    max-width: 100em;
 }

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title></title>
 </head>
-<body>
+<body class="teal darken-2 yellow-text">
 
     <header class="center">
         <h1>Explore our National Parks</h1>
@@ -22,13 +22,60 @@
     <div class="nav-main-container row">
         <!-- ASIDE WIDTH: small 12 columns, medium 4 columns, large 3 columns -->
         <aside class="navigation col s12 m4 l3">
-            <button class="btn state-park" id="fetch-stateParkInfo">State Park Info</button>
+            <!-- Card for searching a park by state and name -->
+            <section class="our-parks-container">
+                <div class="row">
+                    <!-- width of card -->
+                    <div class="col s12 m10">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Our Parks!</span>
+                                <p>Select a State</p>
+                                <div class="park-dropdown-container">
+                                    <!-- Dropdown Trigger -->
+                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>States</a>
+                                    <!-- Dropdown Structure for states. Use JS to create and populate using fetched data -->
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="#!">one</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">two</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">three</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">four</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">five</a></li>
+                                    </ul>
+                                </div>
+                                <p>Select a Park</p>
+                                <div class="park-dropdown-container">
+                                    <!-- Dropdown Trigger -->
+                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Parks</a>
+                                    <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="#!">one</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">two</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">three</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">four</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">five</a></li>
+                                    </ul>
+                                </div>
+                                <button class="btn state-park green lighten-3" id="fetch-stateParkInfo">GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </aside>
         
         <!-- MAIN WIDTH: small 12 columns, medium 8 columns, large 9 columns -->
-        <main class="col s12 m8 l9">
+        <main class="col s12 m8 l9 blue-grey darken-4">
             <!-- when no map is visible, show a carousel of images below -->
-            <section class="carousel carousel-slider center">
+            <section class="carousel carousel-slider">
                 <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
                 <a class="carousel-item" href="#two!"><img src="./assets/images/design/Let the adventures begin - Chris Lawton.jpg" alt=""></a>
                 <a class="carousel-item" href="#three!"><img src="./assets/images/design/Maps are greater than phones (Olympic) - Kal Visuals.jpg" alt=""></a>

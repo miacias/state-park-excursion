@@ -18,17 +18,24 @@
     stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
 // IMAGE CAROUSEL
-    // loads safely after DOM is loaded
+    // DOMContentLoaded: loads safely after DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
         var carousel = document.querySelector('.carousel');
+        // built-in Materialize options
         var options = {
             fullWidth: true,
             duration: 4000,
-            numVisible: 1
+            numVisible: 1,
         };
         var instances = M.Carousel.init(carousel, options);
-
+        // change picture every X milliseconds
         setInterval(function() {
             instances.next();
         }, 8000)
+    });
+
+// PARKS LIST DROPDOWN
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, options);
     });
