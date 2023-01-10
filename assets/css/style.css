@@ -5,3 +5,7 @@ body {
 main {
     font-family: 'Caveat Brush', cursive;
 }
+
+img {
+    max-width: 540px;
+}

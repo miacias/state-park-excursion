@@ -16,3 +16,17 @@ function getStateParkAPI() {
 }
 
 stateParkFetchBtn.addEventListener('click', getStateParkAPI);
+
+// IMAGE CAROUSEL
+var elems = document.querySelector('.carousel');
+var instance = M.Carousel.getInstance(elems);
+
+// loads safely after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // var elems = document.querySelector('.carousel');
+    var options = 20000;
+    var instances = M.Carousel.init(elems, options);
+    setInterval(function() {
+        instances.next();
+    }, 2000)
+  });
