@@ -20,13 +20,15 @@
     </header>
 
     <div class="nav-main-container row">
+
         <!-- ASIDE WIDTH: small 12 columns, medium 4 columns, large 3 columns -->
         <aside class="navigation col s12 m4 l3">
+
             <!-- Card for searching a park by state and name -->
             <section class="our-parks-container">
                 <div class="row">
                     <!-- width of card -->
-                    <div class="col s12 m10">
+                    <div class="col s12 m8">
                         <div class="card blue-grey darken-1">
                             <div class="card-content white-text">
                                 <span class="card-title">Our Parks!</span>
@@ -52,6 +54,38 @@
                                     <!-- Dropdown Trigger -->
                                     <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Parks</a>
                                     <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="#!">one</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">two</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">three</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">four</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">five</a></li>
+                                    </ul>
+                                </div>
+                                <button class="btn state-park green lighten-3" id="fetch-stateParkInfo">GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card for searching distance -->
+            <section class="set-address-container">
+                <div class="row">
+                    <!-- width of card -->
+                    <div class="col s12 m8">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Visit!</span>
+                                <p>Select a State</p>
+                                <div class="park-dropdown-container">
+                                    <!-- Dropdown Trigger -->
+                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>States</a>
+                                    <!-- Dropdown Structure for states. Use JS to create and populate using fetched data -->
                                     <ul id='dropdown1' class='dropdown-content'>
                                         <li><a href="#!">one</a></li>
                                         <li class="divider" tabindex="-1"></li>
