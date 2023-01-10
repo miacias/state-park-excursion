@@ -66,7 +66,17 @@
                                         <li><a href="#!">five</a></li>
                                     </ul>
                                 </div>
-                                <button class="btn state-park green lighten-3" id="fetch-stateParkInfo">GO!</button>
+                                <div class="row">
+                                    <div class="col s12">
+                                      <div class="row">
+                                        <div class="input-field col s12">
+                                          <i class="material-icons prefix">State</i>
+                                          <input type="text" id="autocomplete-input" class="autocomplete">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <button class="btn state-park green lighten-3" id="fetch-park-info">GO!</button>
                             </div>
                         </div>
                     </div>
@@ -98,7 +108,7 @@
                                         <li><a href="#!">five</a></li>
                                     </ul>
                                 </div>
-                                <button class="btn state-park green lighten-3" id="fetch-stateParkInfo">GO!</button>
+                                <button class="btn state-park green lighten-3" id="set-home-address">GO!</button>
                             </div>
                         </div>
                     </div>
@@ -107,7 +117,7 @@
         </aside>
         
         <!-- MAIN WIDTH: small 12 columns, medium 8 columns, large 9 columns -->
-        <main class="col s12 m8 l9 blue-grey darken-4">
+        <main class="col s12 m8 l9">
             <!-- when no map is visible, show a carousel of images below -->
             <section class="carousel carousel-slider">
                 <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
