@@ -18,18 +18,28 @@
         <h1>Explore our National Parks</h1>
     </header>
 
-    <aside class="navigation">
-        <button class="btn state-park" id="fetch-stateParkInfo">State Park Info</button>
-    </aside>
-
-    <main>
-        <!-- when no map is visible, show a carousel of images below -->
-        <section class="image-carousel"></section>
-        <!-- populated map below -->
-        <section class="map"></section>
-    </main>
-
-    <ul class="addresses"></ul>
+    <div class="nav-main-container row">
+        <!-- ASIDE WIDTH: small 12 columns, medium 4 columns, large 3 columns -->
+        <aside class="navigation col s12 m4 l3">
+            <button class="btn state-park" id="fetch-stateParkInfo">State Park Info</button>
+        </aside>
+        
+        <!-- MAIN WIDTH: small 12 columns, medium 8 columns, large 9 columns -->
+        <main class="col s12 m8 l9">
+            <!-- when no map is visible, show a carousel of images below -->
+            <section class="carousel">
+                <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
+                <a class="carousel-item" href="#two!"><img src="./assets/images/design/Let the adventures begin - Chris Lawton.jpg" alt=""></a>
+                <a class="carousel-item" href="#three!"><img src="./assets/images/design/Mapping an adventure (Yosemite) - Cam DiCecca.jpg" alt=""></a>
+                <a class="carousel-item" href="#four!"><img src="./assets/images/design/Maps are greater than phones (Olympic) - Kal Visuals.jpg" alt=""></a>
+                <a class="carousel-item" href="#five!"><img src="./assets/images/design/National Park Patches - Josh Carter.jpg" alt=""></a>
+            </section>
+            <!-- populated map below -->
+            <section class="map"></section>
+        </main>
+    
+        <ul class="addresses"></ul>
+    </div>
 
     <footer>
         <h6>Enjoy your trip and safe travels!</h6>
