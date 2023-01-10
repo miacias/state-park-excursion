@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
     <!-- Compiled and minified Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Materialize icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title></title>
@@ -94,6 +96,39 @@
                                     </ul>
                                 </div>
                                 <button class="btn state-park green lighten-3" id="set-home-address">GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Card for search history -->
+            <section class="set-address-container">
+                <div class="row">
+                    <div class="col s12 m8">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Search History!</span>
+                                <!-- Use JS to create and populate using localStorage data -->
+                                <div class="collection">
+                                    <a href="#!" class="collection-item">Park 1
+                                        <i class="tiny material-icons">call_made</i>
+                                    </a>
+                                    <a href="#!" class="collection-item">Park 2
+                                        <i class="tiny material-icons">call_made</i>
+                                    </a>
+                                    <a href="#!" class="collection-item">Park 3
+                                        <i class="tiny material-icons">call_made</i>
+                                    </a>
+                                    <a href="#!" class="collection-item">Park 4
+                                        <i class="tiny material-icons">call_made</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <li class="divider" tabindex="-1"></li>
+                            <div class="card-action">
+                                <a href="#">Clear History</a>
+                                <a href="#">Clear Home</a>
                             </div>
                         </div>
                     </div>

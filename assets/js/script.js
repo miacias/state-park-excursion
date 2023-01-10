@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             WI: "Wisconsin",
             WY: "Wyoming"
         },
-        limit: 4
+        limit: 3
     }
     var instances = M.Autocomplete.init(usState, statesOptions);
 });
