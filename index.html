@@ -4,12 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title></title>
 </head>
 <body>
-    <button class="btn state-park" id="fetch-stateParkInfo"> State Park Info</button>
+
+    <header>
+        <h1>Explore our National Parks</h1>
+    </header>
+
+    <aside class="navigation">
+        <button class="btn state-park" id="fetch-stateParkInfo">State Park Info</button>
+    </aside>
+
+    <main>
+        <!-- when no map is visible, show a carousel of images below -->
+        <section class="image-carousel"></section>
+        <!-- populated map below -->
+        <section class="map"></section>
+    </main>
+
     <ul class="addresses"></ul>
 
+    <footer>
+        <h6>Enjoy your trip and safe travels!</h6>
+    </footer>
+
+    <!-- Compiled and minified Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- local JS -->
     <script src="./js/script.js"></script>
+    
 </body>
 </html>

@@ -1,3 +1,5 @@
+
+// NATIONAL PARK SERVICES API
 const stateParkapiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
 var stateParkFetchBtn = document.getElementById('fetch-stateParkInfo');
 
