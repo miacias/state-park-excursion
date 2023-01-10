@@ -18,13 +18,13 @@ function getStateParkAPI() {
 stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
 // IMAGE CAROUSEL
-// DOMContentLoaded: loads safely after DOM is loaded
+    // DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     var carousel = document.querySelector('.carousel');
-    // built-in Materialize: full size images, 4s duration,
+    // built-in Materialize: full size images, 4s duration, number of showing images
     var options = {
         fullWidth: true,
-        duration: 4000,
+        duration: 100,
         numVisible: 1,
     };
     var instances = M.Carousel.init(carousel, options);
@@ -36,8 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // STATES LIST AUTOCOMPLETE
-// import { statesOptions } from './us-states.js';
-// const { statesOptions } = from ('./us-states.js');
+    // attempting to use import to be able to put states in separate JS file
+    // import { statesOptions } from ('./us-states.js');
+    // const { statesOptions } = from ('./us-states.js');
 
 document.addEventListener('DOMContentLoaded', function() {
     var usState = document.querySelector('.autocomplete-state');
@@ -99,7 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // PARKS LIST DROPDOWN
+// by name
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelector('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, options);
+    var parkNames = document.querySelector('.dropdown-trigger');
+    var instances = M.Dropdown.init(parkNames, options);
 });
+
+// MODAL TRIGGER AND CONTROL
+// park info
+document.addEventListener('DOMContentLoaded', function() {
+    var parkModal = document.querySelector('.modal');
+    var instances = M.Modal.init(parkModal);
+  });
