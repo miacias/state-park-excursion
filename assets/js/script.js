@@ -47,81 +47,79 @@ document.addEventListener('DOMContentLoaded', function() {
 //     }, 8000)
 //   });
 
-
 // STATES LIST AUTOCOMPLETE
     // attempting to use import to be able to put states in separate JS file
     // import { statesOptions } from ('./us-states.js');
     // const { statesOptions } = from ('./us-states.js');
-
 document.addEventListener('DOMContentLoaded', function() {
     var usState = document.querySelector('.autocomplete-state');
     const statesOptions = {
         data: {
-            Alabama: null,
-            Alaska: null,
-            Arizona: null,
-            Arkansas: null,
-            California: null,
-            Colorado: null,
-            Connecticut: null,
-            Delaware: null,
-            Florida: null,
-            Georgia: null,
-            Hawaii: null,
-            Idaho: null,
-            Illinois: null,
-            Indiana: null,
-            Iowa: null,
-            Kansas: null,
-            Kentucky: null,
-            Louisiana: null,
-            Maine: null,
-            Maryland: null,
-            Massachusetts: null,
-            Michigan: null,
-            Minnesota: null,
-            Missouri: null,
-            Montana: null,
-            Nebraska: null,
-            Nevada: null,
-            NewHampshire: null, // double-word states need formatting?
-            NewJersey: null, // double-word states need formatting?
-            NewMexico: null, // double-word states need formatting?
-            NewYork: null,  // double-word states need formatting?
-            NorthCarolina: null, // double-word states need formatting?
-            NorthDakota: null, // double-word states need formatting?
-            Ohio: null,
-            Oklahoma: null,
-            Oregon: null,
-            Pennsylvania: null,
-            RhodeIsland: null, // double-word states need formatting?
-            SouthCarolina: null, // double-word states need formatting?
-            SouthDakota: null, // double-word states need formatting?
-            Tennessee: null,
-            Texas: null,
-            Utah: null,
-            Vermont: null,
-            Virginia: null,
-            Washington: null,
-            WestVirginia: null, // double-word states need formatting?
-            Wisconsin: null,
-            Wyoming: null
+            AL: null,
+            AK: null,
+            AZ: null,
+            AR: null,
+            CA: null,
+            CO: null,
+            CT: null,
+            DE: null,
+            FL: null,
+            GA: null,
+            HI: null,
+            ID: null,
+            IL: null,
+            IN: null,
+            IA: null,
+            KS: null,
+            KY: null,
+            LA: null,
+            ME: null,
+            MD: null,
+            MA: null,
+            MI: null,
+            MN: null,
+            MO: null,
+            MT: null,
+            NE: null,
+            NV: null,
+            NH: null,
+            NJ: null,
+            NM: null,
+            NY: null,
+            NC: null,
+            ND: null,
+            OH: null,
+            OK: null,
+            OR: null,
+            PA: null,
+            RI: null,
+            SC: null,
+            SD: null,
+            TN: null,
+            TX: null,
+            UT: null,
+            VT: null,
+            VA: null,
+            WA: null,
+            WV: null,
+            WI: null,
+            WY: null
         },
         limit: 3
     }
     var instances = M.Autocomplete.init(usState, statesOptions);
 });
 
-// // PARKS LIST DROPDOWN
-// // by name
-// document.addEventListener('DOMContentLoaded', function() {
-//     var parkNames = document.querySelector('.dropdown-trigger');
-//     var instances = M.Dropdown.init(parkNames, options);
-// });
+
+// PARK NAMES LIST DROPDOWN
+document.addEventListener('DOMContentLoaded', function() {
+    var parkNames = document.querySelector('#park-names-dropdown');
+    var instances = M.Dropdown.init(parkNames, options);
+});
 
 // MODAL TRIGGER AND CONTROL
 // park info
 document.addEventListener('DOMContentLoaded', function() {
-    var parkModal = document.querySelector('.modal');
-    var instances = M.Modal.init(parkModal);
+    var parkInfoModal = document.querySelector('#modal1');
+    var instances = M.Modal.init(parkInfoModal);
   });

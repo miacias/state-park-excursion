@@ -52,7 +52,7 @@
                                 <p>Select a Park</p>
                                 <div class="park-dropdown-container">
                                     <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a>
+                                    <a class='dropdown-trigger btn' id="park-names-dropdown" href='#' data-target='dropdown1'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a>
                                     <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
                                     <ul id='dropdown1' class='dropdown-content'>
                                         <li><a href="#!">one</a></li>
@@ -153,20 +153,13 @@
                     <a class="carousel-item" href="#four!"><img src="./assets/images/design/National Park Patches - Josh Carter.jpg" alt=""></a>
                     <a class="carousel-item" href="#five!"><img src="./assets/images/design/Planning the day at Crater Lake National Park - Kal Visuals.jpg" alt=""></a>
                 </section>
-                <!-- <section class="slider valign">
-                    <a class="slides" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
-                    <a class="slides" href="#two!"><img src="./assets/images/design/Let the adventures begin - Chris Lawton.jpg" alt=""></a>
-                    <a class="slides" href="#three!"><img src="./assets/images/design/Maps are greater than phones (Olympic) - Kal Visuals.jpg" alt=""></a>
-                    <a class="slides" href="#four!"><img src="./assets/images/design/National Park Patches - Josh Carter.jpg" alt=""></a>
-                    <a class="slides" href="#five!"><img src="./assets/images/design/Planning the day at Crater Lake National Park - Kal Visuals.jpg" alt=""></a>
-                </section> -->
                 
                 <!-- populated map below -->
                 <section class="map valign" id="map"></section>
             </div>
 
             <!-- Modal Trigger -->
-            <a class="waves-effect waves-light btn modal-trigger" id="modal-trigger" href="#modal1">Modal</a>
+            <a class="waves-effect waves-light btn modal-trigger" id="modal-trigger" href="#modal1">Change from button to Map Icon</a>
             <!-- Modal Structure -->
             <div id="modal1" class="modal bottom-sheet">
                 <div class="modal-content">
@@ -174,7 +167,7 @@
                     <p>A bunch of text</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
                 </div>
             </div>
         </main>
