@@ -32,6 +32,9 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ## Credits
 
+Artist(s):
+- Color palette by dhzuehlke on [ColourLovers.com](https://www.colourlovers.com/palette/4893136/Die_Krabbe%C2%B2)
+
 List your collaborators, if any, with links to their GitHub profiles.
 
 If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.

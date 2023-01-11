@@ -16,25 +16,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>National Parks Trips</title>
 </head>
-<body class="teal darken-2 yellow-text">
+<body class="blue-grey darken-2">
 
-    <header class="center yellow-text text-lighten-3">
+    <header class="center green-text text-lighten-3" id="header">
         <h1>Explore our National Parks</h1>
     </header>
 
-    <div class="nav-main-container row">
+    <!-- contains and splits ASIDE and MAIN -->
+    <div class="nav-main-container row" id="navigation-and-main">
 
         <!-- ASIDE WIDTH: small 12 columns, medium 4 columns, large 3 columns -->
-        <aside class="navigation col s12 m4 l3">
+        <aside class="navigation col s12 m4 l3" id="navigation">
 
             <!-- Card for searching a park by state and name -->
-            <section class="our-parks-container">
+            <section class="our-parks-card-container">
                 <div class="row">
                     <!-- width of card -->
                     <div class="col s12 m10">
-                        <div class="card blue-grey darken-1">
-                            <div class="card-content white-text">
-                                <span class="card-title yellow-text">Our Parks!</span>
+                        <div class="card">
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Our Parks!</span>
                                 <p>Select a State</p>
                                 <!-- Autocomplete form -->
                                 <div class="row">
@@ -73,13 +74,13 @@
             </section>
 
             <!-- Card for searching distance -->
-            <section class="set-address-container">
+            <section class="set-address-card-container">
                 <div class="row">
                     <!-- width of card -->
                     <div class="col s12 m10">
-                        <div class="card blue-grey darken-1">
-                            <div class="card-content white-text">
-                                <span class="card-title yellow-text">Visit!</span>
+                        <div class="card">
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Visit!</span>
                                 <p>Starting Address</p>
                                 <!-- icon prefix form -->
                                 <div class="row">
@@ -101,12 +102,12 @@
             </section>
             
             <!-- Card for search history -->
-            <section class="search-history-container">
+            <section class="search-history-card-container">
                 <div class="row">
                     <div class="col s12 m10">
-                        <div class="card blue-grey darken-1">
-                            <div class="card-content white-text">
-                                <span class="card-title yellow-text">Search History!</span>
+                        <div class="card">
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Search History!</span>
                                 <!-- Use JS to create and populate using localStorage data -->
                                 <div class="search-history-list">
                                     <div class="collection">
@@ -127,8 +128,8 @@
                             </div>
                             <li class="divider" tabindex="-1"></li>
                             <div class="card-action">
-                                <a href="#"><button class="btn yellow red-text" id="clear-history">Clear History</button></a>
-                                <a href="#"><button class="btn yellow red-text" id="clear-home">Clear Home</button></a>
+                                <a href="#"><button class="btn green lighten-3 black-text" id="clear-history">Clear History</button></a>
+                                <a href="#"><button class="btn green lighten-3 black-text" id="clear-home">Clear Home</button></a>
                             </div>
                         </div>
                     </div>
@@ -137,8 +138,8 @@
         </aside>
         
         <!-- MAIN WIDTH: small 12 columns, medium 8 columns, large 9 columns -->
-        <main class="col s12 m8 l9 center-align">
-            <div class="valign-wrapper">
+        <main class="col s12 m8 l9 center-align" id="main">
+            <div class="valign-wrapper" id="carousel">
                 <!-- when no map is visible, show a carousel of images below -->
                 <section class="carousel carousel-slider valign">
                     <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
@@ -153,7 +154,7 @@
             </div>
 
             <!-- Modal Trigger -->
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+            <a class="waves-effect waves-light btn modal-trigger" id="modal-trigger" href="#modal1">Modal</a>
             <!-- Modal Structure -->
             <div id="modal1" class="modal bottom-sheet">
                 <div class="modal-content">
