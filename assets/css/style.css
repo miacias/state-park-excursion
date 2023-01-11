@@ -1,0 +1,49 @@
+body {
+    font-family: 'Lilita One', cursive;
+    margin: 0;
+}
+
+.card {
+    background-color: #8D797B;
+}
+
+main {
+    font-family: 'Caveat Brush', cursive;
+}
+
+/* images that are taller than the others and need to be cropped:
+1 badges photo
+2 compass in hand photo */
+.carousel img {
+    max-width: 100em;
+    height: 60em;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    overflow: hidden;
+    /* TRBL */
+    margin: -0em 0em -10em -0em;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+.search-history-icon {
+    color: green;
+    /* text-align-last: right; */
+}
+
+#clear-history,
+#clear-home {
+    border: none;
+    font-size: smaller;
+}
+
+/* .our-parks-container,
+.set-address-container,
+.search-history-container {
+    border-radius: 100em;
+} */
