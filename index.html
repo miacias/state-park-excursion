@@ -3,76 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Google Font: Lilita One -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <!-- Google Font: Caveat Brush -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Materialize icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- local CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-
-    <title>Document</title>
+    <title>National Parks Trips</title>
 </head>
-<body>
-    <select class="state">
-        <option value=""></option>
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-        <option value="CA">California</option>
-        <option value="CO">Colorado</option>
-        <option value="CT">Connecticut</option>
-        <option value="DE">Delaware</option>
-        <option value="DC">District Of Columbia</option>
-        <option value="FL">Florida</option>
-        <option value="GA">Georgia</option>
-        <option value="HI">Hawaii</option>
-        <option value="ID">Idaho</option>
-        <option value="IL">Illinois</option>
-        <option value="IN">Indiana</option>
-        <option value="IA">Iowa</option>
-        <option value="KS">Kansas</option>
-        <option value="KY">Kentucky</option>
-        <option value="LA">Louisiana</option>
-        <option value="ME">Maine</option>
-        <option value="MD">Maryland</option>
-        <option value="MA">Massachusetts</option>
-        <option value="MI">Michigan</option>
-        <option value="MN">Minnesota</option>
-        <option value="MS">Mississippi</option>
-        <option value="MO">Missouri</option>
-        <option value="MT">Montana</option>
-        <option value="NE">Nebraska</option>
-        <option value="NV">Nevada</option>
-        <option value="NH">New Hampshire</option>
-        <option value="NJ">New Jersey</option>
-        <option value="NM">New Mexico</option>
-        <option value="NY">New York</option>
-        <option value="NC">North Carolina</option>
-        <option value="ND">North Dakota</option>
-        <option value="OH">Ohio</option>
-        <option value="OK">Oklahoma</option>
-        <option value="OR">Oregon</option>
-        <option value="PA">Pennsylvania</option>
-        <option value="RI">Rhode Island</option>
-        <option value="SC">South Carolina</option>
-        <option value="SD">South Dakota</option>
-        <option value="TN">Tennessee</option>
-        <option value="TX">Texas</option>
-        <option value="UT">Utah</option>
-        <option value="VT">Vermont</option>
-        <option value="VA">Virginia</option>
-        <option value="WA">Washington</option>
-        <option value="WV">West Virginia</option>
-        <option value="WI">Wisconsin</option>
-        <option value="WY">Wyoming</option>
-    </select>
-    
-    <button class="btn state-park" id="fetch-stateParkInfo"> Choose a State</button>
+<body class="blue-grey darken-2">
 
-    <div>
-        <select class="park"></select>
+    <header class="center green-text text-lighten-3" id="header">
+        <h1>Explore our National Parks</h1>
+    </header>
+
+    <!-- contains and splits ASIDE and MAIN -->
+    <div class="nav-main-container row" id="navigation-and-main">
+
+        <!-- ASIDE WIDTH: small 12 columns, medium 4 columns, large 3 columns -->
+        <aside class="navigation col s12 m4 l3" id="navigation">
+
+            <!-- Card for searching a park by state and name -->
+            <section class="our-parks-card-container">
+                <div class="row">
+                    <!-- width of card -->
+                    <div class="col s12 m10">
+                        <div class="card">
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Our Parks!</span>
+                                <p>Select a State</p>
+                                <!-- Autocomplete form -->
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s10">
+                                                <i class="material-icons prefix">location_on</i>
+                                                <input type="text" id="autocomplete-input" class="autocomplete-state">
+                                                <label for="autocomplete-input">STATE</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>Select a Park</p>
+                                <div class="park-dropdown-container">
+                                    <!-- Dropdown Trigger -->
+                                    <a class='dropdown-trigger btn' id="park-names-dropdown" href='#' data-target='dropdown1'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a>
+                                    <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="#!">one</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">two</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">three</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">four</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="#!">five</a></li>
+                                    </ul>
+                                </div>
+                                <button class="btn state-park green lighten-3" id="fetch-park-info">GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card for searching distance -->
+            <section class="set-address-card-container">
+                <div class="row">
+                    <!-- width of card -->
+                    <div class="col s12 m10">
+                        <div class="card">
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Visit!</span>
+                                <p>Starting Address</p>
+                                <!-- icon prefix form -->
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s10">
+                                                <i class="material-icons prefix">home</i>
+                                                <input id="icon_prefix" type="text" class="validate">
+                                                <label for="icon_prefix">ADDRESS</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                  </div>
+                                <button class="btn green lighten-3" id="set-my-address">GO!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Card for search history -->
+            <section class="search-history-card-container">
+                <div class="row">
+                    <div class="col s12 m10">
+                        <div class="card">
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Search History!</span>
+                                <!-- Use JS to create and populate using localStorage data -->
+                                <div class="search-history-list">
+                                    <div class="collection">
+                                        <a href="#!" class="collection-item">Park 1
+                                            <i class="search-history-icon tiny material-icons">call_made</i>
+                                        </a>
+                                        <a href="#!" class="collection-item">Park 2
+                                            <i class="search-history-icon tiny material-icons">call_made</i>
+                                        </a>
+                                        <a href="#!" class="collection-item">Park 3
+                                            <i class="search-history-icon tiny material-icons">call_made</i>
+                                        </a>
+                                        <a href="#!" class="collection-item">Park 4
+                                            <i class="search-history-icon tiny material-icons">call_made</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <li class="divider" tabindex="-1"></li>
+                            <div class="card-action">
+                                <a href="#"><button class="btn green lighten-3 black-text" id="clear-history">Clear History</button></a>
+                                <a href="#"><button class="btn green lighten-3 black-text" id="clear-home">Clear Home</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+        
+        <!-- MAIN WIDTH: small 12 columns, medium 8 columns, large 9 columns -->
+        <main class="col s12 m8 l9 center-align" id="main">
+            <div class="valign-wrapper" id="carousel">
+                <!-- when no map is visible, show a carousel of images below -->
+                <section class="carousel carousel-slider valign">
+                    <!-- fixed text overlay on top of images -->
+                    <div class="carousel-fixed-item slider" id="text-overlay">
+                        <h2 class="caption center-align white-text">test</h2>
+                    </div>
+                    <!-- carouseling images -->
+                    <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
+                    <a class="carousel-item" href="#two!"><img src="./assets/images/design/Let the adventures begin - Chris Lawton.jpg" alt=""></a>
+                    <a class="carousel-item" href="#three!"><img src="./assets/images/design/Maps are greater than phones (Olympic) - Kal Visuals.jpg" alt=""></a>
+                    <a class="carousel-item" href="#four!"><img src="./assets/images/design/National Park Patches - Josh Carter.jpg" alt=""></a>
+                    <a class="carousel-item" href="#five!"><img src="./assets/images/design/Planning the day at Crater Lake National Park - Kal Visuals.jpg" alt=""></a>
+                </section>
+                
+                <!-- populated map below -->
+                <section class="map valign" id="map"></section>
+            </div>
+
+            <!-- Modal Trigger -->
+            <a class="waves-effect waves-light btn modal-trigger" id="modal-trigger" href="#modal1">Change from button to Map Icon</a>
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal bottom-sheet">
+                <div class="modal-content">
+                    <h4>Park Info</h4>
+                    <p>A bunch of text</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                </div>
+            </div>
+        </main>
+    
+        <ul class="addresses"></ul>
     </div>
 
-    
-   <ul class="col-8 mb-3"></ul>
-   
+    <footer class="center">
+        <h6>Enjoy your trip and safe travels!</h6>
+    </footer>
+
+    <!-- Compiled and minified Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- local JS -->
     <script src="./assets/js/script.js"></script>
+
 </body>
 </html>
