@@ -17,8 +17,8 @@ function getStateParkAPI() {
 
 stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
-// IMAGE CAROUSEL
-    // DOMContentLoaded: loads safely after DOM is loaded
+// IMAGE CAROUSEL CONTROLS
+// DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     var carousel = document.querySelector('.carousel');
     // built-in Materialize: full size images, 4s duration, number of showing images
@@ -34,6 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 8000)
 });
 
+// SLIDER CONTROLS
+// document.addEventListener('DOMContentLoaded', function() {
+//     var slider = document.querySelector('.slider');
+//     var options = {
+//         indicators: false,
+//         duration: 100,
+//     }
+//     var instances = M.Slider.init(slider, options);
+//     setInterval(function() {
+//         instances.next();
+//     }, 8000)
+//   });
+
 
 // STATES LIST AUTOCOMPLETE
     // attempting to use import to be able to put states in separate JS file
@@ -44,67 +57,67 @@ document.addEventListener('DOMContentLoaded', function() {
     var usState = document.querySelector('.autocomplete-state');
     const statesOptions = {
         data: {
-            AL: "Alabama",
-            AK: "Alaska",
-            AZ: "Arizona",
-            AR: "Arkansas",
-            CA: "California",
-            CO: "Colorado",
-            CT: "Connecticut",
-            DE: "Delaware",
-            FL: "Florida",
-            GA: "Georgia",
-            HI: "Hawaii",
-            ID: "Idaho",
-            IL: "Illinois",
-            IN: "Indiana",
-            IA: "Iowa",
-            KS: "Kansas",
-            KY: "Kentucky",
-            LA: "Louisiana",
-            ME: "Maine",
-            MD: "Maryland",
-            MA: "Massachusetts",
-            MI: "Michigan",
-            MN: "Minnesota",
-            MO: "Missouri",
-            MT: "Montana",
-            NE: "Nebraska",
-            NV: "Nevada",
-            NH: "New Hampshire",
-            NJ: "New Jersey",
-            NM: "New Mexico",
-            NY: "New York",
-            NC: "North Carolina",
-            ND: "North Dakota",
-            OH: "Ohio",
-            OK: "Oklahoma",
-            OR: "Oregon",
-            PA: "Pennsylvania",
-            RI: "Rhode Island",
-            SC: "South Carolina",
-            SD: "South Dakota",
-            TN: "Tennessee",
-            TX: "Texas",
-            UT: "Utah",
-            VT: "Vermont",
-            VA: "Virginia",
-            WA: "Washington",
-            WV: "West Virginia",
-            WI: "Wisconsin",
-            WY: "Wyoming"
+            Alabama: null,
+            Alaska: null,
+            Arizona: null,
+            Arkansas: null,
+            California: null,
+            Colorado: null,
+            Connecticut: null,
+            Delaware: null,
+            Florida: null,
+            Georgia: null,
+            Hawaii: null,
+            Idaho: null,
+            Illinois: null,
+            Indiana: null,
+            Iowa: null,
+            Kansas: null,
+            Kentucky: null,
+            Louisiana: null,
+            Maine: null,
+            Maryland: null,
+            Massachusetts: null,
+            Michigan: null,
+            Minnesota: null,
+            Missouri: null,
+            Montana: null,
+            Nebraska: null,
+            Nevada: null,
+            NewHampshire: null, // double-word states need formatting?
+            NewJersey: null, // double-word states need formatting?
+            NewMexico: null, // double-word states need formatting?
+            NewYork: null,  // double-word states need formatting?
+            NorthCarolina: null, // double-word states need formatting?
+            NorthDakota: null, // double-word states need formatting?
+            Ohio: null,
+            Oklahoma: null,
+            Oregon: null,
+            Pennsylvania: null,
+            RhodeIsland: null, // double-word states need formatting?
+            SouthCarolina: null, // double-word states need formatting?
+            SouthDakota: null, // double-word states need formatting?
+            Tennessee: null,
+            Texas: null,
+            Utah: null,
+            Vermont: null,
+            Virginia: null,
+            Washington: null,
+            WestVirginia: null, // double-word states need formatting?
+            Wisconsin: null,
+            Wyoming: null
         },
         limit: 3
     }
     var instances = M.Autocomplete.init(usState, statesOptions);
 });
 
-// PARKS LIST DROPDOWN
-// by name
-document.addEventListener('DOMContentLoaded', function() {
-    var parkNames = document.querySelector('.dropdown-trigger');
-    var instances = M.Dropdown.init(parkNames, options);
-});
+// // PARKS LIST DROPDOWN
+// // by name
+// document.addEventListener('DOMContentLoaded', function() {
+//     var parkNames = document.querySelector('.dropdown-trigger');
+//     var instances = M.Dropdown.init(parkNames, options);
+// });
 
 // MODAL TRIGGER AND CONTROL
 // park info
