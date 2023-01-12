@@ -126,24 +126,55 @@ function getStateParkApi(stateValue) {
     - give GoogleMaps the fullAddress after user clicks GO button
     - make sure to pass variable "park" to whatever function needs the park addresses
     */
+
+    // pushes anonymous object to array list (needs work)
     for (i = 0; i < data.length; i++) {
-        park.push( { // pushes anonymous object to array list
-            // name: ,
+        park.push(parkData = { 
+            name: data.data[i].name,
+            index: i,
             street: data.data[i].addresses[0].line1,
             city: data.data[i].addresses[0].city,
             state: data.data[i].addresses[0].stateCode,
             zip: data.data[i].addresses[0].postalCode,
-            // does not work
-            fullAddress1: `${this.street}, ${this.city} ${this.state}, ${this.zip}`, // template literal (not a string literal) includes spaces and commas
-            // does not work
-            fullAddress2: [this.street, this.city, this.state, this.zip].join(" ")
+            // does not work. solution: concatenate data property values later via key names
+            // fullAddress1: `${this.street}, ${this.city} ${this.state}, ${this.zip}`, // template literal (not a string literal) includes spaces and commas
+            open: data.data[i].operatingHours[0].description,
+            monHours: data.data[i].operatingHours[0].standardHours.monday,
+            tueHours: data.data[i].operatingHours[0].standardHours.tuesday,
+            wedHours: data.data[i].operatingHours[0].standardHours.wednesday,
+            thuHours: data.data[i].operatingHours[0].standardHours.thursday,
+            friHours: data.data[i].operatingHours[0].standardHours.friday,
+            satHours: data.data[i].operatingHours[0].standardHours.saturday,
+            sunHours: data.data[i].operatingHours[0].standardHours.sunday,
+            fees: data.data[i].entranceFees[0].description,
+            weather: data.data[i].weatherInfo
         })
     }
     console.log(park)
+
+    // basic model from Andrew, line 149 undefined b/c model not followed correctly
+    // const parkObj = [
+    //     {
+    //         street: data.data[i].addresses[0].line1,
+    //         city: data.data[i].addresses[0].city,
+    //         state: data.data[i].addresses[0].stateCode,
+    //         zip: data.data[i].addresses[0].postalCode,
+    //     }
+    // ];
+    // let collectedParks = [];
+    // for (const address of parkObj) {
+    //     const tempObject = {};
+    //     tempObject.street = street;
+    //     tempObject.city = city;
+    //     tempObject.state = state;
+    //     tempObject.zip = zip;
+    //     collectedParks.push(tempObject);
+    // }
+    // console.log(collectedParks);
     })
 }
 
-stateParkFetchBtn.addEventListener('click', getStateParkAPI);
+// stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
 // PARK NAMES LIST DROPDOWN
 // document.addEventListener('DOMContentLoaded', function() {
