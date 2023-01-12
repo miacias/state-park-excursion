@@ -1,21 +1,7 @@
-
-// NATIONAL PARK SERVICES API
-const stateParkapiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
+// GLOBAL VARIABLES LIST: DOM query selectors
+var usState = document.querySelector('.autocomplete-state');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 
-function getStateParkAPI() {
-    var requestURL= 'https://developer.nps.gov/api/v1/parks?&api_key=CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8';
-
-    fetch(requestURL)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data){
-    console.log(data)
-    })
-}
-
-stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
 // IMAGE CAROUSEL CONTROLS
 // DOMContentLoaded: loads safely after DOM is loaded
@@ -34,25 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 8000)
 });
 
-// SLIDER CONTROLS
-// document.addEventListener('DOMContentLoaded', function() {
-//     var slider = document.querySelector('.slider');
-//     var options = {
-//         indicators: false,
-//         duration: 100,
-//     }
-//     var instances = M.Slider.init(slider, options);
-//     setInterval(function() {
-//         instances.next();
-//     }, 8000)
-//   });
-
 // STATES LIST AUTOCOMPLETE
     // attempting to use import to be able to put states in separate JS file
     // import { statesOptions } from ('./us-states.js');
     // const { statesOptions } = from ('./us-states.js');
 document.addEventListener('DOMContentLoaded', function() {
-    var usState = document.querySelector('.autocomplete-state');
     const statesOptions = {
         data: {
             AL: null,
@@ -108,14 +80,76 @@ document.addEventListener('DOMContentLoaded', function() {
         limit: 3
     }
     var instances = M.Autocomplete.init(usState, statesOptions);
+    // var instance = M.Autocomplete.getInstance(usState);
 });
 
+usState.addEventListener("change", function(event) {
+    event.preventDefault();
+    var instance = M.Autocomplete.getInstance(usState);
+    if ((event.target.value).length === 2) {
+        var stateValue = event.target.value;
+        getStateParkApi(stateValue)
+    }
+})
+
+// NATIONAL PARK SERVICES API
+
+
+
+
+// get list of parks within a single US state
+function getStateParkApi(stateValue) {
+    var park = [];
+    const stateParkApiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
+    var nationalParksServicesURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateValue + "&api_key=" + stateParkApiKey;
+
+    fetch(nationalParksServicesURL)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data){
+    console.log(data)
+    /*
+    - make a for loop that loops through data[i] to
+        - grab the name of each park
+        - grab the fullAddress of each park
+        - set data into object
+        - how to name the object??
+    - set name of each park into dropdown as the object that carries park name and fullAddress variable
+    - data[i].addresses[0] is full address object {}
+    - address format for GoogleMaps: street, town name, state, zip
+        - var street = data[i].addresses[0].line1;
+        - var city = data[i].addresses[0].city;
+        - var state = data[i].addresses[0].stateCode;
+        - var zip = data[i].addresses[0].postalCode;
+        - var fullAddress = street + ", " + city + ", " + state + " " + zip;
+    - give GoogleMaps the fullAddress after user clicks GO button
+    - make sure to pass variable "park" to whatever function needs the park addresses
+    */
+    for (i = 0; i < data.length; i++) {
+        park.push( { // pushes anonymous object to array list
+            // name: ,
+            street: data.data[i].addresses[0].line1,
+            city: data.data[i].addresses[0].city,
+            state: data.data[i].addresses[0].stateCode,
+            zip: data.data[i].addresses[0].postalCode,
+            // does not work
+            fullAddress1: `${this.street}, ${this.city} ${this.state}, ${this.zip}`, // template literal (not a string literal) includes spaces and commas
+            // does not work
+            fullAddress2: [this.street, this.city, this.state, this.zip].join(" ")
+        })
+    }
+    console.log(park)
+    })
+}
+
+stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
 // PARK NAMES LIST DROPDOWN
-document.addEventListener('DOMContentLoaded', function() {
-    var parkNames = document.querySelector('#park-names-dropdown');
-    var instances = M.Dropdown.init(parkNames, options);
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     var parkNames = document.querySelector('#park-names-dropdown');
+//     var instances = M.Dropdown.init(parkNames, options);
+// });
 
 // MODAL TRIGGER AND CONTROL
 // park info
