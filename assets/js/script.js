@@ -102,20 +102,18 @@ document.addEventListener('DOMContentLoaded', function() {
             WI: null,
             WY: null
         },
-        limit: 3
+        limit: 3,
+        onAutocomplete: function(stateValue) { 
+            getStateParkApi(stateValue)
+        }
     }
     var instances = M.Autocomplete.init(usState, statesOptions);
-    // var instance = M.Autocomplete.getInstance(usState);
 });
-// autocomplete listener grabs state name and passes to getStateParkApi()
-usState.addEventListener("change", function(event) {
-    event.preventDefault();
-    var instance = M.Autocomplete.getInstance(usState);
-    if ((event.target.value).length === 2) {
-        var stateValue = event.target.value;
-        getStateParkApi(stateValue)
-    }
-})
+
+var instance = M.Autocomplete.getInstance(usState);
+// instance.onAutocomplete(function(fill) {
+//     console.log(fill)
+// })
 
 // NATIONAL PARK SERVICES API (needs work, read comments)
 
@@ -124,57 +122,57 @@ function getStateParkApi(stateValue) {
     var park = [];
     const stateParkApiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
     var nationalParksServicesURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateValue + "&api_key=" + stateParkApiKey;
-
     fetch(nationalParksServicesURL)
     .then(function (response) {
         return response.json();
     })
-    .then(function (data){
-    console.log(data)
+    .then(function (parkData){
+    console.log(parkData)
     /*
-    - make a for loop that loops through data[i] to
-        - grab the name of each park
-        - grab the fullAddress of each park
-        - set data into object
-        - how to name the object??
-    - set name of each park into dropdown as the object that carries park name and fullAddress variable
-    - data[i].addresses[0] is full address object {}
-    - address format for GoogleMaps: street, town name, state, zip
-        - var street = data[i].addresses[0].line1;
-        - var city = data[i].addresses[0].city;
-        - var state = data[i].addresses[0].stateCode;
-        - var zip = data[i].addresses[0].postalCode;
-        - var fullAddress = street + ", " + city + ", " + state + " " + zip;
+    - filter method: get rid of non-MATCHING STATE items
     - give GoogleMaps the fullAddress after user clicks GO button
     - make sure to pass variable "park" to whatever function needs the park addresses
     */
-
     // pushes anonymous object to array list (needs work)
-    for (i = 0; i < data.length; i++) {
-        park.push({
-            test: "test"
+    for (var i = 0; i < parkData.data.length; i++) {
+        var parkFees
+        if (parkData.data[i].entranceFees.length === 0) {
+            parkFees = "Call for updated prices!"
+        } else {
+            parkFees = parkData.data[i].entranceFees[0].description;
+        }
+        /* 
+        - continue in for loop - skip current iteration and continues the loop
+        - keyword is states
+         */
+        if (parkData.data[i].addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+            continue;
+        }
+        park.push({ 
+            name: parkData.data[i].name,
+            index: i,
+            street: parkData.data[i].addresses[0].line1,
+            city: parkData.data[i].addresses[0].city,
+            state: parkData.data[i].addresses[0].stateCode,
+            zip: parkData.data[i].addresses[0].postalCode,
+            // does not work. solution: concatenate data property values later via key names
+            fullAddress1: `${this.street}, ${this.city} ${this.state}, ${this.zip}`, // template literal (not a string literal) includes spaces and commas
+            open: parkData.data[i].operatingHours[0].description,
+            monHours: parkData.data[i].operatingHours[0].standardHours.monday,
+            tueHours: parkData.data[i].operatingHours[0].standardHours.tuesday,
+            wedHours: parkData.data[i].operatingHours[0].standardHours.wednesday,
+            thuHours: parkData.data[i].operatingHours[0].standardHours.thursday,
+            friHours: parkData.data[i].operatingHours[0].standardHours.friday,
+            satHours: parkData.data[i].operatingHours[0].standardHours.saturday,
+            sunHours: parkData.data[i].operatingHours[0].standardHours.sunday,
+            fees: parkFees,
+            weather: parkData.data[i].weatherInfo
         })
-        // park.push({ 
-        //     name: data.data[i].name,
-        //     index: i,
-        //     street: data.data[i].addresses[0].line1,
-        //     city: data.data[i].addresses[0].city,
-        //     state: data.data[i].addresses[0].stateCode,
-        //     zip: data.data[i].addresses[0].postalCode,
-        //     // does not work. solution: concatenate data property values later via key names
-        //     // fullAddress1: `${this.street}, ${this.city} ${this.state}, ${this.zip}`, // template literal (not a string literal) includes spaces and commas
-        //     open: data.data[i].operatingHours[0].description,
-        //     monHours: data.data[i].operatingHours[0].standardHours.monday,
-        //     tueHours: data.data[i].operatingHours[0].standardHours.tuesday,
-        //     wedHours: data.data[i].operatingHours[0].standardHours.wednesday,
-        //     thuHours: data.data[i].operatingHours[0].standardHours.thursday,
-        //     friHours: data.data[i].operatingHours[0].standardHours.friday,
-        //     satHours: data.data[i].operatingHours[0].standardHours.saturday,
-        //     sunHours: data.data[i].operatingHours[0].standardHours.sunday,
-        //     fees: data.data[i].entranceFees[0].description,
-        //     weather: data.data[i].weatherInfo
-        // })
     }
+        for (const item of data.data) {
+            console.log(item.name)
+            park.push(item.name)
+        }
     console.log(park)
 
     // basic model from Andrew, line 149 undefined b/c model not followed correctly
