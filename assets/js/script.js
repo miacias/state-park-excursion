@@ -1,14 +1,23 @@
 // GLOBAL VARIABLES LIST: DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
+var carousel = document.querySelector('.carousel');
+var map = document.querySelector("#map");
 
-
-
+// DEFAULT PAGE VIEW ON LOAD (not done)
+function defaultView() {
+    /*
+    if (carousel.hasClass("hide")) {
+        - carousel.removeClass("hide");
+    }
+    - map.removeClass("hide");
+    */
+}
+// defaultView();
 
 // IMAGE CAROUSEL CONTROLS (done)
 // DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    var carousel = document.querySelector('.carousel');
     // built-in Materialize: full size images, 4s duration, number of showing images
     var options = {
         fullWidth: true,
@@ -21,6 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
         instances.next();
     }, 8000)
 });
+
+/*
+EVENT LISTENER ON PARK SEARCH GO BUTTON
+- call showMap() to switch view from image carousel to map
+- call google map API to put on map
+*/
+
+// CHANGES ELEMENTS VISIBLE USING MATERIALIZE
+function showMap() {
+    /*
+    - if state AND park have values...
+        - carousel.addClass("hide");
+        - if map.hasClass("hide") {
+            - map.removeClass("hide")
+        }
+    */
+}
 
 // STATES LIST AUTOCOMPLETE (done)
 document.addEventListener('DOMContentLoaded', function() {
