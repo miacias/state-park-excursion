@@ -7,13 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <!-- Google Font: Caveat Brush -->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    
+     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <!-- Compiled and minified Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Materialize icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- local CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>National Parks Trips</title>
 </head>
 <body class="blue-grey darken-2">
@@ -179,10 +181,50 @@
         <h6>Enjoy your trip and safe travels!</h6>
     </footer>
 
-    <!-- Compiled and minified Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- local JS -->
-    <script src="./assets/js/script.js"></script>
+   
 
+
+    <div>
+        <div class="container">
+            <p>This App Will Help You Calculate Your Travelling Distances.</p>
+            <form>
+                <div>
+                    <label for="from"></label>
+                    <div>
+                        <input type="text" id="from" placeholder="Origin">
+                    </div>
+               </div>
+               <div>
+                
+                    <label for="to"></label>
+                    <div>
+                        <input type="text" id="to" placeholder="Destination">
+                    </div>
+                  
+                 </div>
+                 
+            </form>
+
+            <div>
+                <button onclick="calcRoute();"></button>
+            </div>
+        </div>
+        <div>
+            <div id="googleMap">
+
+            </div>
+            <div id="output">
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzz9WRgJqdup2AI9qTcwUoLhP_TXKvufY&libraries=places"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <!-- Compiled and minified Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   
+<script src="./assets/js/script.js"></script>
 </body>
 </html>

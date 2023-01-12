@@ -1,7 +1,3 @@
-body {
-    font-family: 'Lilita One', cursive;
-    margin: 0;
-}
 
 .card {
     background-color: #8D797B;
@@ -47,3 +43,27 @@ main {
 .search-history-container {
     border-radius: 100em;
 } */
+
+
+
+/*map*/
+#googleMap {
+    width: 80%;
+    height: 400px;
+    margin: 10px auto;
+  }
+  
+  /*output box*/
+  #output {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px auto;
+  }
+  
+  #mode {
+    color: black;
+  }
+body {
+    font-family: 'Lilita One', cursive;
+    margin: 0;
+}
