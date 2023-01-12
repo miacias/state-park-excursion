@@ -5,7 +5,7 @@ var stateParkFetchBtn = document.getElementById('fetch-park-info');
 
 
 
-// IMAGE CAROUSEL CONTROLS
+// IMAGE CAROUSEL CONTROLS (done)
 // DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     var carousel = document.querySelector('.carousel');
@@ -22,10 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 8000)
 });
 
-// STATES LIST AUTOCOMPLETE
-    // attempting to use import to be able to put states in separate JS file
-    // import { statesOptions } from ('./us-states.js');
-    // const { statesOptions } = from ('./us-states.js');
+// STATES LIST AUTOCOMPLETE (done)
 document.addEventListener('DOMContentLoaded', function() {
     const statesOptions = {
         data: {
@@ -84,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Autocomplete.init(usState, statesOptions);
     // var instance = M.Autocomplete.getInstance(usState);
 });
-
+// autocomplete listener grabs state name and passes to getStateParkApi()
 usState.addEventListener("change", function(event) {
     event.preventDefault();
     var instance = M.Autocomplete.getInstance(usState);
@@ -94,10 +91,7 @@ usState.addEventListener("change", function(event) {
     }
 })
 
-// NATIONAL PARK SERVICES API
-
-
-
+// NATIONAL PARK SERVICES API (needs work, read comments)
 
 // get list of parks within a single US state
 function getStateParkApi(stateValue) {
@@ -178,13 +172,13 @@ function getStateParkApi(stateValue) {
 
 // stateParkFetchBtn.addEventListener('click', getStateParkAPI);
 
-// PARK NAMES LIST DROPDOWN
+// PARK NAMES LIST DROPDOWN (unused)
 // document.addEventListener('DOMContentLoaded', function() {
 //     var parkNames = document.querySelector('#park-names-dropdown');
 //     var instances = M.Dropdown.init(parkNames, options);
 // });
 
-// MODAL TRIGGER AND CONTROL
+// MODAL TRIGGER AND CONTROL (needs work)
 // park info
 document.addEventListener('DOMContentLoaded', function() {
     var parkInfoModal = document.querySelector('#modal1');
