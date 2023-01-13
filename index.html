@@ -39,7 +39,7 @@
                             <!-- saves user starting address -->
                             <div class="card-content red-text text-lighten-5">
                                 <span class="card-title">Visit!</span>
-                                <p>Starting Address</p>
+                                <p>Add Starting Address</p>
                                 <!-- icon prefix form -->
                                 <div class="row">
                                     <form class="col s12">
@@ -52,9 +52,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="card-content red-text text-lighten-5">
-                                <span class="card-title">Our Parks!</span>
+                                <span class="card-title">Filter by US State!</span>
                                 <p>Select a State</p>
                                 <!-- Autocomplete form -->
                                 <div class="row">
@@ -68,18 +66,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p>Select a Park</p>
-                                <div class="park-dropdown-container">
-                                    <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' id="park-names-dropdown" href='#' data-target='dropdown1'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a>
-                                    <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="#!">one</a></li>
-                                        <li><a href="#!">two</a></li>
-                                        <li><a href="#!">three</a></li>
-                                        <li><a href="#!">four</a></li>
-                                        <li><a href="#!">five</a></li>
-                                    </ul>
+                                <!-- container for park names dropdown -->
+                                <div class="select-container">
+                                    <span class="card-title">Our Parks!</span>
+                                    <p>Select a Park</p>
+                                    <div class="input-field col s12">
+                                        <select id="park-list">
+                                            <option value="" disabled selected>Parks</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <button class="btn state-park green lighten-3" id="fetch-park-info">GO!</button>
                             </div>
@@ -128,10 +123,10 @@
             <div class="valign-wrapper" id="carousel">
                 <!-- when no map is visible, show a carousel of images below -->
                 <section class="carousel carousel-slider valign">
-                    <!-- fixed text overlay on top of images -->
-                    <div class="carousel-fixed-item slider" id="text-overlay">
+                    <!-- fixed text overlay on top of images. consider use after MVP completed -->
+                    <!-- <div class="carousel-fixed-item slider" id="text-overlay">
                         <h2 class="caption center-align white-text">test</h2>
-                    </div>
+                    </div> -->
                     <!-- carouseling images -->
                     <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
                     <a class="carousel-item" href="#two!"><img src="./assets/images/design/Let the adventures begin - Chris Lawton.jpg" alt=""></a>
@@ -141,7 +136,16 @@
                 </section>
                 
                 <!-- populated map below -->
-                <section class="map valign" id="map"></section>
+                <section class="map-container valign">
+                    <div>
+                        <div id="googleMap">
+            
+                        </div>
+                        <div id="output">
+            
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <!-- Modal Trigger -->
@@ -193,22 +197,23 @@
                 <button onclick="calcRoute();"></button>
             </div>
         </div>
-        <div>
+        <!-- <div>
             <div id="googleMap">
 
             </div>
             <div id="output">
 
             </div>
-        </div>
+        </div> -->
 
     </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=[KEY HERE]&libraries=places"></script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3fsu0mF-blNatPt8XpDNehaPGvjpj01M&libraries=places"></script>
+    <!-- Google Maps jQuery controls -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Compiled and minified Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-   
-<script src="./assets/js/script.js"></script>
+    <!-- local JS -->
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
