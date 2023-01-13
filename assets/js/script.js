@@ -2,6 +2,7 @@
 // NATIONAL PARK SERVICES API
 const stateParkapiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
+var state = ""
 
 function getStateParkAPI() {
     var requestURL= 'https://developer.nps.gov/api/v1/visitorcenters?state=' + state + '&api_key=CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8';
