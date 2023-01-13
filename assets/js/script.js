@@ -149,27 +149,24 @@ var instance = M.Autocomplete.getInstance(usState);
 //     console.log(fill)
 // })
 
-// POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE
+// POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
+// currently posts items in Z-A order even though value number is A-Z (adjustments not needed for MVP)
 function populateParkNames(allParks) {
     var parksInState = JSON.parse(localStorage.getItem("all-parks"));
-    /*
-    - create HTML list items with attributes using for loop
-    - get data from localStorage "all-parks"
-    document.createElement("option");
-    setAttribute("attrName", "value")
-    textContent(value.name)
-    */
+    var count = 0;
     for (const value of parksInState) {
-        /*
-        value.name produces the name of each park in the state
-        */
+        var selectOption = document.createElement("option"); // creates option
+        selectOption.setAttribute("value", count); // sets attribute of value number
+        selectOption.textContent = value.name; // sets name of park
+        document.querySelector("option").after(selectOption); // adds new option after last option
+        count ++; // counter increases by one
     }
 }
-populateParkNames()
+populateParkNames() // calling on refresh for testing purposes
 
 // NATIONAL PARK SERVICES API (done)
 
-// gets list of parks within a single US state
+// gets list of parks within a single US state (done)
 function getStateParkApi(stateValue) {
     localStorage.clear("all-parks");
     var parksInState = [];
@@ -229,6 +226,7 @@ function getStateParkApi(stateValue) {
         // pushes anonymous object of each park to array list
         parksInState.push({
             name: parkData.data[i].name,
+            optionValue: i,
             street: parkData.data[i].addresses[0].line1,
             city: parkData.data[i].addresses[0].city,
             state: parkData.data[i].addresses[0].stateCode,
@@ -280,6 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
 parkSelections.addEventListener("change", function(event) {
     event.preventDefault()
     var indexLocation = event.target.value;
+    console.log("option selected is value # " + indexLocation);
     return indexLocation;
 })
 
