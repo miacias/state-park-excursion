@@ -28,7 +28,14 @@ var usState = document.querySelector('.autocomplete-state');
 var parkSelections = document.querySelector("#park-list");
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
-var map = document.querySelector("#map");
+var map = document.querySelector("#googleMap");
+// locally retrive Google API key
+var storedValue = localStorage.getItem("key");
+console.log("Google API key: " + storedValue);
+// connects to GoogleMaps autocomplete (switch to user address form input)
+var input1 = document.getElementById("from");
+// connects to GoogleMaps autocomplete (may not need this)
+var input2 = document.getElementById("to");
 // var parkNamesDropdown = document.querySelector('.dropdown-content');
 // var dropdownTrigger = document.querySelector(".dropdown-trigger");
 
@@ -184,9 +191,6 @@ function getStateParkApi(stateValue) {
 
 
 // GOOGLE MAPS API CONTROLS
-var storedValue = localStorage.getItem("key");
-
-console.log("Google API key: " + storedValue);
 
 // set map options (javascript.js)
 var myLatLng = { lat: 38.3460, lng: -0.4907 };
@@ -253,11 +257,7 @@ function calcRoute() {
 var options = {
     types: ['(cities)']
 }
-
-var input1 = document.getElementById("from");
 var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
-
-var input2 = document.getElementById("to");
 var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 
 
