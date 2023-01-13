@@ -37,36 +37,17 @@ var map = document.querySelector("#map");
 
 // DEFAULT PAGE VIEW ON LOAD (not done)
 function defaultView() {
-    /*
-    if (carousel.hasClass("hide")) {
-        - carousel.removeClass("hide");
-    }
-    - map.removeClass("hide");
+    /* 
+    need to add if statement or adjust if statement with &&:
+        - include what if a map was loaded (show map), otherwise show default view below
     */
+    if (carousel.classList.contains("hide")) {
+        carousel.classList.remove("hide");
+    }
+    map.classList.remove("hide");
+    map.classList.add("hide");
 }
-// defaultView();
-
-// IMAGE CAROUSEL CONTROLS (done)
-// DOMContentLoaded: loads safely after DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // built-in Materialize: full size images, 4s duration, number of showing images
-    var options = {
-        fullWidth: true,
-        duration: 100,
-        numVisible: 1,
-    };
-    var instances = M.Carousel.init(carousel, options);
-    // change picture every X milliseconds
-    setInterval(function() {
-        instances.next();
-    }, 8000)
-});
-
-/*
-EVENT LISTENER ON PARK SEARCH GO BUTTON
-- call showMap() to switch view from image carousel to map
-- call populateMap() - google map API from local storage to put on map
-*/
+defaultView();
 
 function populateMap() {
     /*
@@ -84,73 +65,6 @@ function showMap() {
         }
     */
 }
-
-// STATES LIST AUTOCOMPLETE (done)
-document.addEventListener('DOMContentLoaded', function() {
-    const statesOptions = {
-        data: {
-            AL: null,
-            AK: null,
-            AZ: null,
-            AR: null,
-            CA: null,
-            CO: null,
-            CT: null,
-            DE: null,
-            FL: null,
-            GA: null,
-            HI: null,
-            ID: null,
-            IL: null,
-            IN: null,
-            IA: null,
-            KS: null,
-            KY: null,
-            LA: null,
-            ME: null,
-            MD: null,
-            MA: null,
-            MI: null,
-            MN: null,
-            MO: null,
-            MT: null,
-            NE: null,
-            NV: null,
-            NH: null,
-            NJ: null,
-            NM: null,
-            NY: null,
-            NC: null,
-            ND: null,
-            OH: null,
-            OK: null,
-            OR: null,
-            PA: null,
-            RI: null,
-            SC: null,
-            SD: null,
-            TN: null,
-            TX: null,
-            UT: null,
-            VT: null,
-            VA: null,
-            WA: null,
-            WV: null,
-            WI: null,
-            WY: null
-        },
-        limit: 3,
-        onAutocomplete: function(stateValue) { 
-            getStateParkApi(stateValue)
-        }
-    }
-    var instances = M.Autocomplete.init(usState, statesOptions);
-});
-
-var instance = M.Autocomplete.getInstance(usState);
-// instance.onAutocomplete(function(fill) {
-//     console.log(fill)
-// })
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
 function populateParkNames(allParks) {
@@ -350,6 +264,33 @@ var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 
 // --------------- EVENT LISTENERS BELOW ---------------
 
+// IMAGE CAROUSEL CONTROLS (done)
+// DOMContentLoaded: loads safely after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // built-in Materialize: full size images, 4s duration, number of showing images
+    var options = {
+        fullWidth: true,
+        duration: 100,
+        numVisible: 1,
+    };
+    var instances = M.Carousel.init(carousel, options);
+    // change picture every X milliseconds
+    setInterval(function() {
+        instances.next();
+    }, 8000)
+});
+
+// START PARK VIEW
+/*
+- attach to "go" button
+- set localStorage "this-park"
+- fetch GoogleMaps travel data
+- call showModal()
+- call populateModal()
+- call showMap() to switch view from image carousel to map
+- call populateMap() - google map API from local storage to put on map
+*/
+
 // CREATE PARK NAMES LIST SELECTOR
 document.addEventListener('DOMContentLoaded', function() {
     var selectionEl = document.querySelectorAll('select');
@@ -377,3 +318,70 @@ document.addEventListener('DOMContentLoaded', function() {
     var parkInfoModal = document.querySelector('#modal1');
     var instances = M.Modal.init(parkInfoModal);
 });
+
+// STATES LIST AUTOCOMPLETE (done)
+document.addEventListener('DOMContentLoaded', function() {
+    const statesOptions = {
+        data: {
+            AL: null,
+            AK: null,
+            AZ: null,
+            AR: null,
+            CA: null,
+            CO: null,
+            CT: null,
+            DE: null,
+            FL: null,
+            GA: null,
+            HI: null,
+            ID: null,
+            IL: null,
+            IN: null,
+            IA: null,
+            KS: null,
+            KY: null,
+            LA: null,
+            ME: null,
+            MD: null,
+            MA: null,
+            MI: null,
+            MN: null,
+            MO: null,
+            MT: null,
+            NE: null,
+            NV: null,
+            NH: null,
+            NJ: null,
+            NM: null,
+            NY: null,
+            NC: null,
+            ND: null,
+            OH: null,
+            OK: null,
+            OR: null,
+            PA: null,
+            RI: null,
+            SC: null,
+            SD: null,
+            TN: null,
+            TX: null,
+            UT: null,
+            VT: null,
+            VA: null,
+            WA: null,
+            WV: null,
+            WI: null,
+            WY: null
+        },
+        limit: 3,
+        onAutocomplete: function(stateValue) { 
+            getStateParkApi(stateValue)
+        }
+    }
+    var instances = M.Autocomplete.init(usState, statesOptions);
+});
+
+var instance = M.Autocomplete.getInstance(usState);
+// instance.onAutocomplete(function(fill) {
+//     console.log(fill)
+// })
