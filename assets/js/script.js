@@ -247,7 +247,7 @@ function getStateParkApi(stateValue) {
     }
     // saves all parks within one state into localStorage as stringified array of objects
     localStorage.setItem("all-parks", JSON.stringify(parksInState));
-    return allParks;
+    return parksInState;
     })
 }
 
