@@ -6,8 +6,7 @@
     - grab park address from localStorage keyword "this-park"
 - JOSH: save user address data in localStorage under key "user-address"
     - one home address can be in this spot, use splice to remove the other one when a user switches park
-- fill dropdown with park names
-- save search history in localStorage under "park-history"
+- MIA: save search history in localStorage under "park-history"
     - fill search history with last 4 Objects (overwrite when more than 4, i.e. max 4 values)
     - write function to populate the search history buttons as needed
     - write event listener on click
@@ -22,8 +21,8 @@
     - clear localStorage by keyword: "park-history"
     - hide empty buttons
 */
-
-// GLOBAL VARIABLES LIST: DOM query selectors
+// --------------- GLOBAL VARIABLES ---------------
+// DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var parkSelections = document.querySelector("#park-list");
 // var parkNamesDropdown = document.querySelector('.dropdown-content');
@@ -31,6 +30,10 @@ var parkSelections = document.querySelector("#park-list");
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var map = document.querySelector("#map");
+
+
+// --------------- FUNCTIONALITY BELOW ---------------
+
 
 // DEFAULT PAGE VIEW ON LOAD (not done)
 function defaultView() {
@@ -263,31 +266,7 @@ function getStateParkApi(stateValue) {
 //     });
 // });
 
-// CREATE PARK NAMES LIST SELECTOR
-document.addEventListener('DOMContentLoaded', function() {
-    var selectionEl = document.querySelectorAll('select');
-    M.FormSelect.init(selectionEl, { 
-        dropdownOptions: function(parksInState){
-            populateParkNames(parksInState)
-        }
-    });
-});
 
-// RETURN VALUE FROM PARK NAMES LIST SELECTOR
-parkSelections.addEventListener("change", function(event) {
-    event.preventDefault()
-    var indexLocation = event.target.value;
-    console.log("option selected is value # " + indexLocation);
-    return indexLocation;
-})
-
-
-// MODAL TRIGGER AND CONTROL (needs work)
-// park info
-document.addEventListener('DOMContentLoaded', function() {
-    var parkInfoModal = document.querySelector('#modal1');
-    var instances = M.Modal.init(parkInfoModal);
-  });
 
 // GOOGLE MAPS API CONTROLS
 var storedValue = localStorage.getItem("key");
@@ -366,3 +345,34 @@ var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
 
 var input2 = document.getElementById("to");
 var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+
+
+// --------------- EVENT LISTENERS BELOW ---------------
+
+// CREATE PARK NAMES LIST SELECTOR
+document.addEventListener('DOMContentLoaded', function() {
+    var selectionEl = document.querySelectorAll('select');
+    M.FormSelect.init(selectionEl, { 
+        dropdownOptions: function(parksInState){
+            populateParkNames(parksInState)
+        }
+    });
+});
+
+// RETURN VALUE FROM PARK NAMES LIST SELECTOR
+parkSelections.addEventListener("change", function(event) {
+    event.preventDefault()
+    var indexLocation = event.target.value;
+    console.log("value #: " + indexLocation);
+    return indexLocation;
+    /* 
+    - is it possible to identify the textContent of the selected item???
+    */
+})
+
+// MODAL TRIGGER AND CONTROL (needs work)
+// park info
+document.addEventListener('DOMContentLoaded', function() {
+    var parkInfoModal = document.querySelector('#modal1');
+    var instances = M.Modal.init(parkInfoModal);
+});
