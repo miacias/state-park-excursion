@@ -45,8 +45,9 @@ function defaultView() {
     if (carousel.classList.contains("hide")) {
         carousel.classList.remove("hide");
     }
-    map.classList.remove("hide");
-    map.classList.add("hide");
+    if (!map.classList.contains("hide")) {
+        map.classList.add("hide");
+    }
 }
 defaultView();
 
@@ -58,13 +59,11 @@ function populateMap() {
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
-    /*
-    - if state AND park have values...
-        - carousel.addClass("hide");
-        - if map.hasClass("hide") {
-            - map.removeClass("hide")
-        }
-    */
+    // checks if "this-park" and "user-address" exists (implies map is populated), then changes view
+    if ((JSON.parse(localStorage.getItem("this-park")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
+        carousel.classList.add("hide");
+        map.classList.remove("hide");
+    }
 }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
