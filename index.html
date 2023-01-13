@@ -36,6 +36,23 @@
                     <!-- width of card -->
                     <div class="col s12 m10">
                         <div class="card">
+                            <!-- saves user starting address -->
+                            <div class="card-content red-text text-lighten-5">
+                                <span class="card-title">Visit!</span>
+                                <p>Starting Address</p>
+                                <!-- icon prefix form -->
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s10">
+                                                <i class="material-icons prefix">home</i>
+                                                <input id="icon_prefix" type="text" class="validate">
+                                                <label for="icon_prefix">ADDRESS</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="card-content red-text text-lighten-5">
                                 <span class="card-title">Our Parks!</span>
                                 <p>Select a State</p>
@@ -58,13 +75,9 @@
                                     <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
                                     <ul id='dropdown1' class='dropdown-content'>
                                         <li><a href="#!">one</a></li>
-                                        <li class="divider" tabindex="-1"></li>
                                         <li><a href="#!">two</a></li>
-                                        <li class="divider" tabindex="-1"></li>
                                         <li><a href="#!">three</a></li>
-                                        <li class="divider" tabindex="-1"></li>
                                         <li><a href="#!">four</a></li>
-                                        <li class="divider" tabindex="-1"></li>
                                         <li><a href="#!">five</a></li>
                                     </ul>
                                 </div>
@@ -75,34 +88,6 @@
                 </div>
             </section>
 
-            <!-- Card for searching distance -->
-            <section class="set-address-card-container">
-                <div class="row">
-                    <!-- width of card -->
-                    <div class="col s12 m10">
-                        <div class="card">
-                            <div class="card-content red-text text-lighten-5">
-                                <span class="card-title">Visit!</span>
-                                <p>Starting Address</p>
-                                <!-- icon prefix form -->
-                                <div class="row">
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s10">
-                                                <i class="material-icons prefix">home</i>
-                                                <input id="icon_prefix" type="text" class="validate">
-                                                <label for="icon_prefix">ADDRESS</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                  </div>
-                                <button class="btn green lighten-3" id="set-my-address">GO!</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
             <!-- Card for search history -->
             <section class="search-history-card-container">
                 <div class="row">
@@ -131,7 +116,6 @@
                             <li class="divider" tabindex="-1"></li>
                             <div class="card-action">
                                 <a href="#"><button class="btn green lighten-3 black-text" id="clear-history">Clear History</button></a>
-                                <a href="#"><button class="btn green lighten-3 black-text" id="clear-home">Clear Home</button></a>
                             </div>
                         </div>
                     </div>
@@ -222,7 +206,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=[KEY HERE]&libraries=places"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <!-- Compiled and minified Materialize JS -->
+    <!-- Compiled and minified Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
    
 <script src="./assets/js/script.js"></script>
