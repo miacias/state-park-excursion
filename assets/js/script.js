@@ -1,3 +1,31 @@
+/*
+- MIKE: save one park data into localStorage under "this-park"
+    - one park can be in this spot, use splice to remove the other one when a user switches park
+- save one park ADDRESS into localStorage under "park-address"
+    - one park can be in this spot, use splice to remove the other one when a user switches park.
+    - grab park address from localStorage keyword "this-park"
+- JOSH: save user address data in localStorage under key "user-address"
+    - one home address can be in this spot, use splice to remove the other one when a user switches park
+- fill dropdown with park names
+- save search history in localStorage under "park-history"
+    - fill search history with last 4 Objects (overwrite when more than 4, i.e. max 4 values)
+    - write function to populate the search history buttons as needed
+    - write event listener on click
+- finish show/hide function
+- finish default view function
+- MIA:change HTML
+    - combine navbar boxes, remove one of the "go" buttons
+    - remove clear home button
+- modals?!?
+    - make button that says "show info" to open modal
+    - separate modal into two sections: 
+        - (1) gets data from localStorage "this-park" (relevant info)
+        - (2) gets data from google maps API call (travel distance and time)
+- function to clear history
+    - clear localStorage by keyword: "park-history"
+    - hide empty buttons
+*/
+
 // GLOBAL VARIABLES LIST: DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
@@ -34,8 +62,14 @@ document.addEventListener('DOMContentLoaded', function() {
 /*
 EVENT LISTENER ON PARK SEARCH GO BUTTON
 - call showMap() to switch view from image carousel to map
-- call google map API to put on map
+- call populateMap() - google map API from local storage to put on map
 */
+
+function populateMap() {
+    /*
+    - insert Josh's code that shows map address
+    */
+}
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
@@ -127,73 +161,36 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-    console.log(parkData)
-    /*
-    - filter method: get rid of non-MATCHING STATE items
-    - give GoogleMaps the fullAddress after user clicks GO button
-    - make sure to pass variable "park" to whatever function needs the park addresses
-    */
     // pushes anonymous object to array list (needs work)
-    for (var i = 0; i < parkData.data.length; i++) {
+    for (const item of parkData.data) {
         var parkFees
-        if (parkData.data[i].entranceFees.length === 0) {
+        if (item.entranceFees.length === 0) {
             parkFees = "Call for updated prices!"
         } else {
-            parkFees = parkData.data[i].entranceFees[0].description;
+            parkFees = item.entranceFees[0].description;
         }
-        /* 
-        - continue in for loop - skip current iteration and continues the loop
-        - keyword is states
-         */
-        if (parkData.data[i].addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+        if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
             continue;
         }
-        park.push({ 
-            name: parkData.data[i].name,
-            index: i,
-            street: parkData.data[i].addresses[0].line1,
-            city: parkData.data[i].addresses[0].city,
-            state: parkData.data[i].addresses[0].stateCode,
-            zip: parkData.data[i].addresses[0].postalCode,
-            // does not work. solution: concatenate data property values later via key names
-            fullAddress1: `${this.street}, ${this.city} ${this.state}, ${this.zip}`, // template literal (not a string literal) includes spaces and commas
-            open: parkData.data[i].operatingHours[0].description,
-            monHours: parkData.data[i].operatingHours[0].standardHours.monday,
-            tueHours: parkData.data[i].operatingHours[0].standardHours.tuesday,
-            wedHours: parkData.data[i].operatingHours[0].standardHours.wednesday,
-            thuHours: parkData.data[i].operatingHours[0].standardHours.thursday,
-            friHours: parkData.data[i].operatingHours[0].standardHours.friday,
-            satHours: parkData.data[i].operatingHours[0].standardHours.saturday,
-            sunHours: parkData.data[i].operatingHours[0].standardHours.sunday,
+        park.push({
+            name: item.name,
+            street: item.addresses[0].line1,
+            city: item.addresses[0].city,
+            state: item.addresses[0].stateCode,
+            zip: item.addresses[0].postalCode,
+            open: item.operatingHours[0].description,
+            monHours: item.operatingHours[0].standardHours.monday,
+            tueHours: item.operatingHours[0].standardHours.tuesday,
+            wedHours: item.operatingHours[0].standardHours.wednesday,
+            thuHours: item.operatingHours[0].standardHours.thursday,
+            friHours: item.operatingHours[0].standardHours.friday,
+            satHours: item.operatingHours[0].standardHours.saturday,
+            sunHours: item.operatingHours[0].standardHours.sunday,
             fees: parkFees,
-            weather: parkData.data[i].weatherInfo
-        })
-    }
-        for (const item of data.data) {
-            console.log(item.name)
-            park.push(item.name)
+            weather: item.weatherInfo
         }
+    )}
     console.log(park)
-
-    // basic model from Andrew, line 149 undefined b/c model not followed correctly
-    // const parkObj = [
-    //     {
-    //         street: data.data[i].addresses[0].line1,
-    //         city: data.data[i].addresses[0].city,
-    //         state: data.data[i].addresses[0].stateCode,
-    //         zip: data.data[i].addresses[0].postalCode,
-    //     }
-    // ];
-    // let collectedParks = [];
-    // for (const address of parkObj) {
-    //     const tempObject = {};
-    //     tempObject.street = street;
-    //     tempObject.city = city;
-    //     tempObject.state = state;
-    //     tempObject.zip = zip;
-    //     collectedParks.push(tempObject);
-    // }
-    // console.log(collectedParks);
     })
 }
 
@@ -250,6 +247,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // //define calcRoute function
 // function calcRoute() {
 //     //create request
+/*
+- change origin to localStorage.getItem under keyword "user-address"
+- change destination to localstorage.getItem under keyword "park-address"
+
+*/
+
 //     var request = {
 //         origin: document.getElementById("from").value,
 //         destination: document.getElementById("to").value,
