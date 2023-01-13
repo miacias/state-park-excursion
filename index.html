@@ -68,19 +68,30 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p>Select a Park</p>
-                                <div class="park-dropdown-container">
-                                    <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' id="park-names-dropdown" href='#' data-target='dropdown1'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a>
-                                    <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="#!">one</a></li>
-                                        <li><a href="#!">two</a></li>
-                                        <li><a href="#!">three</a></li>
-                                        <li><a href="#!">four</a></li>
-                                        <li><a href="#!">five</a></li>
-                                    </ul>
+                                <!-- <p>Select a Park</p> -->
+                                <!-- container for park names dropdown -->
+                                <div class="select-container">
+                                    <div class="input-field col s12">
+                                        <select id="park-list">
+                                            <option value="" disabled selected>Select a Park</option>
+                                            <option value="0">Option 1</option>
+                                            <option value="1">Option 2</option>
+                                            <option value="2">Option 3</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                <!-- <div class="dropdown-container"> -->
+                                    <!-- Dropdown Trigger -->
+                                    <!-- <a class='dropdown-trigger btn' id="park-names-dropdown" href='#' data-target='dropdown'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a> -->
+                                    <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
+                                    <!-- <ul id='dropdown' class='dropdown-content'>
+                                        <li><a href="#!" class="park-item">one</a></li>
+                                        <li><a href="#!" class="park-item">two</a></li>
+                                        <li><a href="#!" class="park-item">three</a></li>
+                                        <li><a href="#!" class="park-item">four</a></li>
+                                        <li><a href="#!" class="park-item">five</a></li>
+                                    </ul>
+                                </div> -->
                                 <button class="btn state-park green lighten-3" id="fetch-park-info">GO!</button>
                             </div>
                         </div>

@@ -25,7 +25,9 @@
 
 // GLOBAL VARIABLES LIST: DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
-var parkNamesDropdown = document.querySelector('#park-names-dropdown');
+var parkSelections = document.querySelector("#park-list");
+// var parkNamesDropdown = document.querySelector('.dropdown-content');
+// var dropdownTrigger = document.querySelector(".dropdown-trigger");
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var map = document.querySelector("#map");
@@ -147,11 +149,26 @@ var instance = M.Autocomplete.getInstance(usState);
 //     console.log(fill)
 // })
 
-// NATIONAL PARK SERVICES API (needs work, read comments)
+// POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE
+function populateParkNames(allParks) {
+    var parksInState = JSON.parse(localStorage.getItem("all-parks"));
+    /*
+    - create HTML list items with attributes using for loop
+    - get data from localStorage "all-parks"
+    document.createElement("option");
+    setAttribute("attrName", "value")
 
-// get list of parks within a single US state
+    for (const parksInState of parkData.data) {
+
+
+    */
+}
+
+// NATIONAL PARK SERVICES API (done)
+
+// gets list of parks within a single US state
 function getStateParkApi(stateValue) {
-    var park = [];
+    var parksInState = [];
     const stateParkApiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
     var nationalParksServicesURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateValue + "&api_key=" + stateParkApiKey;
     fetch(nationalParksServicesURL)
@@ -159,7 +176,11 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-    // pushes anonymous object to array list (needs work)
+    parksInState = JSON.parse(localStorage.getItem("all-parks"));
+    // resets value to [] instead of localStorage.getItem
+    if (parksInState === null) {
+        parksInState = [];
+    }
     for (const item of parkData.data) {
         var parkFees
         if (item.entranceFees.length === 0) {
@@ -170,7 +191,8 @@ function getStateParkApi(stateValue) {
         if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
             continue;
         }
-        park.push({
+        // pushes anonymous object of each park to array list
+        parksInState.push({
             name: item.name,
             street: item.addresses[0].line1,
             city: item.addresses[0].city,
@@ -188,20 +210,44 @@ function getStateParkApi(stateValue) {
             weather: item.weatherInfo
         }
     )}
-    console.log(park)
+    // saves all parks within one state into localStorage as stringified array of objects
+    localStorage.setItem("all-parks", JSON.stringify(parksInState));
     })
 }
 
-// stateParkFetchBtn.addEventListener('click', getStateParkAPI);
-
 // PARK NAMES LIST DROPDOWN (unused)
-document.addEventListener('DOMContentLoaded', function() {
-    var options = {
-        alignment: center,
+// document.addEventListener('DOMContentLoaded', function() {
+//     // var parkListItem = document.querySelector(".park-item");
+//     var instance = M.Dropdown.getInstance(parkListItem);
+//     M.Dropdown.init(dropdownTrigger, {
+//         coverTrigger: false,
+//         onCloseStart: function() {
+//             // parkListItem.addEventListener("change", function(event) {
+//             //     console.log(event)
+//             // })
+//             console.log("hello")
 
-    }
-    var instances = M.Dropdown.init(parkNamesDropdown, options);
+//         }
+//     });
+// });
+
+// CREATE PARK NAMES LIST SELECTOR
+document.addEventListener('DOMContentLoaded', function() {
+    var selectionEl = document.querySelectorAll('select');
+    M.FormSelect.init(selectionEl, { 
+        dropdownOptions: function(parksInState){
+            populateParkNames(parksInState)
+        }
+    });
 });
+
+// RETURN VALUE FROM PARK NAMES LIST SELECTOR
+parkSelections.addEventListener("change", function(event) {
+    event.preventDefault()
+    var indexLocation = event.target.value;
+    return indexLocation;
+})
+
 
 // MODAL TRIGGER AND CONTROL (needs work)
 // park info
@@ -210,20 +256,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Modal.init(parkInfoModal);
   });
 
-
-
-
-
-
 // GOOGLE MAPS API CONTROLS
 var storedValue = localStorage.getItem("key");
 
-console.log(storedValue);
+// console.log(storedValue);
 
-
-
-// javascript.js
-// set map options
+// set map options (javascript.js)
 var myLatLng = { lat: 38.3460, lng: -0.4907 };
 var mapOptions = {
     center: myLatLng,
@@ -232,20 +270,20 @@ var mapOptions = {
 
 };
 
-// create map
+// creates map
 var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
-// create a DirectionsService object to use the route method and get a result for our request
+// creates a DirectionsService object to use the route method and get a result for our request
 var directionsService = new google.maps.DirectionsService();
 
-// create a DirectionsRenderer object which we will use to display the route
+// creates a DirectionsRenderer object which we will use to display the route
 var directionsDisplay = new google.maps.DirectionsRenderer();
 
 // bind the DirectionsRenderer to the map
 directionsDisplay.setMap(map);
 
 
-// define calcRoute function
+// defines calcRoute function
 function calcRoute() {
 //create request
 
@@ -262,30 +300,30 @@ function calcRoute() {
         unitSystem: google.maps.UnitSystem.IMPERIAL
     }
 
-    //pass the request to the route method
+    // passes the request to the route method
     directionsService.route(request, function (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
 
-            //Get distance and time
+            // gets distance and time
             const output = document.querySelector('#output');
             output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
 
-            //display route
+            // displays route
             directionsDisplay.setDirections(result);
         } else {
-            //delete route from map
+            // deletes route from map
             directionsDisplay.setDirections({ routes: [] });
-            //center map in London
+            // centers map in London
             map.setCenter(myLatLng);
 
-            //show error message
+            // shows error message
             output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
         }
     });
 
 }
 
-//create autocomplete objects for all inputs
+// creates autocomplete objects for all inputs
 var options = {
     types: ['(cities)']
 }
