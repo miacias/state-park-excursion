@@ -22,14 +22,15 @@
     - hide empty buttons
 */
 // --------------- GLOBAL VARIABLES ---------------
+
 // DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var parkSelections = document.querySelector("#park-list");
-// var parkNamesDropdown = document.querySelector('.dropdown-content');
-// var dropdownTrigger = document.querySelector(".dropdown-trigger");
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var map = document.querySelector("#map");
+// var parkNamesDropdown = document.querySelector('.dropdown-content');
+// var dropdownTrigger = document.querySelector(".dropdown-trigger");
 
 
 // --------------- FUNCTIONALITY BELOW ---------------
@@ -186,7 +187,7 @@ function getStateParkApi(stateValue) {
 // GOOGLE MAPS API CONTROLS
 var storedValue = localStorage.getItem("key");
 
-// console.log(storedValue);
+console.log("Google API key: " + storedValue);
 
 // set map options (javascript.js)
 var myLatLng = { lat: 38.3460, lng: -0.4907 };
@@ -194,7 +195,6 @@ var mapOptions = {
     center: myLatLng,
     zoom: 7,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-
 };
 
 // creates map
@@ -308,7 +308,7 @@ parkSelections.addEventListener("change", function(event) {
     console.log("value #: " + indexLocation);
     return indexLocation;
     /* 
-    - is it possible to identify the textContent of the selected item???
+    - is it possible to identify the textContent of the selected item instead of value number???
     */
 })
 
