@@ -150,16 +150,15 @@ var instance = M.Autocomplete.getInstance(usState);
 // })
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
-// currently posts items in Z-A order even though value number is A-Z (adjustments not needed for MVP)
 function populateParkNames(allParks) {
     var parksInState = JSON.parse(localStorage.getItem("all-parks"));
-    var count = 0;
-    for (const value of parksInState) {
+    var count = parksInState.length - 1; // sets counter to begin at index 0 to match localStorage order
+    for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
         selectOption.setAttribute("value", count); // sets attribute of value number
         selectOption.textContent = value.name; // sets name of park
         document.querySelector("option").after(selectOption); // adds new option after last option
-        count ++; // counter increases by one
+        count --; // counter decreases by one
     }
 }
 populateParkNames() // calling on refresh for testing purposes
