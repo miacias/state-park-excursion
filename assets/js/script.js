@@ -74,9 +74,9 @@ function showMap() {
 }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
-function populateParkNames(allParks) {
-    var parksInState = JSON.parse(localStorage.getItem("all-parks"));
-    var count = parksInState.length - 1; // sets counter to begin at index 0 to match localStorage order
+function populateParkNames(parksInState) {
+    var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
+    var count = parksInState?parksInState.length - 1: 0; // sets counter to begin at index 0 to match localStorage order
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
         selectOption.setAttribute("value", count); // sets attribute of value number
@@ -100,76 +100,71 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-    parksInState = JSON.parse(localStorage.getItem("all-parks"));
+    parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
     // resets value to [] instead of localStorage.getItem
-    if (parksInState === null) {
-        parksInState = [];
-    }
-    // ISSUE FOUND: for of loop saves data as one giant array of strings into localStorage.
-    // currently unusable at extraction point without further research
-    // for (const item of parkData.data) {
-    //     var parkFees
-    //     if (item.entranceFees.length === 0) {
-    //         parkFees = "Call for updated prices!"
-    //     } else {
-    //         parkFees = item.entranceFees[0].description;
-    //     }
-    //     if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
-    //         continue;
-    //     }
-    //     // pushes anonymous object of each park to array list
-    //     parksInState.push({
-    //         name: item.name,
-    //         street: item.addresses[0].line1,
-    //         city: item.addresses[0].city,
-    //         state: item.addresses[0].stateCode,
-    //         zip: item.addresses[0].postalCode,
-    //         open: item.operatingHours[0].description,
-    //         monHours: item.operatingHours[0].standardHours.monday,
-    //         tueHours: item.operatingHours[0].standardHours.tuesday,
-    //         wedHours: item.operatingHours[0].standardHours.wednesday,
-    //         thuHours: item.operatingHours[0].standardHours.thursday,
-    //         friHours: item.operatingHours[0].standardHours.friday,
-    //         satHours: item.operatingHours[0].standardHours.saturday,
-    //         sunHours: item.operatingHours[0].standardHours.sunday,
-    //         fees: parkFees,
-    //         weather: item.weatherInfo
-    //     }
-    // )}
-    for (var i = 0; i < parkData.data.length; i++) {
+    for (const item of parkData.data) {
         var parkFees
-        if (parkData.data[i].entranceFees.length === 0) {
+        if (item.entranceFees.length === 0) {
             parkFees = "Call for updated prices!"
         } else {
-            parkFees = parkData.data[i].entranceFees[0].description;
+            parkFees = item.entranceFees[0].description;
         }
-        if (parkData.data[i].addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+        if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
             continue;
         }
         // pushes anonymous object of each park to array list
         parksInState.push({
-            name: parkData.data[i].name,
-            optionValue: i,
-            street: parkData.data[i].addresses[0].line1,
-            city: parkData.data[i].addresses[0].city,
-            state: parkData.data[i].addresses[0].stateCode,
-            zip: parkData.data[i].addresses[0].postalCode,
-            open: parkData.data[i].operatingHours[0].description,
-            monHours: parkData.data[i].operatingHours[0].standardHours.monday,
-            tueHours: parkData.data[i].operatingHours[0].standardHours.tuesday,
-            wedHours: parkData.data[i].operatingHours[0].standardHours.wednesday,
-            thuHours: parkData.data[i].operatingHours[0].standardHours.thursday,
-            friHours: parkData.data[i].operatingHours[0].standardHours.friday,
-            satHours: parkData.data[i].operatingHours[0].standardHours.saturday,
-            sunHours: parkData.data[i].operatingHours[0].standardHours.sunday,
+            name: item.name,
+            street: item.addresses[0].line1,
+            city: item.addresses[0].city,
+            state: item.addresses[0].stateCode,
+            zip: item.addresses[0].postalCode,
+            open: item.operatingHours[0].description,
+            monHours: item.operatingHours[0].standardHours.monday,
+            tueHours: item.operatingHours[0].standardHours.tuesday,
+            wedHours: item.operatingHours[0].standardHours.wednesday,
+            thuHours: item.operatingHours[0].standardHours.thursday,
+            friHours: item.operatingHours[0].standardHours.friday,
+            satHours: item.operatingHours[0].standardHours.saturday,
+            sunHours: item.operatingHours[0].standardHours.sunday,
             fees: parkFees,
-            weather: parkData.data[i].weatherInfo
-        })
-    }
+            weather: item.weatherInfo
+        }
+    )}
+    // for (var i = 0; i < parkData.data.length; i++) {
+    //     var parkFees
+    //     if (parkData.data[i].entranceFees.length === 0) {
+    //         parkFees = "Call for updated prices!"
+    //     } else {
+    //         parkFees = parkData.data[i].entranceFees[0].description;
+    //     }
+    //     if (parkData.data[i].addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+    //         continue;
+    //     }
+    //     // pushes anonymous object of each park to array list
+    //     parksInState.push({
+    //         name: parkData.data[i].name,
+    //         optionValue: i,
+    //         street: parkData.data[i].addresses[0].line1,
+    //         city: parkData.data[i].addresses[0].city,
+    //         state: parkData.data[i].addresses[0].stateCode,
+    //         zip: parkData.data[i].addresses[0].postalCode,
+    //         open: parkData.data[i].operatingHours[0].description,
+    //         monHours: parkData.data[i].operatingHours[0].standardHours.monday,
+    //         tueHours: parkData.data[i].operatingHours[0].standardHours.tuesday,
+    //         wedHours: parkData.data[i].operatingHours[0].standardHours.wednesday,
+    //         thuHours: parkData.data[i].operatingHours[0].standardHours.thursday,
+    //         friHours: parkData.data[i].operatingHours[0].standardHours.friday,
+    //         satHours: parkData.data[i].operatingHours[0].standardHours.saturday,
+    //         sunHours: parkData.data[i].operatingHours[0].standardHours.sunday,
+    //         fees: parkFees,
+    //         weather: parkData.data[i].weatherInfo
+    //     })
+    // }
     // saves all parks within one state into localStorage as stringified array of objects
     localStorage.setItem("all-parks", JSON.stringify(parksInState));
-    return parksInState;
     })
+    return parksInState;
 }
 
 // PARK NAMES LIST DROPDOWN (unused)
@@ -294,9 +289,14 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     var selectionEl = document.querySelectorAll('select');
     M.FormSelect.init(selectionEl, { 
-        dropdownOptions: function(parksInState){
-            populateParkNames(parksInState)
-        }
+        // dropdownOptions: (function() {
+        //     var allParkNames = []
+        //     for (const item of localStorage.getItem("all-parks")) {
+        //         console.log("we in here: ", item)
+        //         allParkNames.push(item.name);
+        //     }
+        //     return allParkNames;
+        // })()
     });
 });
 
