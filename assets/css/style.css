@@ -50,9 +50,25 @@ main {
     font-size: smaller;
 }
 
-/* .our-parks-container,
-.set-address-container,
-.search-history-container {
-    border-radius: 100em;
-} */
->>>>>>> 2b79ac2670f6b001ad3b2ea18303d8f4f1067a81
+/*map*/
+#googleMap {
+    width: 80%;
+    height: 400px;
+    margin: 10px auto;
+  }
+  
+/*output box*/
+#output {
+text-align: center;
+font-size: 2em;
+margin: 20px auto;
+}
+
+#mode {
+color: black;
+}
+
+body {
+    font-family: 'Lilita One', cursive;
+    margin: 0;
+}

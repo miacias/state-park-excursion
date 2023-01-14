@@ -7,13 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <!-- Google Font: Caveat Brush -->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    <!-- Google Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <!-- Compiled and minified Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Materialize icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- local CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>National Parks Trips</title>
 </head>
 <body class="blue-grey darken-2">
@@ -34,8 +36,23 @@
                     <!-- width of card -->
                     <div class="col s12 m10">
                         <div class="card">
+                            <!-- saves user starting address -->
                             <div class="card-content red-text text-lighten-5">
-                                <span class="card-title">Our Parks!</span>
+                                <span class="card-title">Visit!</span>
+                                <p>Add Starting Address</p>
+                                <!-- icon prefix form -->
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s10">
+                                                <i class="material-icons prefix">home</i>
+                                                <input id="icon_prefix" type="text" class="validate">
+                                                <label for="icon_prefix">ADDRESS</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <span class="card-title">Filter by US State!</span>
                                 <p>Select a State</p>
                                 <!-- Autocomplete form -->
                                 <div class="row">
@@ -49,22 +66,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p>Select a Park</p>
-                                <div class="park-dropdown-container">
-                                    <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' id="park-names-dropdown" href='#' data-target='dropdown1'><i class="small material-icons prefix">arrow_drop_down</i>Parks</a>
-                                    <!-- Dropdown Structure for parks. Use JS to create and populate using fetched data -->
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="#!">one</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">two</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">three</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">four</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="#!">five</a></li>
-                                    </ul>
+                                <!-- container for park names dropdown -->
+                                <div class="select-container">
+                                    <span class="card-title">Our Parks!</span>
+                                    <p>Select a Park</p>
+                                    <div class="input-field col s12">
+                                        <select id="park-list">
+                                            <option value="" disabled selected>Parks</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <button class="btn state-park green lighten-3" id="fetch-park-info">GO!</button>
                             </div>
@@ -73,34 +83,6 @@
                 </div>
             </section>
 
-            <!-- Card for searching distance -->
-            <section class="set-address-card-container">
-                <div class="row">
-                    <!-- width of card -->
-                    <div class="col s12 m10">
-                        <div class="card">
-                            <div class="card-content red-text text-lighten-5">
-                                <span class="card-title">Visit!</span>
-                                <p>Starting Address</p>
-                                <!-- icon prefix form -->
-                                <div class="row">
-                                    <form class="col s12">
-                                        <div class="row">
-                                            <div class="input-field col s10">
-                                                <i class="material-icons prefix">home</i>
-                                                <input id="icon_prefix" type="text" class="validate">
-                                                <label for="icon_prefix">ADDRESS</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                  </div>
-                                <button class="btn green lighten-3" id="set-my-address">GO!</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
             <!-- Card for search history -->
             <section class="search-history-card-container">
                 <div class="row">
@@ -129,7 +111,6 @@
                             <li class="divider" tabindex="-1"></li>
                             <div class="card-action">
                                 <a href="#"><button class="btn green lighten-3 black-text" id="clear-history">Clear History</button></a>
-                                <a href="#"><button class="btn green lighten-3 black-text" id="clear-home">Clear Home</button></a>
                             </div>
                         </div>
                     </div>
@@ -142,10 +123,10 @@
             <div class="valign-wrapper" id="carousel">
                 <!-- when no map is visible, show a carousel of images below -->
                 <section class="carousel carousel-slider valign">
-                    <!-- fixed text overlay on top of images -->
-                    <div class="carousel-fixed-item slider" id="text-overlay">
+                    <!-- fixed text overlay on top of images. consider use after MVP completed -->
+                    <!-- <div class="carousel-fixed-item slider" id="text-overlay">
                         <h2 class="caption center-align white-text">test</h2>
-                    </div>
+                    </div> -->
                     <!-- carouseling images -->
                     <a class="carousel-item" href="#one!"><img src="./assets/images/design/Compass overlooking the valley below - Jamie Street.jpg" alt=""></a>
                     <a class="carousel-item" href="#two!"><img src="./assets/images/design/Let the adventures begin - Chris Lawton.jpg" alt=""></a>
@@ -155,7 +136,16 @@
                 </section>
                 
                 <!-- populated map below -->
-                <section class="map valign" id="map"></section>
+                <section class="map-container valign">
+                    <div>
+                        <div id="googleMap">
+            
+                        </div>
+                        <div id="output">
+            
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <!-- Modal Trigger -->
@@ -179,10 +169,51 @@
         <h6>Enjoy your trip and safe travels!</h6>
     </footer>
 
+   
+
+
+    <div>
+        <div class="container">
+            <p>This App Will Help You Calculate Your Travelling Distances.</p>
+            <form>
+                <div>
+                    <label for="from"></label>
+                    <div>
+                        <input type="text" id="from" placeholder="Origin">
+                    </div>
+               </div>
+               <div>
+                
+                    <label for="to"></label>
+                    <div>
+                        <input type="text" id="to" placeholder="Destination">
+                    </div>
+                  
+                 </div>
+                 
+            </form>
+
+            <div>
+                <button onclick="calcRoute();"></button>
+            </div>
+        </div>
+        <!-- <div>
+            <div id="googleMap">
+
+            </div>
+            <div id="output">
+
+            </div>
+        </div> -->
+
+    </div>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3fsu0mF-blNatPt8XpDNehaPGvjpj01M&libraries=places"></script>
+    <!-- Google Maps jQuery controls -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Compiled and minified Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- local JS -->
     <script src="./assets/js/script.js"></script>
-
 </body>
 </html>
