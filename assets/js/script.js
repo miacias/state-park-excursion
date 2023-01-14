@@ -29,6 +29,8 @@ var parkSelections = document.querySelector("#park-list");
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var map = document.querySelector("#googleMap");
+
+
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
 console.log("Google API key: " + storedValue);
@@ -40,7 +42,36 @@ var input2 = document.getElementById("to");
 // var dropdownTrigger = document.querySelector(".dropdown-trigger");
 
 
+
+
 // --------------- FUNCTIONALITY BELOW ---------------
+//create a script element with a src attribute, add another attribute defer (true)
+
+//  var script = document.createElement('script');
+//          script.src = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
+//         document.body.appendChild(script);
+
+//Create Function that adds the secure API key to the HTML file 
+function apiKeyAdder() {
+            //var apiKeyLink = document.getElementById("api-key");
+          var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
+          console.log(createdLink)
+            //apiKeyLink.setAttribute("src", createdLink);
+            //apiKeyLink.setAttribute("defer", true);
+          
+            var s = document.createElement( 'script' );
+            s.setAttribute( 'src', createdLink );
+            s.onload=callback;
+            document.body.appendChild( s );
+
+
+
+
+
+        }
+
+        apiKeyAdder()
+
 
 
 // DEFAULT PAGE VIEW ON LOAD (not done)
