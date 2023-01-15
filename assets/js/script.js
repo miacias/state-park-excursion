@@ -117,70 +117,38 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-    parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
-    // resets value to [] instead of localStorage.getItem
-    for (const item of parkData.data) {
-        var parkFees
-        if (item.entranceFees.length === 0) {
-            parkFees = "Call for updated prices!"
-        } else {
-            parkFees = item.entranceFees[0].description;
-        }
-        if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
-            continue;
-        }
-        // pushes anonymous object of each park to array list
-        parksInState.push({
-            name: item.name,
-            street: item.addresses[0].line1,
-            city: item.addresses[0].city,
-            state: item.addresses[0].stateCode,
-            zip: item.addresses[0].postalCode,
-            open: item.operatingHours[0].description,
-            monHours: item.operatingHours[0].standardHours.monday,
-            tueHours: item.operatingHours[0].standardHours.tuesday,
-            wedHours: item.operatingHours[0].standardHours.wednesday,
-            thuHours: item.operatingHours[0].standardHours.thursday,
-            friHours: item.operatingHours[0].standardHours.friday,
-            satHours: item.operatingHours[0].standardHours.saturday,
-            sunHours: item.operatingHours[0].standardHours.sunday,
-            fees: parkFees,
-            weather: item.weatherInfo
-        }
-    )}
-    // for (var i = 0; i < parkData.data.length; i++) {
-    //     var parkFees
-    //     if (parkData.data[i].entranceFees.length === 0) {
-    //         parkFees = "Call for updated prices!"
-    //     } else {
-    //         parkFees = parkData.data[i].entranceFees[0].description;
-    //     }
-    //     if (parkData.data[i].addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
-    //         continue;
-    //     }
-    //     // pushes anonymous object of each park to array list
-    //     parksInState.push({
-    //         name: parkData.data[i].name,
-    //         optionValue: i,
-    //         street: parkData.data[i].addresses[0].line1,
-    //         city: parkData.data[i].addresses[0].city,
-    //         state: parkData.data[i].addresses[0].stateCode,
-    //         zip: parkData.data[i].addresses[0].postalCode,
-    //         open: parkData.data[i].operatingHours[0].description,
-    //         monHours: parkData.data[i].operatingHours[0].standardHours.monday,
-    //         tueHours: parkData.data[i].operatingHours[0].standardHours.tuesday,
-    //         wedHours: parkData.data[i].operatingHours[0].standardHours.wednesday,
-    //         thuHours: parkData.data[i].operatingHours[0].standardHours.thursday,
-    //         friHours: parkData.data[i].operatingHours[0].standardHours.friday,
-    //         satHours: parkData.data[i].operatingHours[0].standardHours.saturday,
-    //         sunHours: parkData.data[i].operatingHours[0].standardHours.sunday,
-    //         fees: parkFees,
-    //         weather: parkData.data[i].weatherInfo
-    //     })
-    // }
-    // saves all parks within one state into localStorage as stringified array of objects
-    localStorage.setItem("all-parks", JSON.stringify(parksInState));
-    populateParkNames()
+        console.log(parkData)
+        parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
+        // resets value to [] instead of localStorage.getItem
+        for (const item of parkData.data) {
+            if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+                continue;
+            }
+            // var thing1 = {};
+            // item.addresses[0].city.length === 0 ? "nothing" : thing1['city'] = item.addresses[0].city
+            // pushes anonymous object of each park to array list
+            parksInState.push({ // checks if value exists, then adds a placeholder or the API-provided value
+                name: item.name === null ? "One of the best parks in state!" : item.name,
+                street: item.addresses[0].line1 === null ? "Please call for directions." : item.addresses[0].line1,
+                city: item.addresses[0].city === null ? "" : item.addresses[0].city,
+                state: item.addresses[0].stateCode === null ? "" : item.addresses[0].stateCode,
+                zip: item.addresses[0].postalCode === null ? "" : item.addresses[0].postalCode,
+                open: item.operatingHours.length === 0 ? "Please call for updated hours." : item.operatingHours[0].description,
+                monHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.monday,
+                tueHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.tuesday,
+                wedHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.wednesday,
+                thuHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.thursday,
+                friHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.friday,
+                satHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.saturday,
+                sunHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.sunday,
+                fees: item.entranceFees.length === 0 ? "Call or visit our site for updated prices!" : item.entranceFees[0].description,
+                weather: item.weatherInfo === null ? "" : item.weatherInfo
+            }
+        )}
+        // saves all parks within one state into localStorage as stringified array of objects
+        localStorage.setItem("all-parks", JSON.stringify(parksInState));
+        populateParkNames()
+        console.log(parksInState)
     })
     return parksInState;
 }
