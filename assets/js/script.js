@@ -27,7 +27,8 @@ var parkSelections = document.querySelector("#park-list");
 var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
-var clearHistory = document.querySelector("#clear-history");
+var clearHistoryBtn = document.querySelector("#clear-history");
+var historyContainerEl = document.getElementsByClassName("collection");
 var map = document.querySelector("#googleMap");
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
@@ -76,7 +77,6 @@ function showMap() {
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
 function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
-    // var selectionEl = document.querySelectorAll('select');
     var count = parksInState?parksInState.length - 1: 0; // sets counter to begin at index 0 to match localStorage order
     var parkOption = document.getElementsByClassName(".option")
     if (parkOption) {
@@ -347,8 +347,16 @@ var instance = M.Autocomplete.getInstance(usState);
 // })
 
 // CLEAR SEARCH HISTORY
-clearHistory.addEventListener("click", function() {
+clearHistoryBtn.addEventListener("click", function() {
+    // empties "park-history"
     localStorage.clear("park-history");
+    // checks if search history is on page
+    if (document.querySelector(".collection-item")) {
+        // for every item, remove them from the end until empty
+        for (const unwantedHistory of [...historyContainerEl]) {
+            historyContainerEl.lastChild.remove();
+        }
+    }
     /*
     - removes children from container
     - restores placeholder text/images
