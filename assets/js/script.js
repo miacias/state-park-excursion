@@ -348,9 +348,8 @@ var instance = M.Autocomplete.getInstance(usState);
 
 function clearHistory() {
     historyContainerEl.remove()
-    // for (var i = 0; i < historyContainerEl.children.length; i++) {
-    //     historyContainerEl.removeChild([...historyContainerEl.children][i]);
-    // }
+    var historyCardEl = document.querySelector(".search-history-card-container");
+    historyCardEl.setAttribute("class", "hide")
 }
 
 // CLEAR SEARCH HISTORY
@@ -360,13 +359,8 @@ clearHistoryBtn.addEventListener("click", function() {
     // checks if search history is on page
     if (historyContainerEl.hasChildNodes()) {
         clearHistory()
-        // for every item, remove them from the end until empty
-    //     for (const unwantedHistory of [...historyContainerEl]()) {
-    //         historyContainerEl.lastChild.remove();
-    //     }
     }
     /*
-    - removes children from container
     - restores placeholder text/images
     */
 })
