@@ -1,6 +1,4 @@
 /*
-- MIKE: save one park data into localStorage under "this-park"
-    - one park can be in this spot, use splice to remove the other one when a user switches park
 - save one park ADDRESS into localStorage under "park-address"
     - one park can be in this spot, use splice to remove the other one when a user switches park.
     - grab park address from localStorage keyword "this-park"
@@ -26,6 +24,7 @@
 // DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var parkSelections = document.querySelector("#park-list");
+var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var map = document.querySelector("#googleMap");
@@ -74,18 +73,35 @@ function showMap() {
 }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
-function populateParkNames(parksInState) {
+function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
+    // var selectionEl = document.querySelectorAll('select');
     var count = parksInState?parksInState.length - 1: 0; // sets counter to begin at index 0 to match localStorage order
+    var parkOption = document.getElementsByClassName(".option")
+    if (parkOption) {
+        for (const unwantedPark of [...selectionEl]) {
+            selectionEl.lastChild.remove();
+        }
+        var placeholderOption = document.createElement("option", {
+            id: "placeholder-option",
+            value: "",
+            disabled: true,
+            selected: true,
+        });
+        selectionEl.appendChild(placeholderOption);
+    }
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
+        selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
         selectOption.textContent = value.name; // sets name of park
         document.querySelector("option").after(selectOption); // adds new option after last option
         count --; // counter decreases by one
     }
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
 }
-populateParkNames() // calling on refresh for testing purposes
+// populateParkNames() // calling on refresh for testing purposes
 
 // NATIONAL PARK SERVICES API (done)
 
@@ -163,6 +179,7 @@ function getStateParkApi(stateValue) {
     // }
     // saves all parks within one state into localStorage as stringified array of objects
     localStorage.setItem("all-parks", JSON.stringify(parksInState));
+    populateParkNames()
     })
     return parksInState;
 }
@@ -287,17 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // CREATE PARK NAMES LIST SELECTOR
 document.addEventListener('DOMContentLoaded', function() {
-    var selectionEl = document.querySelectorAll('select');
-    M.FormSelect.init(selectionEl, { 
-        // dropdownOptions: (function() {
-        //     var allParkNames = []
-        //     for (const item of localStorage.getItem("all-parks")) {
-        //         console.log("we in here: ", item)
-        //         allParkNames.push(item.name);
-        //     }
-        //     return allParkNames;
-        // })()
-    });
+    // var selectionEl = document.querySelectorAll('select');
+    M.FormSelect.init(selectionEl);
 });
 
 // RETURN VALUE FROM PARK NAMES LIST SELECTOR
@@ -305,6 +313,7 @@ parkSelections.addEventListener("change", function(event) {
     event.preventDefault()
     var indexLocation = event.target.value;
     console.log("value #: " + indexLocation);
+    console.log(instance.getSelectedValues())
     return indexLocation;
     /* 
     - is it possible to identify the textContent of the selected item instead of value number???
