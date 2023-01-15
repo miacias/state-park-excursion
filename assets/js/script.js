@@ -59,6 +59,14 @@ function defaultView() {
 }
 defaultView();
 
+// CLEAR HISTORY AND HIDE CARD
+function clearHistory() {
+    historyContainerEl.remove()
+    var historyCardEl = document.querySelector(".search-history-card-container");
+    historyCardEl.setAttribute("class", "hide")
+}
+
+// MAP FUNCTIONALITY
 function populateMap() {
     /*
     - insert Josh's code that shows map address
@@ -67,8 +75,8 @@ function populateMap() {
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
-    // checks if "this-park" and "user-address" exists (implies map is populated), then changes view
-    if ((JSON.parse(localStorage.getItem("this-park")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
+    // checks if "all-parks" and "user-address" exists (implies map is populated), then changes view
+    if ((JSON.parse(localStorage.getItem("all-parks")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
         carousel.classList.add("hide");
         map.classList.remove("hide");
     }
@@ -346,12 +354,6 @@ var instance = M.Autocomplete.getInstance(usState);
 //     console.log(fill)
 // })
 
-function clearHistory() {
-    historyContainerEl.remove()
-    var historyCardEl = document.querySelector(".search-history-card-container");
-    historyCardEl.setAttribute("class", "hide")
-}
-
 // CLEAR SEARCH HISTORY
 clearHistoryBtn.addEventListener("click", function() {
     // empties "park-history"
@@ -360,7 +362,4 @@ clearHistoryBtn.addEventListener("click", function() {
     if (historyContainerEl.hasChildNodes()) {
         clearHistory()
     }
-    /*
-    - restores placeholder text/images
-    */
 })
