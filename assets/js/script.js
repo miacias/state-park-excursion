@@ -27,6 +27,7 @@ var parkSelections = document.querySelector("#park-list");
 var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
+var clearHistory = document.querySelector("#clear-history");
 var map = document.querySelector("#googleMap");
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
@@ -344,3 +345,12 @@ var instance = M.Autocomplete.getInstance(usState);
 // instance.onAutocomplete(function(fill) {
 //     console.log(fill)
 // })
+
+// CLEAR SEARCH HISTORY
+clearHistory.addEventListener("click", function() {
+    localStorage.clear("park-history");
+    /*
+    - removes children from container
+    - restores placeholder text/images
+    */
+})
