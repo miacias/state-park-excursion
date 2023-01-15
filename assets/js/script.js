@@ -28,7 +28,7 @@ var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var clearHistoryBtn = document.querySelector("#clear-history");
-var historyContainerEl = document.getElementsByClassName("collection");
+var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
