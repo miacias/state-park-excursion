@@ -153,24 +153,6 @@ function getStateParkApi(stateValue) {
     return parksInState;
 }
 
-// PARK NAMES LIST DROPDOWN (unused)
-// document.addEventListener('DOMContentLoaded', function() {
-//     // var parkListItem = document.querySelector(".park-item");
-//     var instance = M.Dropdown.getInstance(parkListItem);
-//     M.Dropdown.init(dropdownTrigger, {
-//         coverTrigger: false,
-//         onCloseStart: function() {
-//             // parkListItem.addEventListener("change", function(event) {
-//             //     console.log(event)
-//             // })
-//             console.log("hello")
-
-//         }
-//     });
-// });
-
-
-
 // GOOGLE MAPS API CONTROLS
 
 // set map options (javascript.js)
