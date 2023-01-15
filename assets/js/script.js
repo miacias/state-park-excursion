@@ -87,6 +87,7 @@ function populateParkNames() {
             value: "",
             disabled: true,
             selected: true,
+            textContent: "Parks"
         });
         selectionEl.appendChild(placeholderOption);
     }
