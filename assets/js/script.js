@@ -346,16 +346,24 @@ var instance = M.Autocomplete.getInstance(usState);
 //     console.log(fill)
 // })
 
+function clearHistory() {
+    historyContainerEl.remove()
+    // for (var i = 0; i < historyContainerEl.children.length; i++) {
+    //     historyContainerEl.removeChild([...historyContainerEl.children][i]);
+    // }
+}
+
 // CLEAR SEARCH HISTORY
 clearHistoryBtn.addEventListener("click", function() {
     // empties "park-history"
     localStorage.clear("park-history");
     // checks if search history is on page
-    if (document.querySelector(".collection-item")) {
+    if (historyContainerEl.hasChildNodes()) {
+        clearHistory()
         // for every item, remove them from the end until empty
-        for (const unwantedHistory of [...historyContainerEl]) {
-            historyContainerEl.lastChild.remove();
-        }
+    //     for (const unwantedHistory of [...historyContainerEl]()) {
+    //         historyContainerEl.lastChild.remove();
+    //     }
     }
     /*
     - removes children from container
