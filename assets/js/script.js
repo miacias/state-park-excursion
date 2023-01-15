@@ -15,9 +15,6 @@
     - separate modal into two sections: 
         - (1) gets data from localStorage "this-park" (relevant info)
         - (2) gets data from google maps API call (travel distance and time)
-- function to clear history
-    - clear localStorage by keyword: "park-history"
-    - hide empty buttons
 */
 // --------------- GLOBAL VARIABLES ---------------
 
