@@ -15,9 +15,6 @@
     - separate modal into two sections: 
         - (1) gets data from localStorage "this-park" (relevant info)
         - (2) gets data from google maps API call (travel distance and time)
-- function to clear history
-    - clear localStorage by keyword: "park-history"
-    - hide empty buttons
 */
 // --------------- GLOBAL VARIABLES ---------------
 
@@ -27,6 +24,8 @@ var parkSelections = document.querySelector("#park-list");
 var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
+var clearHistoryBtn = document.querySelector("#clear-history");
+var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
@@ -57,6 +56,14 @@ function defaultView() {
 }
 defaultView();
 
+// CLEAR HISTORY AND HIDE CARD
+function clearHistory() {
+    historyContainerEl.remove()
+    var historyCardEl = document.querySelector(".search-history-card-container");
+    historyCardEl.setAttribute("class", "hide")
+}
+
+// MAP FUNCTIONALITY
 function populateMap() {
     /*
     - insert Josh's code that shows map address
@@ -65,8 +72,8 @@ function populateMap() {
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
-    // checks if "this-park" and "user-address" exists (implies map is populated), then changes view
-    if ((JSON.parse(localStorage.getItem("this-park")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
+    // checks if "all-parks" and "user-address" exists (implies map is populated), then changes view
+    if ((JSON.parse(localStorage.getItem("all-parks")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
         carousel.classList.add("hide");
         map.classList.remove("hide");
     }
@@ -75,20 +82,18 @@ function showMap() {
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
 function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
-    // var selectionEl = document.querySelectorAll('select');
-    var count = parksInState?parksInState.length - 1: 0; // sets counter to begin at index 0 to match localStorage order
-    var parkOption = document.getElementsByClassName(".option")
+    var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
+    var parkOption = document.getElementsByClassName(".option");
     if (parkOption) {
         for (const unwantedPark of [...selectionEl]) {
             selectionEl.lastChild.remove();
         }
-        var placeholderOption = document.createElement("option", {
-            id: "placeholder-option",
-            value: "",
-            disabled: true,
-            selected: true,
-            textContent: "Parks"
-        });
+        var placeholderOption = document.createElement("option")
+        placeholderOption.setAttribute("id", "placeholder-option");
+        placeholderOption.setAttribute("value", "");
+        placeholderOption.setAttribute("disabled", true);
+        placeholderOption.setAttribute("selected", true);
+        placeholderOption.textContent = "PARKS"
         selectionEl.appendChild(placeholderOption);
     }
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
@@ -344,3 +349,13 @@ var instance = M.Autocomplete.getInstance(usState);
 // instance.onAutocomplete(function(fill) {
 //     console.log(fill)
 // })
+
+// CLEAR SEARCH HISTORY
+clearHistoryBtn.addEventListener("click", function() {
+    // empties "park-history"
+    localStorage.clear("park-history");
+    // checks if search history is on page
+    if (historyContainerEl.hasChildNodes()) {
+        clearHistory()
+    }
+})
