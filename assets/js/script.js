@@ -66,20 +66,20 @@ function apiKeyAdder() {
 
 apiKeyAdder()
 
-// DEFAULT PAGE VIEW ON LOAD (not done)
-function defaultView() {
-    /* 
-    need to add if statement or adjust if statement with &&:
-        - include what if a map was loaded (show map), otherwise show default view below
-    */
-    if (carousel.classList.contains("hide")) {
-        carousel.classList.remove("hide");
-    }
-    if (!map.classList.contains("hide")) {
-        map.classList.add("hide");
-    }
-}
-defaultView();
+// DEFAULT PAGE VIEW ON LOAD (not done) COMMENT BACK IN AFTER INTEGRATING MAP
+// function defaultView() {
+//     /* 
+//     need to add if statement or adjust if statement with &&:
+//         - include what if a map was loaded (show map), otherwise show default view below
+//     */
+//     if (carousel.classList.contains("hide")) {
+//         carousel.classList.remove("hide");
+//     }
+//     if (!map.classList.contains("hide")) {
+//         map.classList.add("hide");
+//     }
+// }
+// defaultView();
 
 function populateMap() {
     /*
@@ -209,8 +209,9 @@ function getStateParkApi(stateValue) {
 
 
 // GOOGLE MAPS API CONTROLS
-setInterval(function(){
-// set map options (javascript.js)
+setTimeout(function(){
+  
+    // set map options (javascript.js)
 var myLatLng = { lat: 39.9526, lng: 75.1652 };
 var mapOptions = {
     center: myLatLng,
@@ -294,7 +295,7 @@ stateParkFetchBtn.addEventListener("click", calcRoute)
 //Sends inputted user address to local storage
 stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
 
-
+}, 3000)
 // IMAGE CAROUSEL CONTROLS (done)
 // DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
@@ -421,4 +422,5 @@ var instance = M.Autocomplete.getInstance(usState);
 // instance.onAutocomplete(function(fill) {
 //     console.log(fill)
 // })
-}, 3000)
+
+
