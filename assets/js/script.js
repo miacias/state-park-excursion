@@ -82,19 +82,18 @@ function showMap() {
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
 function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
-    var count = parksInState?parksInState.length - 1: 0; // sets counter to begin at index 0 to match localStorage order
-    var parkOption = document.getElementsByClassName(".option")
+    var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
+    var parkOption = document.getElementsByClassName(".option");
     if (parkOption) {
         for (const unwantedPark of [...selectionEl]) {
             selectionEl.lastChild.remove();
         }
-        var placeholderOption = document.createElement("option", {
-            id: "placeholder-option",
-            value: "",
-            disabled: true,
-            selected: true,
-            textContent: "Parks"
-        });
+        var placeholderOption = document.createElement("option")
+        placeholderOption.setAttribute("id", "placeholder-option");
+        placeholderOption.setAttribute("value", "");
+        placeholderOption.setAttribute("disabled", true);
+        placeholderOption.setAttribute("selected", true);
+        placeholderOption.textContent = "PARKS"
         selectionEl.appendChild(placeholderOption);
     }
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
