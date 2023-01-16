@@ -109,6 +109,7 @@ function populateParkNames() {
 }
 // populateParkNames() // calling on refresh for testing purposes
 
+
 // NATIONAL PARK SERVICES API (done)
 
 // gets list of parks within a single US state (done)
@@ -268,13 +269,16 @@ document.addEventListener('DOMContentLoaded', function() {
 parkSelections.addEventListener("change", function(event) {
     event.preventDefault()
     var indexLocation = event.target.value;
-    console.log("value #: " + indexLocation);
-    console.log(instance.getSelectedValues())
-    return indexLocation;
-    /* 
-    - is it possible to identify the textContent of the selected item instead of value number???
-    */
+    return selectedPark(indexLocation);
 })
+
+// PUTS INFORMATION FROM SELECTED PARK INTO LOCALSTORAGE (DONE)
+function selectedPark(indexLocation) {
+    let chosenPark = JSON.parse(localStorage.getItem("all-parks"))[indexLocation]
+    var onePark = [];
+    onePark = JSON.parse(localStorage.getItem("this-park")) || [];
+    localStorage.setItem("this-park", JSON.stringify(chosenPark));
+}
 
 // MODAL TRIGGER AND CONTROL (needs work)
 // park info
