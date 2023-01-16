@@ -1,6 +1,4 @@
 /*
-- MIKE: save one park data into localStorage under "this-park"
-    - one park can be in this spot, use splice to remove the other one when a user switches park
 - save one park ADDRESS into localStorage under "park-address"
     - one park can be in this spot, use splice to remove the other one when a user switches park.
     - grab park address from localStorage keyword "this-park"
@@ -17,17 +15,17 @@
     - separate modal into two sections: 
         - (1) gets data from localStorage "this-park" (relevant info)
         - (2) gets data from google maps API call (travel distance and time)
-- function to clear history
-    - clear localStorage by keyword: "park-history"
-    - hide empty buttons
 */
 // --------------- GLOBAL VARIABLES ---------------
 
 // DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var parkSelections = document.querySelector("#park-list");
+var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
+var clearHistoryBtn = document.querySelector("#clear-history");
+var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
 var addressInputValue = document.getElementById("icon_prefix")
 
@@ -81,6 +79,14 @@ apiKeyAdder()
 // }
 // defaultView();
 
+// CLEAR HISTORY AND HIDE CARD
+function clearHistory() {
+    historyContainerEl.remove()
+    var historyCardEl = document.querySelector(".search-history-card-container");
+    historyCardEl.setAttribute("class", "hide")
+}
+
+// MAP FUNCTIONALITY
 function populateMap() {
     /*
     - insert Josh's code that shows map address
@@ -89,26 +95,46 @@ function populateMap() {
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
-    // checks if "this-park" and "user-address" exists (implies map is populated), then changes view
-    if ((JSON.parse(localStorage.getItem("this-park")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
+    // checks if "all-parks" and "user-address" exists (implies map is populated), then changes view
+    if ((JSON.parse(localStorage.getItem("all-parks")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
         carousel.classList.add("hide");
         map.classList.remove("hide");
     }
 }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
-function populateParkNames(parksInState) {
+function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
     var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
+<<<<<<< HEAD
+=======
+    var parkOption = document.getElementsByClassName(".option");
+    if (parkOption) {
+        for (const unwantedPark of [...selectionEl]) {
+            selectionEl.lastChild.remove();
+        }
+        var placeholderOption = document.createElement("option")
+        placeholderOption.setAttribute("id", "placeholder-option");
+        placeholderOption.setAttribute("value", "");
+        placeholderOption.setAttribute("disabled", true);
+        placeholderOption.setAttribute("selected", true);
+        placeholderOption.textContent = "PARKS"
+        selectionEl.appendChild(placeholderOption);
+    }
+>>>>>>> 96a102c264845821e1002d37356399c029aa2c5e
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
+        selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
         selectOption.textContent = value.name; // sets name of park
         document.querySelector("option").after(selectOption); // adds new option after last option
         count--; // counter decreases by one
     }
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
 }
-populateParkNames() // calling on refresh for testing purposes
+// populateParkNames() // calling on refresh for testing purposes
+
 
 // NATIONAL PARK SERVICES API (done)
 
@@ -119,6 +145,7 @@ function getStateParkApi(stateValue) {
     const stateParkApiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
     var nationalParksServicesURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateValue + "&api_key=" + stateParkApiKey;
     fetch(nationalParksServicesURL)
+<<<<<<< HEAD
         .then(function (response) {
             return response.json();
         })
@@ -208,6 +235,48 @@ function getStateParkApi(stateValue) {
 // });
 
 
+=======
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (parkData){
+        console.log(parkData)
+        parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
+        // resets value to [] instead of localStorage.getItem
+        for (const item of parkData.data) {
+            if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+                continue;
+            }
+            // var thing1 = {};
+            // item.addresses[0].city.length === 0 ? "nothing" : thing1['city'] = item.addresses[0].city
+            // pushes anonymous object of each park to array list
+            parksInState.push({ // checks if value exists, then adds a placeholder or the API-provided value
+                name: item.name === null ? "One of the best parks in state!" : item.name,
+                street: item.addresses[0].line1 === null ? "Please call for directions." : item.addresses[0].line1,
+                city: item.addresses[0].city === null ? "" : item.addresses[0].city,
+                state: item.addresses[0].stateCode === null ? "" : item.addresses[0].stateCode,
+                zip: item.addresses[0].postalCode === null ? "" : item.addresses[0].postalCode,
+                open: item.operatingHours.length === 0 ? "Please call for updated hours." : item.operatingHours[0].description,
+                monHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.monday,
+                tueHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.tuesday,
+                wedHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.wednesday,
+                thuHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.thursday,
+                friHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.friday,
+                satHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.saturday,
+                sunHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.sunday,
+                fees: item.entranceFees.length === 0 ? "Call or visit our site for updated prices!" : item.entranceFees[0].description,
+                weather: item.weatherInfo === null ? "" : item.weatherInfo
+            }
+        )}
+        // saves all parks within one state into localStorage as stringified array of objects
+        localStorage.setItem("all-parks", JSON.stringify(parksInState));
+        populateParkNames()
+        console.log(parksInState)
+    })
+    return parksInState;
+}
+
+>>>>>>> 96a102c264845821e1002d37356399c029aa2c5e
 // GOOGLE MAPS API CONTROLS
 setTimeout(function(){
   
@@ -324,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
 */
 
 // CREATE PARK NAMES LIST SELECTOR
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function () {
     var selectionEl = document.querySelectorAll('select');
     M.FormSelect.init(selectionEl, {
@@ -336,18 +406,27 @@ document.addEventListener('DOMContentLoaded', function () {
         //     return allParkNames;
         // })()
     });
+=======
+document.addEventListener('DOMContentLoaded', function() {
+    // var selectionEl = document.querySelectorAll('select');
+    M.FormSelect.init(selectionEl);
+>>>>>>> 96a102c264845821e1002d37356399c029aa2c5e
 });
 
 // RETURN VALUE FROM PARK NAMES LIST SELECTOR
 parkSelections.addEventListener("change", function (event) {
     event.preventDefault()
     var indexLocation = event.target.value;
-    console.log("value #: " + indexLocation);
-    return indexLocation;
-    /* 
-    - is it possible to identify the textContent of the selected item instead of value number???
-    */
+    return selectedPark(indexLocation);
 })
+
+// PUTS INFORMATION FROM SELECTED PARK INTO LOCALSTORAGE (DONE)
+function selectedPark(indexLocation) {
+    let chosenPark = JSON.parse(localStorage.getItem("all-parks"))[indexLocation]
+    var onePark = [];
+    onePark = JSON.parse(localStorage.getItem("this-park")) || [];
+    localStorage.setItem("this-park", JSON.stringify(chosenPark));
+}
 
 // MODAL TRIGGER AND CONTROL (needs work)
 // park info
@@ -423,4 +502,16 @@ var instance = M.Autocomplete.getInstance(usState);
 //     console.log(fill)
 // })
 
+<<<<<<< HEAD
 
+=======
+// CLEAR SEARCH HISTORY
+clearHistoryBtn.addEventListener("click", function() {
+    // empties "park-history"
+    localStorage.clear("park-history");
+    // checks if search history is on page
+    if (historyContainerEl.hasChildNodes()) {
+        clearHistory()
+    }
+})
+>>>>>>> 96a102c264845821e1002d37356399c029aa2c5e
