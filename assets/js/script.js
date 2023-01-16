@@ -32,7 +32,6 @@ var map = document.querySelector("#googleMap");
 var addressInputValue = document.getElementById("icon_prefix")
 
 
-
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
 console.log("Google API key: " + storedValue);
@@ -209,7 +208,6 @@ function getStateParkApi(stateValue) {
 // });
 
 
-
 // GOOGLE MAPS API CONTROLS
 setInterval(function(){
 // set map options (javascript.js)
@@ -280,10 +278,6 @@ function saveAddressToStorage() {
 }
 
 
-
-
-
-
 // creates autocomplete objects for all inputs
 var options = {
     types: ['(cities)']
@@ -293,6 +287,9 @@ var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 
 
 // --------------- EVENT LISTENERS BELOW ---------------
+
+//Activates google map
+stateParkFetchBtn.addEventListener("click", calcRoute)
 
 //Sends inputted user address to local storage
 stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
