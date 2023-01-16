@@ -1,21 +1,37 @@
 /*
-- save one park ADDRESS into localStorage under "park-address"
-    - one park can be in this spot, use splice to remove the other one when a user switches park.
-    - grab park address from localStorage keyword "this-park"
-- JOSH: save user address data in localStorage under key "user-address"
-    - one home address can be in this spot, use splice to remove the other one when a user switches park
-- MIA: save search history in localStorage under "park-history"
-    - fill search history with last 4 Objects (overwrite when more than 4, i.e. max 4 values)
-    - write function to populate the search history buttons as needed
-    - write event listener on click
-- finish show/hide function
-- finish default view function
-- modals?!?
-    - make button that says "show info" to open modal
-    - separate modal into two sections: 
-        - (1) gets data from localStorage "this-park" (relevant info)
-        - (2) gets data from google maps API call (travel distance and time)
+1 modals?!?
+    - MIA: modify button to say "more info"
+    - MIA : separate modal into two sections: 
+        - MIKE: (1) gets data from localStorage "this-park" (relevant info)
+        - JOSH: (2) gets data from google maps API call (travel distance and time)
+2 MIKE: search history creation: HTML
+    - IF statment: if history has values (i.e. if it is TRUE), remove ".hide" class from HTML attribute
+    - write a function to make search history item appear in HTML container
+    - limit list length 4
+    - overwrite list as more than 4 items are added (challenge: focus on MVP first)
+3 JOSH: SET ORIGIN of google maps with autocomplete functionality into user ADDRESS input
+    - remove origin input from bottom of screen
+4 JOSH: SET DESTINATION of google maps as localStorage "this-park"
+    - grab JSON.parsed object values from localStorage
+    - concatenate object values into a single address
+    - use single address as google maps destination
+    - remove destination input from bottom of screen
+5 JOSH: remove empty maps search button
+6 MIA: display of map
+    - move map into HTML correct location (already in html commented out)
+    - comment map "in"
+    - double-check for functionality
+    - comment in showHide function
+        - if user clicks "go!" button, map is shown
+        - if user refreshes, map is hidden
+7 MIA: Search history functionality: SEARCHES AGAIN
+    - create localstorage "park-history"
+    - push "this-park" into localStorage "park-history"
+    - opens map
+    - does not add to search history because it already in search history
+    - write separate event listener on click
 */
+
 // --------------- GLOBAL VARIABLES ---------------
 
 // DOM query selectors
