@@ -1,6 +1,4 @@
 /*
-- MIKE: save one park data into localStorage under "this-park"
-    - one park can be in this spot, use splice to remove the other one when a user switches park
 - save one park ADDRESS into localStorage under "park-address"
     - one park can be in this spot, use splice to remove the other one when a user switches park.
     - grab park address from localStorage keyword "this-park"
@@ -26,6 +24,7 @@
 // DOM query selectors
 var usState = document.querySelector('.autocomplete-state');
 var parkSelections = document.querySelector("#park-list");
+var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var map = document.querySelector("#googleMap");
@@ -74,18 +73,36 @@ function showMap() {
 }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
-function populateParkNames(parksInState) {
+function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
+    // var selectionEl = document.querySelectorAll('select');
     var count = parksInState?parksInState.length - 1: 0; // sets counter to begin at index 0 to match localStorage order
+    var parkOption = document.getElementsByClassName(".option")
+    if (parkOption) {
+        for (const unwantedPark of [...selectionEl]) {
+            selectionEl.lastChild.remove();
+        }
+        var placeholderOption = document.createElement("option", {
+            id: "placeholder-option",
+            value: "",
+            disabled: true,
+            selected: true,
+            textContent: "Parks"
+        });
+        selectionEl.appendChild(placeholderOption);
+    }
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
+        selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
         selectOption.textContent = value.name; // sets name of park
         document.querySelector("option").after(selectOption); // adds new option after last option
         count --; // counter decreases by one
     }
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
 }
-populateParkNames() // calling on refresh for testing purposes
+// populateParkNames() // calling on refresh for testing purposes
 
 // NATIONAL PARK SERVICES API (done)
 
@@ -100,90 +117,41 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-    parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
-    // resets value to [] instead of localStorage.getItem
-    for (const item of parkData.data) {
-        var parkFees
-        if (item.entranceFees.length === 0) {
-            parkFees = "Call for updated prices!"
-        } else {
-            parkFees = item.entranceFees[0].description;
-        }
-        if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
-            continue;
-        }
-        // pushes anonymous object of each park to array list
-        parksInState.push({
-            name: item.name,
-            street: item.addresses[0].line1,
-            city: item.addresses[0].city,
-            state: item.addresses[0].stateCode,
-            zip: item.addresses[0].postalCode,
-            open: item.operatingHours[0].description,
-            monHours: item.operatingHours[0].standardHours.monday,
-            tueHours: item.operatingHours[0].standardHours.tuesday,
-            wedHours: item.operatingHours[0].standardHours.wednesday,
-            thuHours: item.operatingHours[0].standardHours.thursday,
-            friHours: item.operatingHours[0].standardHours.friday,
-            satHours: item.operatingHours[0].standardHours.saturday,
-            sunHours: item.operatingHours[0].standardHours.sunday,
-            fees: parkFees,
-            weather: item.weatherInfo
-        }
-    )}
-    // for (var i = 0; i < parkData.data.length; i++) {
-    //     var parkFees
-    //     if (parkData.data[i].entranceFees.length === 0) {
-    //         parkFees = "Call for updated prices!"
-    //     } else {
-    //         parkFees = parkData.data[i].entranceFees[0].description;
-    //     }
-    //     if (parkData.data[i].addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
-    //         continue;
-    //     }
-    //     // pushes anonymous object of each park to array list
-    //     parksInState.push({
-    //         name: parkData.data[i].name,
-    //         optionValue: i,
-    //         street: parkData.data[i].addresses[0].line1,
-    //         city: parkData.data[i].addresses[0].city,
-    //         state: parkData.data[i].addresses[0].stateCode,
-    //         zip: parkData.data[i].addresses[0].postalCode,
-    //         open: parkData.data[i].operatingHours[0].description,
-    //         monHours: parkData.data[i].operatingHours[0].standardHours.monday,
-    //         tueHours: parkData.data[i].operatingHours[0].standardHours.tuesday,
-    //         wedHours: parkData.data[i].operatingHours[0].standardHours.wednesday,
-    //         thuHours: parkData.data[i].operatingHours[0].standardHours.thursday,
-    //         friHours: parkData.data[i].operatingHours[0].standardHours.friday,
-    //         satHours: parkData.data[i].operatingHours[0].standardHours.saturday,
-    //         sunHours: parkData.data[i].operatingHours[0].standardHours.sunday,
-    //         fees: parkFees,
-    //         weather: parkData.data[i].weatherInfo
-    //     })
-    // }
-    // saves all parks within one state into localStorage as stringified array of objects
-    localStorage.setItem("all-parks", JSON.stringify(parksInState));
+        console.log(parkData)
+        parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
+        // resets value to [] instead of localStorage.getItem
+        for (const item of parkData.data) {
+            if (item.addresses[0].stateCode.toLowerCase() !== stateValue.toLowerCase()) {
+                continue;
+            }
+            // var thing1 = {};
+            // item.addresses[0].city.length === 0 ? "nothing" : thing1['city'] = item.addresses[0].city
+            // pushes anonymous object of each park to array list
+            parksInState.push({ // checks if value exists, then adds a placeholder or the API-provided value
+                name: item.name === null ? "One of the best parks in state!" : item.name,
+                street: item.addresses[0].line1 === null ? "Please call for directions." : item.addresses[0].line1,
+                city: item.addresses[0].city === null ? "" : item.addresses[0].city,
+                state: item.addresses[0].stateCode === null ? "" : item.addresses[0].stateCode,
+                zip: item.addresses[0].postalCode === null ? "" : item.addresses[0].postalCode,
+                open: item.operatingHours.length === 0 ? "Please call for updated hours." : item.operatingHours[0].description,
+                monHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.monday,
+                tueHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.tuesday,
+                wedHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.wednesday,
+                thuHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.thursday,
+                friHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.friday,
+                satHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.saturday,
+                sunHours: item.operatingHours.length === 0 ? "" : item.operatingHours[0].standardHours.sunday,
+                fees: item.entranceFees.length === 0 ? "Call or visit our site for updated prices!" : item.entranceFees[0].description,
+                weather: item.weatherInfo === null ? "" : item.weatherInfo
+            }
+        )}
+        // saves all parks within one state into localStorage as stringified array of objects
+        localStorage.setItem("all-parks", JSON.stringify(parksInState));
+        populateParkNames()
+        console.log(parksInState)
     })
     return parksInState;
 }
-
-// PARK NAMES LIST DROPDOWN (unused)
-// document.addEventListener('DOMContentLoaded', function() {
-//     // var parkListItem = document.querySelector(".park-item");
-//     var instance = M.Dropdown.getInstance(parkListItem);
-//     M.Dropdown.init(dropdownTrigger, {
-//         coverTrigger: false,
-//         onCloseStart: function() {
-//             // parkListItem.addEventListener("change", function(event) {
-//             //     console.log(event)
-//             // })
-//             console.log("hello")
-
-//         }
-//     });
-// });
-
-
 
 // GOOGLE MAPS API CONTROLS
 
@@ -287,17 +255,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // CREATE PARK NAMES LIST SELECTOR
 document.addEventListener('DOMContentLoaded', function() {
-    var selectionEl = document.querySelectorAll('select');
-    M.FormSelect.init(selectionEl, { 
-        // dropdownOptions: (function() {
-        //     var allParkNames = []
-        //     for (const item of localStorage.getItem("all-parks")) {
-        //         console.log("we in here: ", item)
-        //         allParkNames.push(item.name);
-        //     }
-        //     return allParkNames;
-        // })()
-    });
+    // var selectionEl = document.querySelectorAll('select');
+    M.FormSelect.init(selectionEl);
 });
 
 // RETURN VALUE FROM PARK NAMES LIST SELECTOR
@@ -305,6 +264,7 @@ parkSelections.addEventListener("change", function(event) {
     event.preventDefault()
     var indexLocation = event.target.value;
     console.log("value #: " + indexLocation);
+    console.log(instance.getSelectedValues())
     return indexLocation;
     /* 
     - is it possible to identify the textContent of the selected item instead of value number???
