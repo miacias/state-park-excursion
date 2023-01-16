@@ -46,7 +46,7 @@
                                         <div class="row">
                                             <div class="input-field col s10">
                                                 <i class="material-icons prefix">home</i>
-                                                <input id="icon_prefix" type="text" class="validate">
+                                                <input id="icon_prefix" type="text" class="validate user-address-input">
                                                 <label for="icon_prefix">ADDRESS</label>
                                             </div>
                                         </div>
@@ -137,14 +137,14 @@
                 
                 <!-- populated map below -->
                 <section class="map-container valign">
-                    <div>
+                    <!-- <div>
                         <div id="googleMap">
             
                         </div>
                         <div id="output">
             
                         </div>
-                    </div>
+                    </div> -->
                 </section>
             </div>
 
@@ -194,21 +194,21 @@
             </form>
 
             <div>
-                <button onclick="calcRoute();"></button>
+                <button></button>
             </div>
         </div>
-        <!-- <div>
-            <div id="googleMap">
+        <div>
+            <div id= "googleMap">
 
             </div>
             <div id="output">
 
             </div>
-        </div> -->
+        </div>
 
     </div>
     <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3fsu0mF-blNatPt8XpDNehaPGvjpj01M&libraries=places"></script>
+    <script id="api-key"></script>
     <!-- Google Maps jQuery controls -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Compiled and minified Materialize JS -->
