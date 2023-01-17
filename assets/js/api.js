@@ -1,8 +1,20 @@
-var buttonEl = document.querySelector("button")
-var inputEl = document.querySelector("input")
+var buttonEl = document.getElementById("save-key");
+var inputEl = document.getElementsByClassName("map-key-input");
+var keyCardEl = document.getElementById("key-card-container");
 
-function saveToStorage() {
-    localStorage.setItem('key', inputEl.value);
+function saveKeyToStorage() {
+    localStorage.setItem('map-key', inputEl[0].value);
 }
 
-buttonEl.addEventListener("click", saveToStorage)
+buttonEl.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveKeyToStorage();
+})
+
+// manages show/hide of key input card
+if (localStorage.getItem("map-key").length === 39) {
+    keyCardEl.classList.add("hide");
+}
+if (!localStorage.getItem("map-key")) {
+    keyCardEl.classList.remove("hide");
+}

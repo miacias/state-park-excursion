@@ -46,7 +46,7 @@ var userAddressEl = document.getElementsByClassName("user-address-input");
 var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
-var storedValue = localStorage.getItem("key");
+var storedValue = localStorage.getItem("map-key");
 console.log("Google API key: " + storedValue);
 
 // connects to GoogleMaps autocomplete (switch to user address form input)
@@ -83,12 +83,6 @@ function showModal() {
 }
 
 // MAP API CONTROLS
-
-//create a script element with a src attribute, add another attribute defer (true)
-
-//  var script = document.createElement('script');
-//          script.src = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
-//         document.body.appendChild(script);
 
 // adds the Google Maps Directions API key securely to HTML
 function apiKeyAdder() {
@@ -414,6 +408,12 @@ var instance = M.Autocomplete.getInstance(usState);
 // instance.onAutocomplete(function(fill) {
 //     console.log(fill)
 // })
+
+// TOOLTIP
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems);
+  });
 
 // CLEAR SEARCH HISTORY
 clearHistoryBtn.addEventListener("click", function() {
