@@ -415,6 +415,12 @@ var instance = M.Autocomplete.getInstance(usState);
 //     console.log(fill)
 // })
 
+// TOOLTIP
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems);
+  });
+
 // CLEAR SEARCH HISTORY
 clearHistoryBtn.addEventListener("click", function() {
     // empties "park-history"
