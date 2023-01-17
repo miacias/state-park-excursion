@@ -54,6 +54,24 @@ var input1 = document.getElementById("from");
 var input2 = document.getElementById("to");
 
 // --------------- FUNCTIONALITY BELOW ---------------
+
+// DEFAULT PAGE VIEW ON LOAD (not done) COMMENT BACK IN AFTER INTEGRATING MAP
+function defaultView() {
+    /* 
+    need to add if statement or adjust if statement with &&:
+        - include what if a map was loaded (show map), otherwise show default view below
+    */
+    if (carousel.classList.contains("hide")) {
+        carousel.classList.remove("hide");
+    }
+    if (!map.classList.contains("hide")) {
+        map.classList.add("hide");
+    }
+}
+// defaultView();
+
+// MAP API CONTROLS
+
 //create a script element with a src attribute, add another attribute defer (true)
 
 //  var script = document.createElement('script');
@@ -64,7 +82,6 @@ var input2 = document.getElementById("to");
 function apiKeyAdder() {
     var apiKeyLink = document.getElementById("api-key");
     var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
-    console.log(createdLink)
     apiKeyLink.setAttribute("src", createdLink);
     apiKeyLink.setAttribute("defer", true);
 
@@ -74,23 +91,7 @@ function apiKeyAdder() {
     // document.body.appendChild( s );
 
 }
-
 apiKeyAdder()
-
-// DEFAULT PAGE VIEW ON LOAD (not done) COMMENT BACK IN AFTER INTEGRATING MAP
-// function defaultView() {
-//     /* 
-//     need to add if statement or adjust if statement with &&:
-//         - include what if a map was loaded (show map), otherwise show default view below
-//     */
-//     if (carousel.classList.contains("hide")) {
-//         carousel.classList.remove("hide");
-//     }
-//     if (!map.classList.contains("hide")) {
-//         map.classList.add("hide");
-//     }
-// }
-// defaultView();
 
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
@@ -143,8 +144,6 @@ function populateParkNames() {
     var elems = document.querySelectorAll('select');
     M.FormSelect.init(elems);
 }
-// populateParkNames() // calling on refresh for testing purposes
-
 
 // NATIONAL PARK SERVICES API (done)
 
@@ -195,94 +194,91 @@ function getStateParkApi(stateValue) {
     return parksInState;
 }
 
-// GOOGLE MAPS API CONTROLS
+// GOOGLE MAPS CONTROLS
+
 setTimeout(function(){
   
-    // set map options (javascript.js)
-var myLatLng = { lat: 39.9526, lng: 75.1652 };
-var mapOptions = {
-    center: myLatLng,
-    zoom: 7,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-};
+    // sets map options (javascript.js)
+    var myLatLng = { lat: 39.9526, lng: 75.1652 };
+    var mapOptions = {
+        center: myLatLng,
+        zoom: 7,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
 
-// creates map
-var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+    // creates map
+    var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
-// creates a DirectionsService object to use the route method and get a result for our request
-var directionsService = new google.maps.DirectionsService();
+    // creates a DirectionsService object to use the route method and get a result for our request
+    var directionsService = new google.maps.DirectionsService();
 
-// creates a DirectionsRenderer object which we will use to display the route
-var directionsDisplay = new google.maps.DirectionsRenderer();
+    // creates a DirectionsRenderer object which we will use to display the route
+    var directionsDisplay = new google.maps.DirectionsRenderer();
 
-// bind the DirectionsRenderer to the map
-directionsDisplay.setMap(map);
+    // binds the DirectionsRenderer to the map
+    directionsDisplay.setMap(map);
 
 
-// defines calcRoute function
-function calcRoute() {
-    //create request
+    // calculates route from user to park
+    function calcRoute() {
+        //create request
 
-    /*
-    - change origin to localStorage.getItem under keyword "user-address"
-    - change destination to localstorage.getItem under keyword "park-address"
-    
-    */
+        /*
+        - change origin to localStorage.getItem under keyword "user-address"
+        - change destination to localstorage.getItem under keyword "park-address"
+        
+        */
 
-    var request = {
-        origin: document.getElementById("from").value,
-        destination: document.getElementById("to").value,
-        travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
-        unitSystem: google.maps.UnitSystem.IMPERIAL
+        var request = {
+            origin: document.getElementById("from").value,
+            destination: document.getElementById("to").value,
+            travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+            unitSystem: google.maps.UnitSystem.IMPERIAL
+        }
+
+        // passes the request to the route method
+        directionsService.route(request, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                // gets distance and time
+                const output = document.querySelector('#output');
+                output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+                // displays route
+                directionsDisplay.setDirections(result);
+            } else {
+                // deletes route from map
+                directionsDisplay.setDirections({ routes: [] });
+                // centers map in London
+                map.setCenter(myLatLng);
+                // shows error message
+                output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+            }
+        })
     }
 
-    // passes the request to the route method
-    directionsService.route(request, function (result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
+    // saves user address to local storage
+    function saveAddressToStorage() {
+        localStorage.setItem('user-address', addressInputValue.value);
+    }
 
-            // gets distance and time
-            const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
-
-            // displays route
-            directionsDisplay.setDirections(result);
-        } else {
-            // deletes route from map
-            directionsDisplay.setDirections({ routes: [] });
-            // centers map in London
-            map.setCenter(myLatLng);
-
-            // shows error message
-            output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
-        }
-    });
-
-}
-
-
-//Function to save user address to local storage
-function saveAddressToStorage() {
-    localStorage.setItem('user-address', addressInputValue.value);
-}
-
-
-// creates autocomplete objects for all inputs
-var options = {
-    types: ['(cities)']
-}
-var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
-var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+    // creates autocomplete objects for all inputs
+    var options = {
+        types: ['(cities)']
+    }
+    var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
+    var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 
 
 // --------------- EVENT LISTENERS BELOW ---------------
 
-//Activates google map
-stateParkFetchBtn.addEventListener("click", calcRoute)
+    //Activates google map
+    stateParkFetchBtn.addEventListener("click", calcRoute)
 
-//Sends inputted user address to local storage
-stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
+    //Sends inputted user address to local storage
+    stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
+    
+}, 3000) // end of setTimeout
 
-}, 3000)
+
 // IMAGE CAROUSEL CONTROLS (done)
 // DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
