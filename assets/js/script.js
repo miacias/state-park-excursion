@@ -267,15 +267,16 @@ setTimeout(function(){
     var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
     var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 
-}, 3000) // end of setInterval
 
 // --------------- EVENT LISTENERS BELOW ---------------
 
-//Activates google map
-stateParkFetchBtn.addEventListener("click", calcRoute)
+    //Activates google map
+    stateParkFetchBtn.addEventListener("click", calcRoute)
 
-//Sends inputted user address to local storage
-stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
+    //Sends inputted user address to local storage
+    stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
+    
+}, 3000) // end of setTimeout
 
 
 // IMAGE CAROUSEL CONTROLS (done)
