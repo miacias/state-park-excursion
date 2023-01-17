@@ -149,7 +149,7 @@ function populateParkNames() {
         var selectOption = document.createElement("option"); // creates option
         selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
-        selectOption.textContent = value.name; // sets name of park
+        selectOption.textContent = value.name + ", " + value.state; // sets name of park
         document.querySelector("option").after(selectOption); // adds new option after last option
         count--; // counter decreases by one
     }
