@@ -18,9 +18,11 @@ main {
     font-family: 'Caveat Brush', cursive;
 }
 
-/* .carousel {
-    padding: 10em;
-} */
+.carousel {
+    width: 80%;
+    height: 400px;
+    margin: 10px auto;
+}
 
 /* images that are taller than the others and need to be cropped:
 1 badges photo
