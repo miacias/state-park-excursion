@@ -39,9 +39,11 @@ var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var clearHistoryBtn = document.querySelector("#clear-history");
+var historyCardEl = document.querySelector(".search-history-card-container");
 var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
-var addressInputValue = document.getElementById("icon_prefix")
+var addressInputValue = document.getElementById("icon_prefix");
+var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
@@ -58,24 +60,20 @@ var input2 = document.getElementById("to");
 // DEFAULT PAGE VIEW ON LOAD (not done) COMMENT BACK IN AFTER INTEGRATING MAP
 function defaultView() {
     /* 
-    need to add if statement or adjust if statement with &&:
-        - include what if a map was loaded (show map), otherwise show default view below
 
     6 MIA: display of map
     - move map into HTML correct location (already in html commented out)
     - comment map "in"
-    - double-check for functionality
-    - comment in showHide function
-        - if user clicks "go!" button, map is shown
-        - if user refreshes, map is hidden
 
     */
-    if (carousel.classList.contains("hide")) {
-        carousel.classList.remove("hide");
-    }
-    if (!map.classList.contains("hide")) {
-        map.classList.add("hide");
-    }
+    // if carousel is hidden, show it
+    carousel.classList.contains("hide") && carousel.classList.remove("hide");
+    // if map isn't hidden, hide it
+    !map.classList.contains("hide") && map.classList.add("hide");
+    // if modal isn't hidden, hide it
+    !modal.classList.contains("hide") && modal.classList.add("hide");
+    // if search history is empty, hide history card
+    !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
 // defaultView();
 
@@ -112,8 +110,7 @@ apiKeyAdder()
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
     historyContainerEl.remove()
-    var historyCardEl = document.querySelector(".search-history-card-container");
-    historyCardEl.setAttribute("class", "hide")
+    historyCardEl.setAttribute("class", "hide");
 }
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
@@ -287,9 +284,14 @@ setTimeout(function(){
     
 }, 3000) // end of setTimeout
 
+// 
+stateParkFetchBtn.addEventListener("click", function() {
+    showMap();
+    showModal();
+    // populateModal();
+})
 
 // IMAGE CAROUSEL CONTROLS (done)
-// DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     // built-in Materialize: full size images, 4s duration, number of showing images
     var options = {
@@ -303,17 +305,6 @@ document.addEventListener('DOMContentLoaded', function () {
         instances.next();
     }, 8000)
 });
-
-// START PARK VIEW
-/*
-- attach to "go" button
-- set localStorage "this-park"
-- fetch GoogleMaps travel data
-- call showModal()
-- call populateModal()
-- call showMap() to switch view from image carousel to map
-- call populateMap() - google map API from local storage to put on map
-*/
 
 // CREATE PARK NAMES LIST SELECTOR
 document.addEventListener('DOMContentLoaded', function() {
