@@ -60,6 +60,15 @@ function defaultView() {
     /* 
     need to add if statement or adjust if statement with &&:
         - include what if a map was loaded (show map), otherwise show default view below
+
+    6 MIA: display of map
+    - move map into HTML correct location (already in html commented out)
+    - comment map "in"
+    - double-check for functionality
+    - comment in showHide function
+        - if user clicks "go!" button, map is shown
+        - if user refreshes, map is hidden
+
     */
     if (carousel.classList.contains("hide")) {
         carousel.classList.remove("hide");
@@ -70,6 +79,13 @@ function defaultView() {
 }
 // defaultView();
 
+// SHOW MAP
+function showMap() {
+    // if the leftmost statement is true, continue, otherwise skip (code does not break)
+    // in this case, if all leftmost statements are true, actionable code is executed until code reaches a false statement
+    map.classList.contains("hide") && map.classList.remove("hide"); // if map is hidden, remove "hide" class
+}
+
 // MAP API CONTROLS
 
 //create a script element with a src attribute, add another attribute defer (true)
@@ -78,7 +94,7 @@ function defaultView() {
 //          script.src = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
 //         document.body.appendChild(script);
 
-//Create Function that adds the secure API key to the HTML file 
+// adds the Google Maps Directions API key securely to HTML
 function apiKeyAdder() {
     var apiKeyLink = document.getElementById("api-key");
     var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
@@ -98,13 +114,6 @@ function clearHistory() {
     historyContainerEl.remove()
     var historyCardEl = document.querySelector(".search-history-card-container");
     historyCardEl.setAttribute("class", "hide")
-}
-
-// MAP FUNCTIONALITY
-function populateMap() {
-    /*
-    - insert Josh's code that shows map address
-    */
 }
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
