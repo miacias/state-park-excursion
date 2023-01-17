@@ -84,12 +84,6 @@ function showModal() {
 
 // MAP API CONTROLS
 
-//create a script element with a src attribute, add another attribute defer (true)
-
-//  var script = document.createElement('script');
-//          script.src = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
-//         document.body.appendChild(script);
-
 // adds the Google Maps Directions API key securely to HTML
 function apiKeyAdder() {
     var apiKeyLink = document.getElementById("api-key");
