@@ -39,9 +39,11 @@ var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
 var clearHistoryBtn = document.querySelector("#clear-history");
+var historyCardEl = document.querySelector(".search-history-card-container");
 var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
-var addressInputValue = document.getElementById("icon_prefix")
+var userAddressEl = document.getElementsByClassName("user-address-input");
+var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
@@ -57,18 +59,28 @@ var input2 = document.getElementById("to");
 
 // DEFAULT PAGE VIEW ON LOAD (not done) COMMENT BACK IN AFTER INTEGRATING MAP
 function defaultView() {
-    /* 
-    need to add if statement or adjust if statement with &&:
-        - include what if a map was loaded (show map), otherwise show default view below
-    */
-    if (carousel.classList.contains("hide")) {
-        carousel.classList.remove("hide");
-    }
-    if (!map.classList.contains("hide")) {
-        map.classList.add("hide");
-    }
+    // if carousel is hidden, show it
+    carousel.classList.contains("hide") && carousel.classList.remove("hide");
+    // if map isn't hidden, hide it
+    !map.classList.contains("hide") && map.classList.add("hide");
+    // if modal isn't hidden, hide it
+    !modal.classList.contains("hide") && modal.classList.add("hide");
+    // if search history is empty, hide history card
+    !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
-// defaultView();
+defaultView();
+
+// SHOW MAP
+function showMap() {
+    // if the leftmost statement is true, continue, otherwise skip (code does not break)
+    // in this case, if all leftmost statements are true, actionable code is executed until code reaches a false statement
+    map.classList.contains("hide") && map.classList.remove("hide"); // if map is hidden, remove "hide" class
+}
+
+// SHOW MODAL
+function showModal() {
+    modal.classList.contains("hide") && modal.classList.remove("hide"); // if map is hidden, remove "hide" class
+}
 
 // MAP API CONTROLS
 
@@ -78,7 +90,7 @@ function defaultView() {
 //          script.src = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
 //         document.body.appendChild(script);
 
-//Create Function that adds the secure API key to the HTML file 
+// adds the Google Maps Directions API key securely to HTML
 function apiKeyAdder() {
     var apiKeyLink = document.getElementById("api-key");
     var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
@@ -96,15 +108,7 @@ apiKeyAdder()
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
     historyContainerEl.remove()
-    var historyCardEl = document.querySelector(".search-history-card-container");
-    historyCardEl.setAttribute("class", "hide")
-}
-
-// MAP FUNCTIONALITY
-function populateMap() {
-    /*
-    - insert Josh's code that shows map address
-    */
+    historyCardEl.setAttribute("class", "hide");
 }
 
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
@@ -121,23 +125,31 @@ function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
     var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
     var parkOption = document.getElementsByClassName(".option");
+    var placeholderOption = document.getElementById("placeholder-option");
+    // if there are options available, do things
     if (parkOption) {
+        // removes all options
         for (const unwantedPark of [...selectionEl]) {
             selectionEl.lastChild.remove();
         }
-        var placeholderOption = document.createElement("option")
-        placeholderOption.setAttribute("id", "placeholder-option");
-        placeholderOption.setAttribute("value", "");
-        placeholderOption.setAttribute("disabled", true);
-        placeholderOption.setAttribute("selected", true);
-        placeholderOption.textContent = "PARKS"
-        selectionEl.appendChild(placeholderOption);
+        // if (!placeholderOption) { // adding this in prevents duplicate placeholders on first search BUT causes error on second search
+            // replaces placeholder that was removed
+            placeholderOption = document.createElement("option");
+            placeholderOption.setAttribute("id", "placeholder-option");
+            placeholderOption.setAttribute("value", "");
+            placeholderOption.setAttribute("disabled", true);
+            placeholderOption.setAttribute("selected", true);
+            placeholderOption.textContent = "PARKS";
+            selectionEl.appendChild(placeholderOption);
+        // } 
+
     }
+    // adds park names to options
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
         selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
-        selectOption.textContent = value.name; // sets name of park
+        selectOption.textContent = value.name + ", " + value.state; // sets name of park
         document.querySelector("option").after(selectOption); // adds new option after last option
         count--; // counter decreases by one
     }
@@ -158,7 +170,7 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-        console.log(parkData)
+        // console.log(parkData)
         parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
         // resets value to [] instead of localStorage.getItem
         for (const item of parkData.data) {
@@ -189,7 +201,7 @@ function getStateParkApi(stateValue) {
         // saves all parks within one state into localStorage as stringified array of objects
         localStorage.setItem("all-parks", JSON.stringify(parksInState));
         populateParkNames()
-        console.log(parksInState)
+        // console.log(parksInState)
     })
     return parksInState;
 }
@@ -257,7 +269,9 @@ setTimeout(function(){
 
     // saves user address to local storage
     function saveAddressToStorage() {
-        localStorage.setItem('user-address', addressInputValue.value);
+        // var userAddress = [];
+        // userAddress = JSON.parse(localStorage.getItem("user-address")) || [];
+        localStorage.setItem('user-address', userAddressEl[0].value);
     }
 
     // creates autocomplete objects for all inputs
@@ -270,17 +284,24 @@ setTimeout(function(){
 
 // --------------- EVENT LISTENERS BELOW ---------------
 
-    //Activates google map
-    stateParkFetchBtn.addEventListener("click", calcRoute)
-
-    //Sends inputted user address to local storage
-    stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
+    // activates map
+    stateParkFetchBtn.addEventListener("click", function() {
+        calcRoute(); // activates google map
+        saveAddressToStorage(); // sends inputted user address to local storage
+    })
     
 }, 3000) // end of setTimeout
 
+// manages page view if all necessary inputs are present
+stateParkFetchBtn.addEventListener("click", function() {
+    if (localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
+        showMap();
+        showModal();
+    // populateModal();
+    }
+})
 
 // IMAGE CAROUSEL CONTROLS (done)
-// DOMContentLoaded: loads safely after DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     // built-in Materialize: full size images, 4s duration, number of showing images
     var options = {
@@ -294,17 +315,6 @@ document.addEventListener('DOMContentLoaded', function () {
         instances.next();
     }, 8000)
 });
-
-// START PARK VIEW
-/*
-- attach to "go" button
-- set localStorage "this-park"
-- fetch GoogleMaps travel data
-- call showModal()
-- call populateModal()
-- call showMap() to switch view from image carousel to map
-- call populateMap() - google map API from local storage to put on map
-*/
 
 // CREATE PARK NAMES LIST SELECTOR
 document.addEventListener('DOMContentLoaded', function() {
@@ -325,6 +335,10 @@ function selectedPark(indexLocation) {
     var onePark = [];
     onePark = JSON.parse(localStorage.getItem("this-park")) || [];
     localStorage.setItem("this-park", JSON.stringify(chosenPark));
+    usState.value = ""
+    usState.setAttribute("style", "");
+    usState.previousElementSibling.classList.remove("active");
+    usState.nextElementSibling.nextElementSibling.classList.remove("active");
 }
 
 // MODAL TRIGGER AND CONTROL (needs work)
