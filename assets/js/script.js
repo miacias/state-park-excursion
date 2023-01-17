@@ -75,13 +75,18 @@ function defaultView() {
     // if search history is empty, hide history card
     !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
-// defaultView();
+defaultView();
 
 // SHOW MAP
 function showMap() {
     // if the leftmost statement is true, continue, otherwise skip (code does not break)
     // in this case, if all leftmost statements are true, actionable code is executed until code reaches a false statement
     map.classList.contains("hide") && map.classList.remove("hide"); // if map is hidden, remove "hide" class
+}
+
+// SHOW MODAL
+function showModal() {
+    modal.classList.contains("hide") && modal.classList.remove("hide"); // if map is hidden, remove "hide" class
 }
 
 // MAP API CONTROLS
@@ -286,9 +291,11 @@ setTimeout(function(){
 
 // 
 stateParkFetchBtn.addEventListener("click", function() {
-    showMap();
-    showModal();
+    if (localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
+        showMap();
+        showModal();
     // populateModal();
+    }
 })
 
 // IMAGE CAROUSEL CONTROLS (done)
