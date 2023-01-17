@@ -149,12 +149,23 @@
             </div>
 
             <!-- Modal Trigger -->
-            <a class="waves-effect waves-light btn modal-trigger" id="modal-trigger" href="#modal1">Change from button to Map Icon</a>
+            <a class="waves-effect waves-light btn modal-trigger" id="modal-trigger" href="#modal1">More Details!</a>
             <!-- Modal Structure -->
             <div id="modal1" class="modal bottom-sheet">
-                <div class="modal-content">
+                <div class="modal-content row">
                     <h4>Park Info</h4>
-                    <p>A bunch of text</p>
+                    <section class="park-info-container col s12 m6"><i class="material-icons prefix green-text">nature</i>
+                        <div>
+                            <!-- MIKE: replace this text however you like! Consider using <h6> for titles, <p> OR <ul> with <li> inside. all good ideas! -->
+                            <p>A bunch of park text</p>
+                        </div>
+                    </section>
+                    <section class="travel-info-container col s12 m6"><i class="material-icons prefix red-text">location_on</i>
+                        <div>
+                            <!-- JOSH: replace this text however you like! Consider using <h6> for titles, <p> OR <ul> with <li> inside. all good ideas! -->
+                            <p>A bunch of travel text</p>
+                        </div>
+                    </section>
                 </div>
                 <div class="modal-footer">
                     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>

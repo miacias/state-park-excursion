@@ -1,9 +1,7 @@
 /*
-1 modals?!?
-    - MIA: modify button to say "more info"
-    - MIA : separate modal into two sections: 
-        - MIKE: (1) gets data from localStorage "this-park" (relevant info)
-        - JOSH: (2) gets data from google maps API call (travel distance and time)
+1 modals
+    - MIKE: (1) gets data from localStorage "this-park" (relevant info)
+    - JOSH: (2) gets data from google maps API call (travel distance and time)
 2 MIKE: search history creation: HTML
     - IF statment: if history has values (i.e. if it is TRUE), remove ".hide" class from HTML attribute
     - write a function to make search history item appear in HTML container
@@ -45,16 +43,15 @@ var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
 var addressInputValue = document.getElementById("icon_prefix")
 
-
 // locally retrive Google API key
 var storedValue = localStorage.getItem("key");
 console.log("Google API key: " + storedValue);
+
 // connects to GoogleMaps autocomplete (switch to user address form input)
 var input1 = document.getElementById("from");
+
 // connects to GoogleMaps autocomplete (may not need this)
 var input2 = document.getElementById("to");
-// var parkNamesDropdown = document.querySelector('.dropdown-content');
-// var dropdownTrigger = document.querySelector(".dropdown-trigger");
 
 // --------------- FUNCTIONALITY BELOW ---------------
 //create a script element with a src attribute, add another attribute defer (true)
