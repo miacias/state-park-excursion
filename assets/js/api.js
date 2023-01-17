@@ -1,8 +1,11 @@
-var buttonEl = document.querySelector("button")
-var inputEl = document.querySelector("input")
+var buttonEl = document.getElementById("save-key");
+var inputEl = document.getElementsByClassName("map-key-input");
 
 function saveToStorage() {
-    localStorage.setItem('key', inputEl.value);
+    localStorage.setItem('map-key', inputEl[0].value);
 }
 
-buttonEl.addEventListener("click", saveToStorage)
+buttonEl.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveToStorage();
+})

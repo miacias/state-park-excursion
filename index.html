@@ -85,24 +85,23 @@
             </section>
 
             <section>
-                <div class="col s12 m10">
-                    <div class="card">
-                        <!-- saves user starting address -->
-                        <div class="card-content red-text text-lighten-5">
-                            <span class="card-title">Unlock!</span>
-                            <p>Add Your Map Key</p>
-                            <!-- icon prefix form -->
-                            <div class="row">
-                                <form class="col s12">
-                                    <div class="row">
-                                        <div class="input-field col s10">
-                                            <i class="material-icons prefix">key</i>
-                                            <input id="icon_prefix" type="text" class="user-address-input">
-                                            <label for="icon_prefix">KEY CODE</label>
-                                        </div>
+                <div class="card col s12 m10">
+                    <!-- saves user starting address -->
+                    <div class="card-content red-text text-lighten-5">
+                        <span class="card-title">Unlock!</span>
+                        <p>Add Your Map Key</p>
+                        <!-- icon prefix form -->
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s10">
+                                        <i class="material-icons prefix">key</i>
+                                        <input id="icon_prefix" type="text" class="map-key-input">
+                                        <label for="icon_prefix">KEY CODE</label>
+                                        <button id="save-key" class="btn green lighten-3">Save</button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -245,5 +244,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- local JS -->
     <script src="./assets/js/script.js"></script>
+    <!-- local JS for map unlock -->
+    <script src="./assets/js/api.js"></script>
 </body>
 </html>

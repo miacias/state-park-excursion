@@ -46,7 +46,7 @@ var userAddressEl = document.getElementsByClassName("user-address-input");
 var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
-var storedValue = localStorage.getItem("key");
+var storedValue = localStorage.getItem("map-key");
 console.log("Google API key: " + storedValue);
 
 // connects to GoogleMaps autocomplete (switch to user address form input)
