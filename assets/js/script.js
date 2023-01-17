@@ -15,17 +15,10 @@
     - use single address as google maps destination
     - remove destination input from bottom of screen
 5 JOSH: remove empty maps search button
-6 MIA: display of map
-    - move map into HTML correct location (already in html commented out)
-    - comment map "in"
-    - double-check for functionality
-    - comment in showHide function
-        - if user clicks "go!" button, map is shown
-        - if user refreshes, map is hidden
 7 MIA: Search history functionality: SEARCHES AGAIN
     - create localstorage "park-history"
     - push "this-park" into localStorage "park-history"
-    - opens map
+    - opens map 
     - does not add to search history because it already in search history
     - write separate event listener on click
 */
