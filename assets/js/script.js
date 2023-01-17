@@ -126,10 +126,13 @@ function populateParkNames() {
     var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
     var parkOption = document.getElementsByClassName(".option");
     var placeholderOption = document.getElementById("placeholder-option");
+    var selectOption = document.querySelector("option"); // selects option
     if (parkOption) {
+        // if park options exist, remove them
         for (const unwantedPark of [...selectionEl]) {
             selectionEl.lastChild.remove();
         }
+        // if placeholderOption is missing, add it back in
         if (!placeholderOption) {
             placeholderOption = document.createElement("option");
             placeholderOption.setAttribute("id", "placeholder-option");
@@ -140,8 +143,9 @@ function populateParkNames() {
             selectionEl.appendChild(placeholderOption);
         }
     }
+    // adds in new park names to select options
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
-        var selectOption = document.createElement("option"); // creates option
+         selectOption = document.createElement("option"); // creates option
         selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
         selectOption.textContent = value.name; // sets name of park
