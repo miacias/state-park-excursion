@@ -42,7 +42,7 @@ var clearHistoryBtn = document.querySelector("#clear-history");
 var historyCardEl = document.querySelector(".search-history-card-container");
 var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
-var userAddressEl = document.getElementsByClassName("validate user-address-input");
+var userAddressEl = document.getElementById("user-address");
 var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
@@ -261,6 +261,8 @@ setTimeout(function(){
 
     // saves user address to local storage
     function saveAddressToStorage() {
+        // var userAddress = [];
+        // userAddress = JSON.parse(localStorage.getItem("user-address")) || [];
         localStorage.setItem('user-address', userAddressEl.value);
     }
 
