@@ -42,7 +42,7 @@ var clearHistoryBtn = document.querySelector("#clear-history");
 var historyCardEl = document.querySelector(".search-history-card-container");
 var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
-var addressInputValue = document.getElementById("icon_prefix");
+var userAddressEl = document.getElementsByClassName("validate user-address-input");
 var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
@@ -59,13 +59,6 @@ var input2 = document.getElementById("to");
 
 // DEFAULT PAGE VIEW ON LOAD (not done) COMMENT BACK IN AFTER INTEGRATING MAP
 function defaultView() {
-    /* 
-
-    6 MIA: display of map
-    - move map into HTML correct location (already in html commented out)
-    - comment map "in"
-
-    */
     // if carousel is hidden, show it
     carousel.classList.contains("hide") && carousel.classList.remove("hide");
     // if map isn't hidden, hide it
@@ -268,7 +261,7 @@ setTimeout(function(){
 
     // saves user address to local storage
     function saveAddressToStorage() {
-        localStorage.setItem('user-address', addressInputValue.value);
+        localStorage.setItem('user-address', userAddressEl.value);
     }
 
     // creates autocomplete objects for all inputs
@@ -281,15 +274,15 @@ setTimeout(function(){
 
 // --------------- EVENT LISTENERS BELOW ---------------
 
-    //Activates google map
-    stateParkFetchBtn.addEventListener("click", calcRoute)
-
-    //Sends inputted user address to local storage
-    stateParkFetchBtn.addEventListener("click", saveAddressToStorage)
+    // activates map
+    stateParkFetchBtn.addEventListener("click", function() {
+        calcRoute(); // activates google map
+        saveAddressToStorage(); // sends inputted user address to local storage
+    })
     
 }, 3000) // end of setTimeout
 
-// 
+// manages page view if all necessary inputs are present
 stateParkFetchBtn.addEventListener("click", function() {
     if (localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
         showMap();
