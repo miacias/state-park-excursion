@@ -9,7 +9,12 @@ function saveKeyToStorage() {
 buttonEl.addEventListener("click", function(event) {
     event.preventDefault();
     saveKeyToStorage();
-    if (localStorage.getItem("map-key").length === 39) {
-        keyCardEl.classList.add("hide");
-    }
 })
+
+// manages show/hide of key input card
+if (localStorage.getItem("map-key").length === 39) {
+    keyCardEl.classList.add("hide");
+}
+if (!localStorage.getItem("map-key")) {
+    keyCardEl.classList.remove("hide");
+}
