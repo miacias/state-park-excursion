@@ -42,7 +42,7 @@ var clearHistoryBtn = document.querySelector("#clear-history");
 var historyCardEl = document.querySelector(".search-history-card-container");
 var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
-var userAddressEl = document.getElementById("user-address");
+var userAddressEl = document.getElementsByClassName("user-address-input");
 var modal = document.getElementById("modal-trigger");
 
 // locally retrive Google API key
@@ -125,17 +125,20 @@ function populateParkNames() {
     var parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
     var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
     var parkOption = document.getElementsByClassName(".option");
+    var placeholderOption = document.getElementById("placeholder-option");
     if (parkOption) {
         for (const unwantedPark of [...selectionEl]) {
             selectionEl.lastChild.remove();
         }
-        var placeholderOption = document.createElement("option")
-        placeholderOption.setAttribute("id", "placeholder-option");
-        placeholderOption.setAttribute("value", "");
-        placeholderOption.setAttribute("disabled", true);
-        placeholderOption.setAttribute("selected", true);
-        placeholderOption.textContent = "PARKS"
-        selectionEl.appendChild(placeholderOption);
+        if (!placeholderOption) {
+            placeholderOption = document.createElement("option");
+            placeholderOption.setAttribute("id", "placeholder-option");
+            placeholderOption.setAttribute("value", "");
+            placeholderOption.setAttribute("disabled", true);
+            placeholderOption.setAttribute("selected", true);
+            placeholderOption.textContent = "PARKS"
+            selectionEl.appendChild(placeholderOption);
+        }
     }
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
         var selectOption = document.createElement("option"); // creates option
@@ -162,7 +165,7 @@ function getStateParkApi(stateValue) {
         return response.json();
     })
     .then(function (parkData){
-        console.log(parkData)
+        // console.log(parkData)
         parksInState = JSON.parse(localStorage.getItem("all-parks")) || [];
         // resets value to [] instead of localStorage.getItem
         for (const item of parkData.data) {
@@ -193,7 +196,7 @@ function getStateParkApi(stateValue) {
         // saves all parks within one state into localStorage as stringified array of objects
         localStorage.setItem("all-parks", JSON.stringify(parksInState));
         populateParkNames()
-        console.log(parksInState)
+        // console.log(parksInState)
     })
     return parksInState;
 }
@@ -263,7 +266,7 @@ setTimeout(function(){
     function saveAddressToStorage() {
         // var userAddress = [];
         // userAddress = JSON.parse(localStorage.getItem("user-address")) || [];
-        localStorage.setItem('user-address', userAddressEl.value);
+        localStorage.setItem('user-address', userAddressEl[0].value);
     }
 
     // creates autocomplete objects for all inputs
