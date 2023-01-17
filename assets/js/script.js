@@ -126,26 +126,27 @@ function populateParkNames() {
     var count = parksInState ? parksInState.length - 1 : 0; // sets counter to begin at index 0 to match localStorage order
     var parkOption = document.getElementsByClassName(".option");
     var placeholderOption = document.getElementById("placeholder-option");
-    var selectOption = document.querySelector("option"); // selects option
+    // if there are options available, do things
     if (parkOption) {
-        // if park options exist, remove them
+        // removes all options
         for (const unwantedPark of [...selectionEl]) {
             selectionEl.lastChild.remove();
         }
-        // if placeholderOption is missing, add it back in
-        if (!placeholderOption) {
+        // if (!placeholderOption) { // adding this in prevents duplicate placeholders on first search BUT causes error on second search
+            // replaces placeholder that was removed
             placeholderOption = document.createElement("option");
             placeholderOption.setAttribute("id", "placeholder-option");
             placeholderOption.setAttribute("value", "");
             placeholderOption.setAttribute("disabled", true);
             placeholderOption.setAttribute("selected", true);
-            placeholderOption.textContent = "PARKS"
+            placeholderOption.textContent = "PARKS";
             selectionEl.appendChild(placeholderOption);
-        }
+        // } 
+
     }
-    // adds in new park names to select options
+    // adds park names to options
     for (const value of parksInState.reverse()) { // fixes order to show A-Z on screen
-         selectOption = document.createElement("option"); // creates option
+        var selectOption = document.createElement("option"); // creates option
         selectOption.setAttribute("class", "option"); // adds class of option
         selectOption.setAttribute("value", count); // sets attribute of value number
         selectOption.textContent = value.name; // sets name of park
@@ -334,6 +335,10 @@ function selectedPark(indexLocation) {
     var onePark = [];
     onePark = JSON.parse(localStorage.getItem("this-park")) || [];
     localStorage.setItem("this-park", JSON.stringify(chosenPark));
+    usState.value = ""
+    usState.setAttribute("style", "");
+    usState.previousElementSibling.classList.remove("active");
+    usState.nextElementSibling.nextElementSibling.classList.remove("active");
 }
 
 // MODAL TRIGGER AND CONTROL (needs work)
