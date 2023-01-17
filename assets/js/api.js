@@ -12,8 +12,8 @@ buttonEl.addEventListener("click", function(event) {
 })
 
 // manages show/hide of key input card
-if (localStorage.getItem("map-key").length === 39) {
-    keyCardEl.classList.add("hide");
+if (localStorage.getItem("map-key")) {
+    (localStorage.getItem("map-key").length === 39) && keyCardEl.classList.add("hide");
 }
 if (!localStorage.getItem("map-key")) {
     keyCardEl.classList.remove("hide");
