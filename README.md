@@ -24,7 +24,18 @@ N/A. [Deployed site here!](https://miacias.github.io/orange-crushers)
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+The opening screen welcomes users to explore United States National Parks. The navigation sidebar contains controls while the main page shows a carousel of enticing nature-filled images from the nation's parks.
+
+As the user reads the page, they are alerted with a tooltip on a button to first save their map key supplied by Google Maps.
+
+To use:
+1. Type or paste in a Google Maps API key into the input field then click "Save." This box should disappear from view once the key is saved. NOTE: If a mistake is made, you can refresh the page to return this box to view and input a new key.
+2. Now that a Google Maps API key is saved, return to the top of the navigation sidebar.
+3. Input a starting address.
+4. Select a state of interest.
+5. Select a park of interest.
+6. Click "GO" to open up a map and access more info!
+7. After viewing the map and manipulating it as desired, click the "More Details" button for details on the park and travel.
 
 To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
 
