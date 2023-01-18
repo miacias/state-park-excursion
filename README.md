@@ -55,13 +55,13 @@ U. Penn Bootcamp group project members:
 
 - [Mia Ciasullo](https://github.com/miacias)
 - [Mike Stem](https://github.com/mikestem)
-- [Josh R.](https://github.com/JSR5404)
+- [Josh Ricefield](https://github.com/JSR5404)
 
 U. Penn Bootcamp instructors:
 
 - [Dan Gross](https://github.com/DanielWGross) - HTML defer, initializing Materialize CSS
 - [Andrew Hojnowski](https://github.com/aHojo) - For Of loop
-- Ross Statler - template literal
+- Ross King - template literal
 
 Artist(s):
 
