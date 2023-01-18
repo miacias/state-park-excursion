@@ -45,10 +45,6 @@ var map = document.querySelector("#googleMap");
 var userAddressEl = document.getElementsByClassName("user-address-input");
 var modal = document.getElementById("modal-trigger");
 
-// locally retrive Google API key
-var storedValue = localStorage.getItem("map-key");
-console.log("Google API key: " + storedValue);
-
 // connects to GoogleMaps autocomplete (switch to user address form input)
 var input1 = document.getElementById("from");
 
@@ -68,7 +64,7 @@ function defaultView() {
     // if search history is empty, hide history card
     !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
-defaultView();
+// defaultView();
 
 // SHOW MAP
 function showMap() {
@@ -86,6 +82,9 @@ function showModal() {
 
 // adds the Google Maps Directions API key securely to HTML
 function apiKeyAdder() {
+    // locally retrive Google API key
+    var storedValue = localStorage.getItem("map-key");
+    console.log("Google API key: " + storedValue);
     var apiKeyLink = document.getElementById("api-key");
     var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
     apiKeyLink.setAttribute("src", createdLink);
@@ -95,9 +94,8 @@ function apiKeyAdder() {
     // s.setAttribute( 'src', createdLink );
     // s.onload=callback;
     // document.body.appendChild( s );
-
 }
-apiKeyAdder()
+apiKeyAdder();
 
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
@@ -155,7 +153,7 @@ function populateParkNames() {
 
 // gets list of parks within a single US state (done)
 function getStateParkApi(stateValue) {
-    localStorage.clear("all-parks");
+    localStorage.removeItem("all-parks");
     var parksInState = [];
     const stateParkApiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
     var nationalParksServicesURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateValue + "&api_key=" + stateParkApiKey;
@@ -200,10 +198,28 @@ function getStateParkApi(stateValue) {
     return parksInState;
 }
 
+// PUTS INFORMATION FROM SELECTED PARK INTO LOCALSTORAGE (done)
+function selectedPark(indexLocation) {
+    let chosenPark = JSON.parse(localStorage.getItem("all-parks"))[indexLocation]
+    var onePark = [];
+    onePark = JSON.parse(localStorage.getItem("this-park")) || [];
+    localStorage.setItem("this-park", JSON.stringify(chosenPark));
+    usState.value = ""
+    usState.setAttribute("style", "");
+    usState.previousElementSibling.classList.remove("active");
+    usState.nextElementSibling.nextElementSibling.classList.remove("active");
+}
+
+// saves user address to local storage
+function saveAddressToStorage() {
+    localStorage.setItem('user-address', userAddressEl[0].value);
+}
+
 // GOOGLE MAPS CONTROLS
 
-setTimeout(function(){
-  
+// calculates route from user to park
+function calcRoute() {
+
     // sets map options (javascript.js)
     var myLatLng = { lat: 39.9526, lng: 75.1652 };
     var mapOptions = {
@@ -223,50 +239,31 @@ setTimeout(function(){
 
     // binds the DirectionsRenderer to the map
     directionsDisplay.setMap(map);
+    var thisParkAddress = JSON.parse(localStorage.getItem("this-park"));
+    var request = {
+        origin: localStorage.getItem("user-address"),
+        destination: `${thisParkAddress.street}, ${thisParkAddress.city}, ${thisParkAddress.state} ${thisParkAddress.zip}`,
+        travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+    }
 
-
-    // calculates route from user to park
-    function calcRoute() {
-        //create request
-
-        /*
-        - change origin to localStorage.getItem under keyword "user-address"
-        - change destination to localstorage.getItem under keyword "park-address"
-        
-        */
-
-        var request = {
-            origin: document.getElementById("from").value,
-            destination: document.getElementById("to").value,
-            travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
-            unitSystem: google.maps.UnitSystem.IMPERIAL
+    // passes the request to the route method
+    directionsService.route(request, function (result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            // gets distance and time
+            const output = document.querySelector('#output');
+            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+            // displays route
+            directionsDisplay.setDirections(result);
+        } else {
+            // deletes route from map
+            directionsDisplay.setDirections({ routes: [] });
+            // centers map in London
+            map.setCenter(myLatLng);
+            // shows error message
+            output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
         }
-
-        // passes the request to the route method
-        directionsService.route(request, function (result, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                // gets distance and time
-                const output = document.querySelector('#output');
-                output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
-                // displays route
-                directionsDisplay.setDirections(result);
-            } else {
-                // deletes route from map
-                directionsDisplay.setDirections({ routes: [] });
-                // centers map in London
-                map.setCenter(myLatLng);
-                // shows error message
-                output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
-            }
-        })
-    }
-
-    // saves user address to local storage
-    function saveAddressToStorage() {
-        // var userAddress = [];
-        // userAddress = JSON.parse(localStorage.getItem("user-address")) || [];
-        localStorage.setItem('user-address', userAddressEl[0].value);
-    }
+    })
 
     // creates autocomplete objects for all inputs
     var options = {
@@ -274,21 +271,16 @@ setTimeout(function(){
     }
     var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
     var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
-
+}
 
 // --------------- EVENT LISTENERS BELOW ---------------
 
-    // activates map
-    stateParkFetchBtn.addEventListener("click", function() {
+// shows map and modal after inputs are added
+stateParkFetchBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveAddressToStorage(); // sends inputted user address to local storage
+    if (localStorage.getItem("map-key") && localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
         calcRoute(); // activates google map
-        saveAddressToStorage(); // sends inputted user address to local storage
-    })
-    
-}, 3000) // end of setTimeout
-
-// manages page view if all necessary inputs are present
-stateParkFetchBtn.addEventListener("click", function() {
-    if (localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
         showMap();
         showModal();
     // populateModal();
@@ -322,18 +314,6 @@ parkSelections.addEventListener("change", function (event) {
     var indexLocation = event.target.value;
     return selectedPark(indexLocation);
 })
-
-// PUTS INFORMATION FROM SELECTED PARK INTO LOCALSTORAGE (DONE)
-function selectedPark(indexLocation) {
-    let chosenPark = JSON.parse(localStorage.getItem("all-parks"))[indexLocation]
-    var onePark = [];
-    onePark = JSON.parse(localStorage.getItem("this-park")) || [];
-    localStorage.setItem("this-park", JSON.stringify(chosenPark));
-    usState.value = ""
-    usState.setAttribute("style", "");
-    usState.previousElementSibling.classList.remove("active");
-    usState.nextElementSibling.nextElementSibling.classList.remove("active");
-}
 
 // MODAL TRIGGER AND CONTROL (needs work)
 // park info
@@ -413,14 +393,14 @@ var instance = M.Autocomplete.getInstance(usState);
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems);
-  });
+});
 
 // CLEAR SEARCH HISTORY
 clearHistoryBtn.addEventListener("click", function() {
     // empties "park-history"
-    localStorage.clear("park-history");
+    localStorage.removeItem("park-history");
     // checks if search history is on page
     if (historyContainerEl.hasChildNodes()) {
         clearHistory()
     }
-})
+});
