@@ -49,7 +49,8 @@ Tutorials referenced:
 
 Tutor(s):
 
-- Alexis San Javier - ternary operator, Materialize CSS troubleshooting
+- [Alexis San Javier](https://github.com/code-guy21) - ternary operator, Materialize CSS troubleshooting
+- [Marc Calache](https://github.com/CalacheMarc) - HTML defer, Google Maps API
 
 U. Penn Bootcamp group project members:
 
