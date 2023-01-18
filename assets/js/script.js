@@ -80,6 +80,26 @@ function showModal() {
     modal.classList.contains("hide") && modal.classList.remove("hide"); // if map is hidden, remove "hide" class
 }
 
+function stateParkModal() {
+    var parkParentEl = document.getElementById("park-info");
+    var parkChildEl = document.createElement("p");
+    parkChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).name;
+    parkParentEl.appendChild(parkChildEl);
+
+    var openChildEl = document.createElement("p")
+    openChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).open;
+    parkParentEl.appendChild(openChildEl);
+    
+    var weatherChildEl = document.createElement("p")
+    weatherChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).weather;
+    parkParentEl.appendChild(weatherChildEl);
+
+    var feesChildEl = document.createElement("p")
+    feesChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).fees;
+    parkParentEl.appendChild(feesChildEl);
+
+}
+
 // MAP API CONTROLS
 
 // adds the Google Maps Directions API key securely to HTML
@@ -289,6 +309,7 @@ stateParkFetchBtn.addEventListener("click", function(event) {
     if (localStorage.getItem("map-key") && localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
         calcRoute(); // activates google map
         showMap();
+        stateParkModal();
         showModal();
     // populateModal();
     }
