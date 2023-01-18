@@ -200,6 +200,18 @@ function getStateParkApi(stateValue) {
     return parksInState;
 }
 
+// PUTS INFORMATION FROM SELECTED PARK INTO LOCALSTORAGE (done)
+function selectedPark(indexLocation) {
+    let chosenPark = JSON.parse(localStorage.getItem("all-parks"))[indexLocation]
+    var onePark = [];
+    onePark = JSON.parse(localStorage.getItem("this-park")) || [];
+    localStorage.setItem("this-park", JSON.stringify(chosenPark));
+    usState.value = ""
+    usState.setAttribute("style", "");
+    usState.previousElementSibling.classList.remove("active");
+    usState.nextElementSibling.nextElementSibling.classList.remove("active");
+}
+
 // GOOGLE MAPS CONTROLS
 
 setTimeout(function(){
@@ -322,18 +334,6 @@ parkSelections.addEventListener("change", function (event) {
     var indexLocation = event.target.value;
     return selectedPark(indexLocation);
 })
-
-// PUTS INFORMATION FROM SELECTED PARK INTO LOCALSTORAGE (DONE)
-function selectedPark(indexLocation) {
-    let chosenPark = JSON.parse(localStorage.getItem("all-parks"))[indexLocation]
-    var onePark = [];
-    onePark = JSON.parse(localStorage.getItem("this-park")) || [];
-    localStorage.setItem("this-park", JSON.stringify(chosenPark));
-    usState.value = ""
-    usState.setAttribute("style", "");
-    usState.previousElementSibling.classList.remove("active");
-    usState.nextElementSibling.nextElementSibling.classList.remove("active");
-}
 
 // MODAL TRIGGER AND CONTROL (needs work)
 // park info
