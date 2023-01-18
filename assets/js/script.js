@@ -83,6 +83,19 @@ function stateParkModal() {
     var parkChildEl = document.createElement("p");
     parkChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).name;
     parkParentEl.appendChild(parkChildEl);
+
+    var openChildEl = document.createElement("p")
+    openChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).open;
+    parkParentEl.appendChild(openChildEl);
+    
+    var weatherChildEl = document.createElement("p")
+    weatherChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).weather;
+    parkParentEl.appendChild(weatherChildEl);
+
+    var feesChildEl = document.createElement("p")
+    feesChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).fees;
+    parkParentEl.appendChild(feesChildEl);
+
 }
 
 // MAP API CONTROLS
@@ -113,7 +126,7 @@ function clearHistory() {
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
     // checks if "all-parks" and "user-address" exists (implies map is populated), then changes view
-    if ((JSON.parse(localStorage.getItem("all-parks")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
+    if ((JSON.parse(localStorage.getItem("all-parks")) !== null) && (localStorage.getItem("user-address")) !== null) {
         carousel.classList.add("hide");
         map.classList.remove("hide");
     }
@@ -289,6 +302,7 @@ stateParkFetchBtn.addEventListener("click", function(event) {
     if (localStorage.getItem("map-key") && localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
         calcRoute(); // activates google map
         showMap();
+        stateParkModal();
         showModal();
     // populateModal();
     }
