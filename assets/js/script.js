@@ -68,7 +68,7 @@ function defaultView() {
     // if search history is empty, hide history card
     !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
-defaultView();
+// defaultView();
 
 // SHOW MAP
 function showMap() {
@@ -80,6 +80,13 @@ function showMap() {
 // SHOW MODAL
 function showModal() {
     modal.classList.contains("hide") && modal.classList.remove("hide"); // if map is hidden, remove "hide" class
+}
+
+function stateParkModal() {
+    var parkParentEl = document.getElementById("park-info");
+    var parkChildEl = document.createElement("p");
+    parkChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).name;
+    parkParentEl.appendChild(parkChildEl);
 }
 
 // MAP API CONTROLS
