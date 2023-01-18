@@ -58,19 +58,21 @@ function defaultView() {
     // if carousel is hidden, show it
     carousel.classList.contains("hide") && carousel.classList.remove("hide");
     // if map isn't hidden, hide it
-    !map.classList.contains("hide") && map.classList.add("hide");
+    !map.parentElement.classList.contains("hide") && map.parentElement.classList.add("hide");
     // if modal isn't hidden, hide it
     !modal.classList.contains("hide") && modal.classList.add("hide");
     // if search history is empty, hide history card
     !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
-// defaultView();
+defaultView();
 
-// SHOW MAP
+// SHOW MAP, HIDE CAROUSEL
 function showMap() {
+    var mapParent = document.getElementById("map-parent");
     // if the leftmost statement is true, continue, otherwise skip (code does not break)
     // in this case, if all leftmost statements are true, actionable code is executed until code reaches a false statement
-    map.classList.contains("hide") && map.classList.remove("hide"); // if map is hidden, remove "hide" class
+    carousel.classList.add("hide");
+    mapParent.classList.contains("hide") && mapParent.classList.remove("hide"); // if map is hidden, remove "hide" class
 }
 
 // SHOW MODAL
@@ -101,15 +103,6 @@ apiKeyAdder();
 function clearHistory() {
     historyContainerEl.remove()
     historyCardEl.setAttribute("class", "hide");
-}
-
-// CHANGES ELEMENTS VISIBLE USING MATERIALIZE
-function showMap() {
-    // checks if "all-parks" and "user-address" exists (implies map is populated), then changes view
-    if ((JSON.parse(localStorage.getItem("this-park")) !== null) && (localStorage.getItem("user-address") !== null)) {
-        carousel.classList.add("hide");
-        map.classList.remove("hide");
-    }
 }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
@@ -219,7 +212,6 @@ function saveAddressToStorage() {
 
 // calculates route from user to park
 function calcRoute() {
-
     // sets map options (javascript.js)
     var myLatLng = { lat: 39.9526, lng: 75.1652 };
     var mapOptions = {
@@ -229,7 +221,7 @@ function calcRoute() {
     };
 
     // creates map
-    var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+    var googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
     // creates a DirectionsService object to use the route method and get a result for our request
     var directionsService = new google.maps.DirectionsService();
@@ -238,7 +230,7 @@ function calcRoute() {
     var directionsDisplay = new google.maps.DirectionsRenderer();
 
     // binds the DirectionsRenderer to the map
-    directionsDisplay.setMap(map);
+    directionsDisplay.setMap(googleMap);
     var thisParkAddress = JSON.parse(localStorage.getItem("this-park"));
     var request = {
         origin: localStorage.getItem("user-address"),
@@ -273,9 +265,10 @@ function calcRoute() {
             // deletes route from map
             directionsDisplay.setDirections({ routes: [] });
             // centers map in London
-            map.setCenter(myLatLng);
+            googleMap.setCenter(myLatLng);
             // shows error message
-            output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+            output.textContent = "Could not retrieve driving distance."
+            // "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
         }
     })
 
@@ -283,8 +276,8 @@ function calcRoute() {
     var options = {
         types: ['(cities)']
     }
-    var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
-    var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+    // var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
+    // var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 }
 
 // --------------- EVENT LISTENERS BELOW ---------------
