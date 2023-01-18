@@ -252,8 +252,21 @@ function calcRoute() {
         if (status == google.maps.DirectionsStatus.OK) {
             // gets distance and time
             const output = document.querySelector('#output');
-            output.textContent = "<div class='alert-info'>From: " + localStorage.getItem("user-address") + ".<br />To: " + request.destination + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
-            console.log(output.textContent)
+            var from = document.createElement("p");
+            from.setAttribute("class", "alert-info");
+            from.textContent = "From: " + localStorage.getItem("user-address") || "";
+            output.appendChild(from);
+            var to = document.createElement("p");
+            to.textContent = "To: " + request.destination;
+            from.append(to);
+            var drivingDistance = document.createElement("p");
+            drivingDistance.textContent = "Distance: " + result.routes[0].legs[0].distance.text;
+            to.append(drivingDistance);
+            var drivingDuration = document.createElement("p");
+            drivingDuration.textContent = "Duration: " + result.routes[0].legs[0].duration.text;
+            drivingDistance.append(drivingDuration);
+            // driving distance <i class='fas fa-road'></i> : Duration <i class='fas fa-hourglass-start'></i> 
+            // console.log(output.textContent)
             // displays route
             directionsDisplay.setDirections(result);
         } else {
