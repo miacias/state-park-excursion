@@ -1,33 +1,16 @@
 /*
-1 modals
-    - MIKE: (1) gets data from localStorage "this-park" (relevant info)
-    - JOSH: (2) gets data from google maps API call (travel distance and time)
-2 MIKE: search history creation: HTML
+1 MIKE: search history creation: HTML
     - IF statment: if history has values (i.e. if it is TRUE), remove ".hide" class from HTML attribute
     - write a function to make search history item appear in HTML container
     - limit list length 4
     - overwrite list as more than 4 items are added (challenge: focus on MVP first)
-3 JOSH: SET ORIGIN of google maps with autocomplete functionality into user ADDRESS input
-    - remove origin input from bottom of screen
-4 JOSH: SET DESTINATION of google maps as localStorage "this-park"
-    - grab JSON.parsed object values from localStorage
-    - concatenate object values into a single address
-    - use single address as google maps destination
-    - remove destination input from bottom of screen
-5 JOSH: remove empty maps search button
-6 MIA: display of map
-    - move map into HTML correct location (already in html commented out)
-    - comment map "in"
-    - double-check for functionality
-    - comment in showHide function
-        - if user clicks "go!" button, map is shown
-        - if user refreshes, map is hidden
-7 MIA: Search history functionality: SEARCHES AGAIN
+2 MIA: Search history functionality: SEARCHES AGAIN
     - create localstorage "park-history"
     - push "this-park" into localStorage "park-history"
     - opens map
     - does not add to search history because it already in search history
     - write separate event listener on click
+3 JOSH: ensure map displays correctly
 */
 
 // --------------- GLOBAL VARIABLES ---------------
@@ -63,6 +46,8 @@ function defaultView() {
     !modal.classList.contains("hide") && modal.classList.add("hide");
     // if search history is empty, hide history card
     !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
+    // if key is set, hide key card
+
 }
 defaultView();
 
@@ -83,7 +68,9 @@ function showModal() {
 function stateParkModal() {
     var parkParentEl = document.getElementById("park-info");
     // resets modal to empty before adding new content
-    parkParentEl.remove();
+    while (parkParentEl.firstChild) {
+        parkParentEl.removeChild(parkParentEl.firstChild);
+    }
     var parkChildEl = document.createElement("p");
     parkChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).name;
     parkParentEl.appendChild(parkChildEl);
@@ -99,7 +86,6 @@ function stateParkModal() {
     var feesChildEl = document.createElement("p")
     feesChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).fees;
     parkParentEl.appendChild(feesChildEl);
-
 }
 
 // MAP API CONTROLS
@@ -113,11 +99,6 @@ function apiKeyAdder() {
     var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
     apiKeyLink.setAttribute("src", createdLink);
     apiKeyLink.setAttribute("defer", true);
-
-    // var s = document.createElement( 'script' );
-    // s.setAttribute( 'src', createdLink );
-    // s.onload=callback;
-    // document.body.appendChild( s );
 }
 apiKeyAdder();
 
@@ -267,7 +248,9 @@ function calcRoute() {
             // gets distance and time
             const output = document.querySelector('#output');
             // resets modal to empty before adding new content
-            output.remove();
+            while (output.firstChild) {
+                output.removeChild(output.firstChild)
+            }
             var from = document.createElement("p");
             from.setAttribute("class", "alert-info");
             from.textContent = "From: " + localStorage.getItem("user-address") || "";
@@ -281,8 +264,6 @@ function calcRoute() {
             var drivingDuration = document.createElement("p");
             drivingDuration.textContent = "Duration: " + result.routes[0].legs[0].duration.text;
             drivingDistance.append(drivingDuration);
-            // driving distance <i class='fas fa-road'></i> : Duration <i class='fas fa-hourglass-start'></i> 
-            // console.log(output.textContent)
             // displays route
             directionsDisplay.setDirections(result);
         } else {
@@ -292,7 +273,6 @@ function calcRoute() {
             googleMap.setCenter(myLatLng);
             // shows error message
             output.textContent = "Could not retrieve driving distance."
-            // "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
         }
     })
 
