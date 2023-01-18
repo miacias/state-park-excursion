@@ -45,10 +45,6 @@ var map = document.querySelector("#googleMap");
 var userAddressEl = document.getElementsByClassName("user-address-input");
 var modal = document.getElementById("modal-trigger");
 
-// locally retrive Google API key
-var storedValue = localStorage.getItem("map-key");
-console.log("Google API key: " + storedValue);
-
 // connects to GoogleMaps autocomplete (switch to user address form input)
 var input1 = document.getElementById("from");
 
@@ -86,6 +82,9 @@ function showModal() {
 
 // adds the Google Maps Directions API key securely to HTML
 function apiKeyAdder() {
+    // locally retrive Google API key
+    var storedValue = localStorage.getItem("map-key");
+    console.log("Google API key: " + storedValue);
     var apiKeyLink = document.getElementById("api-key");
     var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
     apiKeyLink.setAttribute("src", createdLink);
