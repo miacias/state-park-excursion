@@ -216,7 +216,7 @@ function saveAddressToStorage() {
 // calculates route from user to park
 function calcRoute() {
     // sets map options (javascript.js)
-    var myLatLng = { lat: 39.9526, lng: 75.1652 };
+    var myLatLng = { lat: 39.9526, lng: -75.1652 };
     var mapOptions = {
         center: myLatLng,
         zoom: 7,
