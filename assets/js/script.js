@@ -106,7 +106,7 @@ function clearHistory() {
 // CHANGES ELEMENTS VISIBLE USING MATERIALIZE
 function showMap() {
     // checks if "all-parks" and "user-address" exists (implies map is populated), then changes view
-    if ((JSON.parse(localStorage.getItem("all-parks")) !== null) && (JSON.parse(localStorage.getItem("user-address")) !== null)) {
+    if ((JSON.parse(localStorage.getItem("this-park")) !== null) && (localStorage.getItem("user-address") !== null)) {
         carousel.classList.add("hide");
         map.classList.remove("hide");
     }
@@ -252,7 +252,8 @@ function calcRoute() {
         if (status == google.maps.DirectionsStatus.OK) {
             // gets distance and time
             const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+            output.textContent = "<div class='alert-info'>From: " + localStorage.getItem("user-address") + ".<br />To: " + request.destination + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+            console.log(output.textContent)
             // displays route
             directionsDisplay.setDirections(result);
         } else {
