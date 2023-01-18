@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- local CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- removes any favicon errors from DevTools -->
+    <link rel="shortcut icon" href="">
     <title>National Parks Trips</title>
 </head>
 <body class="blue-grey darken-2">
@@ -46,8 +48,8 @@
                                         <div class="row">
                                             <div class="input-field col s10">
                                                 <i class="material-icons prefix">home</i>
-                                                <input id="icon_prefix" type="text" class="user-address-input">
-                                                <label for="icon_prefix">ADDRESS</label>
+                                                <input id="from" id="icon_prefix" type="text" class="user-address-input">
+                                                <label for="from" for="icon_prefix">ADDRESS</label>
                                             </div>
                                         </div>
                                     </form>
@@ -95,7 +97,7 @@
                             <div class="row">
                                 <div class="input-field col s10">
                                     <i class="material-icons prefix">key</i>
-                                    <input id="icon_prefix" type="text" class="map-key-input">
+                                    <input id="icon_prefix" type="text" class="map-key-input" autocomplete="off">
                                     <label for="icon_prefix">KEY CODE</label>
                                 </div>
                             </div>
@@ -158,11 +160,11 @@
                 </section>
                 
                 <!-- populated map below -->
-                <section class="map-container valign">
+                <!-- <section class="map-container valign">
                     <div>
                         <div id= "googleMap"></div>
                     </div>
-                </section>
+                </section> -->
             </div>
 
             <!-- Modal Trigger -->
@@ -205,13 +207,6 @@
         <div class="container">
             <p>This App Will Help You Calculate Your Travelling Distances.</p>
             <form>
-                <!-- origin -->
-                <div>
-                    <label for="from"></label>
-                    <div>
-                        <input type="text" id="from" placeholder="Origin">
-                    </div>
-                </div>
                 <!-- destination -->
                 <div>
                     <label for="to"></label>
