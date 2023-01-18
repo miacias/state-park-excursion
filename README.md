@@ -30,20 +30,53 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ![alt text](assets/images/screenshot.png)
 
+
 ## Credits
 
+Documentation referenced:
+
+- Mozilla Developer Network
+- Materialize CSS & Materialize JS
+- National Parks Services API
+- Google Maps Directions API
+- Stack Overflow forums
+- W3 Schools
+
+Tutorials referenced:
+
+- Web Tech In Depth on [YouTube](https://www.youtube.com/watch?v=XCC-K6Q9h7M) - initializing a Materialize CSS select option menu
+- (source?) - Google Maps Directions API help
+
+Tutor(s):
+
+- Alexis San Javier - ternary operator, Materialize CSS troubleshooting
+
+U. Penn Bootcamp group project members:
+
+- [Mia Ciasullo](https://github.com/miacias)
+- [Mike Stem](https://github.com/mikestem)
+- [Josh R.](https://github.com/JSR5404)
+
+U. Penn Bootcamp instructors:
+
+- [Dan Gross](https://github.com/DanielWGross) - HTML defer
+- [Andrew Hojnowski](https://github.com/aHojo) - For Of loop
+- Ross Statler
+
 Artist(s):
+
 - Color palette by dhzuehlke on [ColourLovers.com](https://www.colourlovers.com/palette/4893136/Die_Krabbe%C2%B2)
+- Jamie Street on [Unsplash.com](Unsplash.com) - photograph entitled "Compass overlooking the valley below"
+- Chris Lawaton on [Unsplash.com](Unsplash.com) - photograph entitled "Let the adventures begin"
+- Kal Visuals on [Unsplash.com](Unsplash.com) 
+	- photograph entitled "Maps are greater than phones"
+	- photograph entitled "Planning the day at Crater Lake National Park"
+- Josh Carter on [Unsplash.com](Unsplash.com) - photograph entitled "National parks patches"
 
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
 
 ## License
 
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
+Please refer to the LICENSE in the repo.
 
 ---
 
