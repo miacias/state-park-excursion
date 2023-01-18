@@ -82,6 +82,8 @@ function showModal() {
 
 function stateParkModal() {
     var parkParentEl = document.getElementById("park-info");
+    // resets modal to empty before adding new content
+    parkParentEl.remove();
     var parkChildEl = document.createElement("p");
     parkChildEl.textContent = JSON.parse(localStorage.getItem("this-park")).name;
     parkParentEl.appendChild(parkChildEl);
@@ -121,7 +123,7 @@ apiKeyAdder();
 
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
-    historyContainerEl.remove()
+    historyContainerEl.remove();
     historyCardEl.setAttribute("class", "hide");
 }
 
@@ -264,6 +266,8 @@ function calcRoute() {
         if (status == google.maps.DirectionsStatus.OK) {
             // gets distance and time
             const output = document.querySelector('#output');
+            // resets modal to empty before adding new content
+            output.remove();
             var from = document.createElement("p");
             from.setAttribute("class", "alert-info");
             from.textContent = "From: " + localStorage.getItem("user-address") || "";
@@ -311,7 +315,6 @@ stateParkFetchBtn.addEventListener("click", function(event) {
         showMap();
         stateParkModal();
         showModal();
-    // populateModal();
     }
 })
 
