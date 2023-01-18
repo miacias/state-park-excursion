@@ -20,7 +20,7 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+N/A. [Deployed site here!](https://miacias.github.io/orange-crushers)
 
 ## Usage
 
@@ -59,19 +59,19 @@ U. Penn Bootcamp group project members:
 
 U. Penn Bootcamp instructors:
 
-- [Dan Gross](https://github.com/DanielWGross) - HTML defer
+- [Dan Gross](https://github.com/DanielWGross) - HTML defer, initializing Materialize CSS
 - [Andrew Hojnowski](https://github.com/aHojo) - For Of loop
-- Ross Statler
+- Ross Statler - template literal
 
 Artist(s):
 
 - Color palette by dhzuehlke on [ColourLovers.com](https://www.colourlovers.com/palette/4893136/Die_Krabbe%C2%B2)
-- Jamie Street on [Unsplash.com](Unsplash.com) - photograph entitled "Compass overlooking the valley below"
-- Chris Lawaton on [Unsplash.com](Unsplash.com) - photograph entitled "Let the adventures begin"
+- Jamie Street on [Unsplash.com](https://unsplash.com/photos/_94HLr_QXo8) - photograph entitled "Compass overlooking the valley below"
+- Chris Lawton on [Unsplash.com](https://unsplash.com/photos/o0l-M8W_7wA) - photograph entitled "Let the adventures begin"
 - Kal Visuals on [Unsplash.com](Unsplash.com) 
-	- photograph entitled "Maps are greater than phones"
-	- photograph entitled "Planning the day at Crater Lake National Park"
-- Josh Carter on [Unsplash.com](Unsplash.com) - photograph entitled "National parks patches"
+	- [photograph](https://unsplash.com/photos/IG1m3RomhPI) entitled "Maps are greater than phones"
+	- [photograph](https://unsplash.com/photos/3sVhudiAl84) entitled "Planning the day at Crater Lake National Park"
+- Josh Carter on [Unsplash.com](https://unsplash.com/photos/5kk7fGDdGFM) - photograph entitled "National parks patches"
 
 
 ## License
