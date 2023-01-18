@@ -10,6 +10,7 @@ function saveKeyToStorage() {
 buttonEl.addEventListener("click", function(event) {
     event.preventDefault();
     saveKeyToStorage();
+    apiKeyAdder();
 
     // manages show/hide of key input card
     if (localStorage.getItem("map-key")) {
@@ -22,4 +23,4 @@ buttonEl.addEventListener("click", function(event) {
         keyCardEl.classList.remove("hide");
         goButton.classList.add("tooltipped");
     }
-})
+});

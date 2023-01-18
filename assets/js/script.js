@@ -68,7 +68,7 @@ function defaultView() {
     // if search history is empty, hide history card
     !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
 }
-defaultView();
+// defaultView();
 
 // SHOW MAP
 function showMap() {
@@ -95,9 +95,8 @@ function apiKeyAdder() {
     // s.setAttribute( 'src', createdLink );
     // s.onload=callback;
     // document.body.appendChild( s );
-
 }
-apiKeyAdder()
+apiKeyAdder();
 
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
@@ -155,7 +154,7 @@ function populateParkNames() {
 
 // gets list of parks within a single US state (done)
 function getStateParkApi(stateValue) {
-    localStorage.clear("all-parks");
+    localStorage.removeItem("all-parks");
     var parksInState = [];
     const stateParkApiKey = "CBfyxbdetzhPX1Eb6AkF8tKog9tRDva0gzXJylB8"
     var nationalParksServicesURL = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateValue + "&api_key=" + stateParkApiKey;
@@ -275,8 +274,6 @@ setTimeout(function(){
 
     // saves user address to local storage
     function saveAddressToStorage() {
-        // var userAddress = [];
-        // userAddress = JSON.parse(localStorage.getItem("user-address")) || [];
         localStorage.setItem('user-address', userAddressEl[0].value);
     }
 
@@ -291,16 +288,18 @@ setTimeout(function(){
 // --------------- EVENT LISTENERS BELOW ---------------
 
     // activates map
-    stateParkFetchBtn.addEventListener("click", function() {
+    stateParkFetchBtn.addEventListener("click", function(event) {
+        event.preventDefault();
         calcRoute(); // activates google map
         saveAddressToStorage(); // sends inputted user address to local storage
     })
     
 }, 3000) // end of setTimeout
 
-// manages page view if all necessary inputs are present
-stateParkFetchBtn.addEventListener("click", function() {
-    if (localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
+// shows map and modal after inputs are added
+stateParkFetchBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (localStorage.getItem("map-key") && localStorage.getItem("user-address") && localStorage.getItem("this-park")) {
         showMap();
         showModal();
     // populateModal();
@@ -413,14 +412,14 @@ var instance = M.Autocomplete.getInstance(usState);
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems);
-  });
+});
 
 // CLEAR SEARCH HISTORY
 clearHistoryBtn.addEventListener("click", function() {
     // empties "park-history"
-    localStorage.clear("park-history");
+    localStorage.removeItem("park-history");
     // checks if search history is on page
     if (historyContainerEl.hasChildNodes()) {
         clearHistory()
     }
-})
+});
