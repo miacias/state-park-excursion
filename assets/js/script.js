@@ -21,9 +21,9 @@ var parkSelections = document.querySelector("#park-list");
 var selectionEl = document.getElementById('park-list');
 var stateParkFetchBtn = document.getElementById('fetch-park-info');
 var carousel = document.querySelector('.carousel');
-var clearHistoryBtn = document.querySelector("#clear-history");
-var historyCardEl = document.querySelector(".search-history-card-container");
-var historyContainerEl = document.getElementById("history-collection");
+// var clearHistoryBtn = document.querySelector("#clear-history");
+// var historyCardEl = document.querySelector(".search-history-card-container");
+// var historyContainerEl = document.getElementById("history-collection");
 var map = document.querySelector("#googleMap");
 var userAddressEl = document.getElementsByClassName("user-address-input");
 var modal = document.getElementById("modal-trigger");
@@ -45,7 +45,7 @@ function defaultView() {
     // if modal isn't hidden, hide it
     !modal.classList.contains("hide") && modal.classList.add("hide");
     // if search history is empty, hide history card
-    !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
+    // !(localStorage.getItem("park-history")) && historyCardEl.classList.add("hide");
     // if key is set, hide key card
 
 }
@@ -96,17 +96,17 @@ function apiKeyAdder() {
     var storedValue = localStorage.getItem("map-key");
     console.log("Google API key: " + storedValue);
     var apiKeyLink = document.getElementById("api-key");
-    var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
+    var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&callback=somethingMeaningless&libraries=places";
     apiKeyLink.setAttribute("src", createdLink);
     apiKeyLink.setAttribute("defer", true);
 }
 apiKeyAdder();
 
 // CLEAR HISTORY AND HIDE CARD
-function clearHistory() {
-    historyContainerEl.remove();
-    historyCardEl.setAttribute("class", "hide");
-}
+// function clearHistory() {
+//     historyContainerEl.remove();
+//     historyCardEl.setAttribute("class", "hide");
+// }
 
 // POPULATE PARK NAMES DROPDOWN FROM LOCALSTORAGE (not done)
 function populateParkNames() {
@@ -212,7 +212,11 @@ function saveAddressToStorage() {
 }
 
 // GOOGLE MAPS CONTROLS
+function somethingMeaningless(){
 
+return
+
+}
 // calculates route from user to park
 function calcRoute() {
     // sets map options (javascript.js)
@@ -407,11 +411,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // CLEAR SEARCH HISTORY
-clearHistoryBtn.addEventListener("click", function() {
-    // empties "park-history"
-    localStorage.removeItem("park-history");
-    // checks if search history is on page
-    if (historyContainerEl.hasChildNodes()) {
-        clearHistory()
-    }
-});
+// clearHistoryBtn.addEventListener("click", function() {
+    // // empties "park-history"
+    // localStorage.removeItem("park-history");
+    // // checks if search history is on page
+    // if (historyContainerEl.hasChildNodes()) {
+    //     clearHistory()
+    // }
+//     return
+// });
