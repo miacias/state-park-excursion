@@ -83,3 +83,11 @@ color: black;
         margin: 10px auto;
     }
   }
+
+  @media (max-width: 280px) {
+    #googleMap {
+        width: 250px;
+        height: 870px;
+        margin: 10px auto;
+    }
+  }
