@@ -1,26 +1,32 @@
-# <Your-Project-Title>
+# <Outdoor-Excursion>
+
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+Is it time to get outside, but you're not sure where to go? Do you need to "touch grass" but need some inspiration? Explore our U.S. National Park system! Here, you can get crucial park information on how to plan ahead for your future visit or run out the door right now. Discover pertinent travel details right from where you are.
+
+The motivation behind this project is to help people who live in or who visit the United States connect (or reconnect) with the great outdoors. Travelers from abroad, newly settled families, and even established folks oftentimes shy away from the amazing natural world right at our fingertips despite wanting to go on an excursion.
+
+This project was founded by three creators: Mia, Mike, and Josh. We learned how to follow Agile workflow.
 
 - What was your motivation?
 - Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
 - What problem does it solve?
 - What did you learn?
 
-## Table of Contents (Optional)
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
+## Table of Contents (Optional)
 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
 
+
 ## Installation
 
-N/A. [Deployed site here!](https://miacias.github.io/orange-crushers)
+N/A. [Deployed site here!](https://miacias.github.io/outdoor-excursion)
+
 
 ## Usage
 
@@ -37,9 +43,11 @@ To use:
 6. Click "GO" to open up a map and access more info!
 7. After viewing the map and manipulating it as desired, click the "More Details" button for details on the park and travel.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
+Search in any park and any state, just be sure to add in your starting address!
 
-![alt text](assets/images/screenshot.png)
+The main page looks like this:
+
+![hazy green background and lichen-pink navbar surrounds a carousel of outdoorsy images](./assets/images/planning/screencapture-Explore-our-National-Parks.png)
 
 
 ## Credits
@@ -48,7 +56,7 @@ Documentation referenced:
 
 - Mozilla Developer Network
 - Materialize CSS & Materialize JS
-- National Parks Services API
+- [National Parks Services API](https://www.nps.gov/subjects/developer/api-documentation.htm#/visitorcenters/getVisitorCenters)
 - Google Maps Directions API
 - Stack Overflow forums
 - W3 Schools
@@ -56,6 +64,7 @@ Documentation referenced:
 Tutorials referenced:
 
 - Web Tech In Depth on [YouTube](https://www.youtube.com/watch?v=XCC-K6Q9h7M) - initializing a Materialize CSS select option menu
+- {RhymBil} on [YouTube](https://www.youtube.com/watch?v=2hJ1rTANVnk) - accessing array of objects from localStorage
 - (source?) - Google Maps Directions API help
 
 Tutor(s):
