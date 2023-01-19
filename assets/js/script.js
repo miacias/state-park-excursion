@@ -100,7 +100,7 @@ function apiKeyAdder() {
     apiKeyLink.setAttribute("src", createdLink);
     apiKeyLink.setAttribute("defer", true);
 }
-//apiKeyAdder();
+apiKeyAdder();
 
 // CLEAR HISTORY AND HIDE CARD
 function clearHistory() {
