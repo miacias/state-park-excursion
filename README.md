@@ -7,12 +7,13 @@ Is it time to get outside, but you're not sure where to go? Do you need to "touc
 
 The motivation behind this project is to help people who live in or who visit the United States connect (or reconnect) with the great outdoors. Travelers from abroad, newly settled families, and even established folks oftentimes shy away from the amazing natural world right at our fingertips despite wanting to go on an excursion.
 
-This project was founded by three creators: Mia, Mike, and Josh. We learned how to follow Agile workflow.
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+This project was founded by three creators: Mia, Mike, and Josh. We learned how to better follow Agile workflow. We learned the importance of staying in touch and maintaining open lines of communication. It was crucial to meet in person at times and work in tandem. We also learned how to plan, organize, and execute stages of a larger project as well as how to look out for interdependencies. Lastly and very importantly, we delved deeper into understanding GitHub workflows:
+- creating new branches and setting upstream
+- opening PRs
+- testing and reviewing code before approval
+- adding comments into reviews
+- merging branches
+- resolving merge conflicts locally
 
 
 ## Table of Contents (Optional)
