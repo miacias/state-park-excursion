@@ -1,4 +1,4 @@
-# <Outdoor-Excursion>
+# <State-Park-Excursion>
 
 
 ## Description
@@ -26,7 +26,7 @@ This project was founded by three creators: Mia, Mike, and Josh. We learned how 
 
 ## Installation
 
-N/A. [Deployed site here!](https://miacias.github.io/outdoor-excursion)
+N/A. [Deployed site here!](https://miacias.github.io/state-park-excursion)
 
 
 ## Usage
