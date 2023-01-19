@@ -20,6 +20,7 @@ This project was founded by three creators: Mia, Mike, and Josh. We learned how 
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Roadmap](#roadmap)
 - [Credits](#credits)
 - [License](#license)
 
@@ -50,9 +51,17 @@ The main page looks like this:
 
 ![hazy green background and lichen-pink navbar surrounds a carousel of outdoorsy images](./assets/images/planning/screencapture-Explore-our-National-Parks.png)
 
+
 ## Roadmap
 
-If your project has a lot of features, list them here.
+Content will be added and adjusted as new coding projects are available! Some projects may phase out over time as my work becomes more specialized. Some desired features and functionality to be added in the future:
+- refactor of UI that controls adding the Google Maps API key
+	- hide after key is saved
+	- check that key is valid before hide
+- search history feature for easy access to most recent searches
+- add in more park details to explore (videos, battles and history, etc.)
+- persistent home/starting address for travel so user no longer needs to retype address repeatedly
+
 
 ## Credits
 
