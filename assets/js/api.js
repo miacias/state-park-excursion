@@ -8,7 +8,6 @@ function saveKeyToStorage() {
 }
 
 buttonEl.addEventListener("click", function(event) {
-    event.preventDefault();
     saveKeyToStorage();
     apiKeyAdder();
 

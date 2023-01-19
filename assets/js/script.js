@@ -96,7 +96,7 @@ function apiKeyAdder() {
     var storedValue = localStorage.getItem("map-key");
     console.log("Google API key: " + storedValue);
     var apiKeyLink = document.getElementById("api-key");
-    var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&libraries=places";
+    var createdLink = "https://maps.googleapis.com/maps/api/js?key=" + storedValue + "&callback=somethingMeaningless&libraries=places";
     apiKeyLink.setAttribute("src", createdLink);
     apiKeyLink.setAttribute("defer", true);
 }
@@ -212,11 +212,15 @@ function saveAddressToStorage() {
 }
 
 // GOOGLE MAPS CONTROLS
+function somethingMeaningless(){
 
+return
+
+}
 // calculates route from user to park
 function calcRoute() {
     // sets map options (javascript.js)
-    var myLatLng = { lat: 39.9526, lng: 75.1652 };
+    var myLatLng = { lat: 39.9526, lng: -75.1652 };
     var mapOptions = {
         center: myLatLng,
         zoom: 7,

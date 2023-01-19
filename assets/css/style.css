@@ -65,3 +65,29 @@ main {
 #mode {
 color: black;
 }
+
+@media (max-width: 690px) {
+    #googleMap {
+        width: 400px;
+        height: 870px;
+        margin: 10px auto;
+    }
+  
+   
+  }
+  
+  @media (max-width: 500px) {
+    #googleMap {
+        width: 350px;
+        height: 870px;
+        margin: 10px auto;
+    }
+  }
+
+  @media (max-width: 280px) {
+    #googleMap {
+        width: 250px;
+        height: 870px;
+        margin: 10px auto;
+    }
+  }
