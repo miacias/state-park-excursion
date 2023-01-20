@@ -1,18 +1,3 @@
-/*
-1 MIKE: search history creation: HTML
-    - IF statment: if history has values (i.e. if it is TRUE), remove ".hide" class from HTML attribute
-    - write a function to make search history item appear in HTML container
-    - limit list length 4
-    - overwrite list as more than 4 items are added (challenge: focus on MVP first)
-2 MIA: Search history functionality: SEARCHES AGAIN
-    - create localstorage "park-history"
-    - push "this-park" into localStorage "park-history"
-    - opens map
-    - does not add to search history because it already in search history
-    - write separate event listener on click
-3 JOSH: ensure map displays correctly
-*/
-
 // --------------- GLOBAL VARIABLES ---------------
 
 // DOM query selectors
