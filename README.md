@@ -1,6 +1,5 @@
 # <State-Park-Excursion>
 
-
 ## Description
 
 Is it time to get outside, but you're not sure where to go? Do you need to "touch grass" but need some inspiration? Explore our U.S. National Park system! Here, you can get crucial park information on how to plan ahead for your future visit or run out the door right now. Discover pertinent travel details right from where you are.
@@ -28,6 +27,8 @@ This project was founded by three creators: Mia, Mike, and Josh. We learned how 
 ## Installation
 
 N/A. [Deployed site here!](https://miacias.github.io/state-park-excursion)
+
+[Video demo here!](https://youtu.be/KO30hAY_lMc)
 
 
 ## Usage
